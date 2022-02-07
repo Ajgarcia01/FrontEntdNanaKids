@@ -1,0 +1,7 @@
+{
+  "name": "FrontEndNanaKids",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
