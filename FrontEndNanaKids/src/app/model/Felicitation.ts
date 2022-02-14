@@ -1,4 +1,4 @@
-export interface Greeting{
+export interface Felicitation{
         id: number,
         image: string,
         type: number,

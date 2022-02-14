@@ -1,17 +1,32 @@
 <ion-header [translucent]="true">
+  <ion-toolbar color="black">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>KIDS</ion-title>
+  </ion-toolbar>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-searchbar placeholder="Nombre del niño"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-content>
+ 
+  
+    <ion-card *ngFor="let kid of kids">
+      <center>
+        <img class="img" src="https://st3.depositphotos.com/2400497/13166/v/450/depositphotos_131660376-stock-illustration-baby-cartoon-character.jpg" />
+      </center>
+      <ion-card-header>
+        <ion-card-subtitle>{{kid.birthDate}}</ion-card-subtitle>
+        <ion-card-title>{{kid.name}}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-fab-button slot="fixed" class="addKid">
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button>
 </ion-content>
+
