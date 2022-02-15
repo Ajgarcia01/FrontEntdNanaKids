@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <style>
+    
+  </style>
+    <div>
+      <ion-card class="card" >
+        <ion-card-content>
+          <img class="logo" src="https://i.postimg.cc/T1J5G1CQ/logo-NANAKIDS.png">
+          <form>
+            <ion-item  class="campos">
+              <br>
+              <span>Usuario</span>
+              <ion-label></ion-label>
+              <ion-input type="text" #email required placeholder="Introduzca el usuario"></ion-input>
+            </ion-item>
+          <ion-item  lines="full">
+            <br>
+            <span>Contraseña</span>
+            <ion-label></ion-label>
+            <ion-input type="password" #password required placeholder="Introduzca la contraseña"></ion-input>
+          </ion-item>
+          <br><br>
+        </form>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div class="button">
+    <ion-row>
+      <ion-col > 
+        <ion-button color="white" type="submit" expand="block">Iniciar Sesión &nbsp;
+          <ion-icon name="log-in"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>  
+    </div>
+</ion-content>

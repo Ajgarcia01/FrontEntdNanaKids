@@ -17,6 +17,18 @@ export class ApiService {
     return kids;
   }
 
+
+  public deleteKid(kid:Kid):Promise<void>{
+    const id:any= kid.id ? kid.id:kid;
+    let endpoint = environment.endpoint+environment.apiItem+id;
+    return new Promise ((resolve,reject)=>{
+      this.http.delete(endpoint,this.header).toPromise()
+      .then(d=>{
+        resolve();
+      }).catch(err=>reject(err));
+    });
+  }
+
   
 
   private get header():any{
