@@ -11,32 +11,38 @@
     <div>
       <ion-card class="card" >
         <ion-card-content>
-          <img class="logo" src="https://i.postimg.cc/T1J5G1CQ/logo-NANAKIDS.png">
+          <center>
+            <img class="logo" src="https://i.postimg.cc/T1J5G1CQ/logo-NANAKIDS.png"> 
+          </center>
           <form>
-            <ion-item  class="campos">
+            <div class="form1">
+             <ion-item color="white"  class="campos">
               <br>
-              <span>Usuario</span>
+              <span class="ion-float-sm-left">Usuario:</span>
               <ion-label></ion-label>
               <ion-input type="text" #email required placeholder="Introduzca el usuario"></ion-input>
-            </ion-item>
-          <ion-item  lines="full">
-            <br>
-            <span>Contraseña</span>
-            <ion-label></ion-label>
-            <ion-input type="password" #password required placeholder="Introduzca la contraseña"></ion-input>
-          </ion-item>
-          <br><br>
+            </ion-item> 
+            </div>
+            <div  class="form2">
+              <ion-item color="white" lines="full">
+                <span class="ion-float-sm-left">Contraseña:</span>
+                <ion-label></ion-label>
+                <ion-input type="password" #password required placeholder="Introduzca contraseña">
+                </ion-input>
+                </ion-item>
+            </div>
         </form>
+        <div class="button">
+          <ion-row>
+            <ion-col > 
+              <ion-button color="warning" type="submit" expand="block">Iniciar Sesión &nbsp;
+                <ion-icon name="log-in"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>  
+          </div>
         </ion-card-content>
       </ion-card>
     </div>
-    <div class="button">
-    <ion-row>
-      <ion-col > 
-        <ion-button color="white" type="submit" expand="block">Iniciar Sesión &nbsp;
-          <ion-icon name="log-in"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>  
-    </div>
+   
 </ion-content>
