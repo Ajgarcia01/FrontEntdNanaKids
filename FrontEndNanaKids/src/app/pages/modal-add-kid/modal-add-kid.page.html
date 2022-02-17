@@ -1,0 +1,63 @@
+
+<ion-header>
+  <ion-toolbar color="darking">
+    <center>
+      <ion-title class="title">NIÑOS</ion-title>
+    </center>
+      <ion-buttons slot="start">
+        <ion-button>
+          <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      
+    </ion-toolbar>
+    
+</ion-header>
+
+<ion-content color="dark">
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-subtitle color="dark"></ion-card-subtitle>
+      <br>
+      <center>
+        <ion-card-title color="dark">Añadir Niño</ion-card-title>
+      </center>
+      
+    </ion-card-header>
+    <ion-card-content>
+      <div class="centrado">
+        <form [formGroup]="formKid" >
+       <ion-item color="white">
+         <ion-label>Name: </ion-label>
+         <ion-input type="text" formControlName="name"></ion-input>
+       </ion-item>
+       <br>
+       <ion-item color="white">
+        <ion-label>Gender : </ion-label>
+        <ion-textarea type="text" formControlName="gender"></ion-textarea>
+      </ion-item>
+      <br>
+      <ion-item color="white" id="open-modal">
+        <ion-icon icon="calendar-outline"></ion-icon>
+        <ion-label>&nbsp;&nbsp;Fecha</ion-label>
+        <ion-text>{{formattedString}}</ion-text>
+      </ion-item>
+      <ion-modal trigger="open-modal">
+        <ng-template>
+         <ion-content>
+           <ion-datetime size="cover" showDefaultButtons="true" #datetime [value]="dateValue" size="cover" (ionChange)="dateChanged(datetime.value)" (ionCancel)="showPicker=false;"></ion-datetime>
+         <ion-buttons slot="buttons">
+          <ion-button (click)="close()">Cancelar</ion-button>
+          <ion-button (click)="select()" color="primary">Confirmar</ion-button>
+         </ion-buttons>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      <br>
+      <ion-button color="warning" expand="block">Guardar Niño &nbsp;</ion-button>
+      <br>
+     </form>
+      </div>
+    </ion-card-content>
+    </ion-card>
+</ion-content>
