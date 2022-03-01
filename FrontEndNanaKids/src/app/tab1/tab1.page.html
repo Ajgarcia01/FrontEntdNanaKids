@@ -5,21 +5,21 @@
         <ion-title class="title">NIÑOS</ion-title>
       </center>
         <ion-buttons slot="start">
-          <ion-button>
-            <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
+          <ion-button (click)="exit()">
+            <ion-icon name="log-out" ios="log-out" md="log-out"></ion-icon>
           </ion-button>
         </ion-buttons>
         
       </ion-toolbar>
       
       <ion-toolbar color="darking">
-        <ion-searchbar class="new-background-color" placeholder="Nombre del niño"></ion-searchbar>
+        <ion-searchbar (ionChange)="buscar($event)" class="new-background-color" placeholder="Nombre del niño"></ion-searchbar>
       </ion-toolbar>
       
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-slides [options]="slideOpt" *ngFor="let kid of kids" >
+  <ion-slides [options]="slideOpt" *ngFor="let kid of searchedUser" >
     <ion-slide>
       <ion-card >
         <ion-card-header>
@@ -41,7 +41,7 @@
     </ion-slide>
     <ion-slide>
       <div class="opcs" >
-        <ion-fab-button color="primary">
+        <ion-fab-button (click)="openModalEditKid(kid)" color="primary">
           <ion-icon name="create"></ion-icon>
         </ion-fab-button>
       </div>
@@ -50,7 +50,7 @@
   </ion-slides>
 
       <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addKid">
-        <ion-fab-button color="warning">
+        <ion-fab-button (click)="openModal()" color="warning">
           <ion-icon name="person-add"></ion-icon>
         </ion-fab-button>
       </ion-fab>

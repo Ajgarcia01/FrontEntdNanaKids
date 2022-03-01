@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonDatetime, ModalController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
@@ -6,11 +6,12 @@ import { Kid } from 'src/app/model/Kid';
 import { KidService } from 'src/app/services/kid.service';
 
 @Component({
-  selector: 'app-modal-add-kid',
-  templateUrl: './modal-add-kid.page.html',
-  styleUrls: ['./modal-add-kid.page.scss'],
+  selector: 'app-modal-edit-kid',
+  templateUrl: './modal-edit-kid.page.html',
+  styleUrls: ['./modal-edit-kid.page.scss'],
 })
-export class ModalAddKidPage implements OnInit {
+export class ModalEditKidPage implements OnInit {
+  @Input() kid:Kid;
   @ViewChild(IonDatetime)datetime:IonDatetime
   selectecMode='date';
   showPicker=false;
@@ -19,6 +20,9 @@ export class ModalAddKidPage implements OnInit {
   public formKid:FormGroup;
   kids:Kid[]=[]
   selectedOption:number; //select gender
+  enviado: string ="Niño";
+  noenviado: string ="Niña";;
+
 
   
   constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController) {
@@ -113,10 +117,16 @@ export class ModalAddKidPage implements OnInit {
   }
 
 
-  async exit(){
-    await this.modalController.dismiss(null , 'cancel');
+  conversorEstado(gender:Kid):string{
+    if (gender.gender){
+     return  this.enviado;
+    }else{
+     return this.noenviado;
+    }
   }
 
 
-
+  async exit(){
+    await this.modalController.dismiss(null , 'cancel');
+  }
 }

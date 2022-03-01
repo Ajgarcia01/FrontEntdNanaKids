@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Kid } from '../model/Kid';
-import { ApiService } from '../services/api.service';
+import { ModalAddKidPage } from '../pages/modal-add-kid/modal-add-kid.page';
+import { ModalEditKidPage } from '../pages/modal-edit-kid/modal-edit-kid.page';
+import { KidService } from '../services/kid.service';
 
 @Component({
   selector: 'app-tab1',
@@ -13,7 +17,7 @@ export class Tab1Page {
   person:Kid
   kids:Kid[]=[]
   gender: boolean = true
-  constructor(private api:ApiService) {}
+  constructor(private apiKid:KidService,public modalController:ModalController,private router:Router) {}
 
   /**
    * 
@@ -30,7 +34,7 @@ export class Tab1Page {
    */
   public async getKids(){
     this.kids=[];
-    this.kids=await this.api.getKid();
+    this.kids=await this.apiKid.getKid();
 
     
   }
@@ -42,8 +46,9 @@ export class Tab1Page {
 
   public async deleteKid(kid:Kid){
    
-    this.api.deleteKid(kid);
+    this.apiKid.deleteKid(kid);
   }
+
 
   /**
    * 
@@ -52,7 +57,6 @@ export class Tab1Page {
    */
 
   public buscar(event){
-    console.log(event);
     const text=event.target.value;
     this.searchedUser=this.kids;
     if(text && text.trim() != ''){
@@ -61,6 +65,48 @@ export class Tab1Page {
 
       })
     }
+  }
+
+  /**
+   * 
+   * @param kid 
+   * @returns 
+   */
+
+  async openModal(kid:Kid){
+    const modal = await this.modalController.create({
+      component: ModalAddKidPage,
+      componentProps: {
+        'kid': kid
+      }
+    });
+    //this.closeSliding();
+    return await modal.present();
+  }
+
+
+  /**
+   * 
+   */
+  async exit(){
+    await this.router.navigate(['login']);
+  }
+
+  /**
+   * 
+   * @param kid 
+   * @returns 
+   */
+
+  async openModalEditKid(kid:Kid){
+    const modal = await this.modalController.create({
+      component: ModalEditKidPage,
+      componentProps: {
+        'kid': kid
+      }
+    });
+    //this.closeSliding();
+    return await modal.present();
   }
 
 }

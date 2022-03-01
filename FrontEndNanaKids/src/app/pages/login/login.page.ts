@@ -21,10 +21,11 @@ export class LoginPage implements OnInit {
     }
   }
 
+
   public async signin() {
     try {
-      await this.authS.loginwithEmail(this.person.email,this.person.password);
-      //this.router.navigate(['private/tabs/tab1']); configurar rutas
+      //await this.authS.loginwithEmail(this.person.email,this.person.password);
+      this.router.navigate(['']);
     } catch (err) {
       console.error(err);
     }
