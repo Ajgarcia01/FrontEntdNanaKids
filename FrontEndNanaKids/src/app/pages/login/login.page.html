@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <style>
+    
+  </style>
+    <div>
+      <ion-card class="card" >
+        <ion-card-content>
+          <center>
+            <img class="logo" src="https://i.postimg.cc/nLWBbsB4/logo2.png"> 
+          </center>
+          <form>
+            <div class="form1">
+             <ion-item color="white"  class="campos">
+              <br>
+              <span class="ion-float-sm-left">Usuario:</span>
+              <ion-label></ion-label>
+              <ion-input type="text" #email required placeholder="Introduzca el usuario"></ion-input>
+            </ion-item> 
+            </div>
+            <div  class="form2">
+              <ion-item color="white" lines="full">
+                <span class="ion-float-sm-left">Contraseña:</span>
+                <ion-label></ion-label>
+                <ion-input type="password" #password required placeholder="Introduzca contraseña">
+                </ion-input>
+                </ion-item>
+            </div>
+        </form>
+        <div class="button">
+          <ion-row>
+            <ion-col > 
+              <ion-button (click)="signin()" color="warning" type="submit" expand="block">Iniciar Sesión &nbsp;
+                <ion-icon name="log-in"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>  
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+   
+</ion-content>

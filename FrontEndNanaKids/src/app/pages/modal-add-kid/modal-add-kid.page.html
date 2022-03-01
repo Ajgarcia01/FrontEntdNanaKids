@@ -1,0 +1,75 @@
+
+<ion-header>
+  
+  <ion-toolbar color="darking">
+    <ion-buttons slot="start">
+      <ion-button class="exit"  (click)="exit()">
+        <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <center>
+      <ion-title class="title">Añadir Niño</ion-title>
+    </center>
+    </ion-toolbar>
+    
+</ion-header>
+
+<ion-content color="dark">
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-subtitle color="dark"></ion-card-subtitle>
+      <br>
+      <center>
+        <ion-card-title color="dark">Añadir Niño</ion-card-title>
+      </center>
+      
+    </ion-card-header>
+    <ion-card-content>
+      <div class="centrado">
+        <form [formGroup]="formKid" >
+       <ion-item color="white">
+         <ion-label>Nombre: </ion-label>
+         <ion-input placeholder=" Introduce el nombre" type="text" formControlName="name"></ion-input>
+       </ion-item>
+       <br>
+       <ion-item color="white">
+        <ion-label>Selecciona el genero</ion-label>
+        <ion-select (ionChange)="notifyChange($event)">
+          <ion-select-option value='0'>Niño</ion-select-option>
+          <ion-select-option value='1'>Niña</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <br>
+      <ion-item color="white" id="open-modal">
+        <ion-icon icon="calendar-outline"></ion-icon>
+        <ion-label>&nbsp;&nbsp;Fecha</ion-label>
+        <ion-text>{{formattedString}}</ion-text>
+      </ion-item>
+      <ion-modal trigger="open-modal">
+        <ng-template>
+         <ion-content>
+           <ion-datetime size="cover" showDefaultButtons="true" #datetime [value]="dateValue" size="cover" (ionChange)="dateChanged(datetime.value)" (ionCancel)="showPicker=false;"></ion-datetime>
+         <ion-buttons slot="buttons">
+          <ion-button (click)="close()">Cancelar</ion-button>
+          <ion-button (click)="select()" color="primary">Confirmar</ion-button>
+         </ion-buttons>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      <br>
+      <ion-item color="dark">
+        <ion-label>Selecciona los padres</ion-label>
+        <ion-select multiple="true" cancelText="Cancelar" okText="Aceptar">
+          <ion-select-option *ngFor="let kid of kids">{{kid.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <br>
+      <ion-button color="warning" expand="block" (click)="probar()">Guardar Niño &nbsp;</ion-button>
+      <br>
+     </form>
+      </div>
+    </ion-card-content>
+
+    </ion-card>
+</ion-content>

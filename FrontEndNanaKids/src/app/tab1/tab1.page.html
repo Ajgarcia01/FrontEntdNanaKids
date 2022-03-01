@@ -1,8 +1,59 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<ion-header [translucent]="true">
 
+<ion-header>
+    <ion-toolbar color="darking">
+      <center>
+        <ion-title class="title">NIÑOS</ion-title>
+      </center>
+        <ion-buttons slot="start">
+          <ion-button (click)="exit()">
+            <ion-icon name="log-out" ios="log-out" md="log-out"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        
+      </ion-toolbar>
+      
+      <ion-toolbar color="darking">
+        <ion-searchbar (ionChange)="buscar($event)" class="new-background-color" placeholder="Nombre del niño"></ion-searchbar>
+      </ion-toolbar>
+      
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-slides [options]="slideOpt" *ngFor="let kid of searchedUser" >
+    <ion-slide>
+      <ion-card >
+        <ion-card-header>
+          <ion-card-subtitle color="dark">{{kid.name}}</ion-card-subtitle>
+          <ion-card-title color="dark">{{kid.birthDate}}</ion-card-title>
+          <br>
+          <img src="https://img.remediosdigitales.com/63b6f9/bebe_1/1366_2000.jpg" />
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+ 
+    <ion-slide>
+      <div class="opcs">
+        <ion-fab-button color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+      </div>
+      
+    </ion-slide>
+    <ion-slide>
+      <div class="opcs" >
+        <ion-fab-button (click)="openModalEditKid(kid)" color="primary">
+          <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+      </div>
+    
+  </ion-slide>
+  </ion-slides>
 
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addKid">
+        <ion-fab-button (click)="openModal()" color="warning">
+          <ion-icon name="person-add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+      
 </ion-content>
