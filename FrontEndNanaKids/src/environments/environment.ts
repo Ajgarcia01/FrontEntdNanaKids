@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   
-  firebaseConfig: {
-    apiKey: "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx-",
-    authDomain: "xxx-xxxxx",
-    databaseURL: "https://xxx-xxxx-xxxx.firebaseio.com",
-    projectId: "fir-demo-1234",
-    storageBucket: "fir-demo-10290.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "x:1920292929:xxxx:xxxxxxxxxx"
+   firebaseConfig : {
+    apiKey: "AIzaSyAtXVPKiFM1SE4c9eSUuCaZTj0lfl3jSxk",
+    authDomain: "nanakids.firebaseapp.com",
+    projectId: "nanakids",
+    storageBucket: "nanakids.appspot.com",
+    messagingSenderId: "58574132844",
+    appId: "1:58574132844:web:def5b24d767cd32faaea49",
+    measurementId: "G-W0C40SEPCN"
   },
   
   endpoint:'https://nanakidsbackends.herokuapp.com/',
@@ -26,12 +26,3 @@ export const environment = {
   feliUnSent:'felicitation/change-to-unsent/',
   
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

@@ -24,6 +24,7 @@ export class KidService {
     return new Promise ((resolve,reject)=>{
       this.http.delete(endpoint,this.header).toPromise()
       .then(d=>{
+        console.log(d);
         resolve();
       }).catch(err=>reject(err));
     });

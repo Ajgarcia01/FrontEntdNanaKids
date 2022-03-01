@@ -20,7 +20,7 @@
               <br>
               <span class="ion-float-sm-left">Usuario:</span>
               <ion-label></ion-label>
-              <ion-input type="text" #email required placeholder="Introduzca el usuario"></ion-input>
+              <ion-input  type="text" #email required placeholder="Introduzca el usuario"></ion-input>
             </ion-item> 
             </div>
             <div  class="form2">
@@ -35,7 +35,7 @@
         <div class="button">
           <ion-row>
             <ion-col > 
-              <ion-button (click)="signin()" color="warning" type="submit" expand="block">Iniciar Sesión &nbsp;
+              <ion-button (click)="logIn(email,password)" color="warning" type="submit" expand="block">Iniciar Sesión &nbsp;
                 <ion-icon name="log-in"></ion-icon>
               </ion-button>
             </ion-col>

@@ -23,13 +23,26 @@ export class AuthService {
    */
   public async loginwithEmail(email:string,password:string){
     try {
-      const {user} = await this.afa.signInWithEmailAndPassword(email,password);
-      this.user=user;
-      await this.keepSession();
+     const user= this.afa.signInWithEmailAndPassword(email,password);
+     if(user){
+      await this.keepSession(); 
+      return this.afa.signInWithEmailAndPassword(email,password);
+       
+     }
+    
     } catch (error) {
       console.log("Error al iniciar sesion ---> "+error);
     }
+    
   }
+
+
+  public async logout(){
+    await this.afa.signOut()
+    await this.storage.removeItem('user');
+    this.user=null;
+  }
+
 
   /**
    * 

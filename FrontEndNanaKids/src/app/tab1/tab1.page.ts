@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Kid } from '../model/Kid';
 import { ModalAddKidPage } from '../pages/modal-add-kid/modal-add-kid.page';
 import { ModalEditKidPage } from '../pages/modal-edit-kid/modal-edit-kid.page';
+import { AuthService } from '../services/auth.service';
 import { KidService } from '../services/kid.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class Tab1Page {
   person:Kid
   kids:Kid[]=[]
   gender: boolean = true
-  constructor(private apiKid:KidService,public modalController:ModalController,private router:Router) {}
+  constructor(private apiKid:KidService,public modalController:ModalController,private router:Router,private alert:AlertController,private authS:AuthService) {}
 
   /**
    * 
@@ -89,7 +90,7 @@ export class Tab1Page {
    * 
    */
   async exit(){
-    await this.router.navigate(['login']);
+    await this.router.navigate(['']);
   }
 
   /**
@@ -107,6 +108,45 @@ export class Tab1Page {
     });
     //this.closeSliding();
     return await modal.present();
+  }
+
+
+  public async logout(){
+      
+    const alert = await this.alert.create({
+      cssClass: 'my-custom-class',
+      header: 'Atencion', 
+      subHeader: 'Cierre de Sesión',
+      message: '¿Está seguro de que quiere salir?',
+      buttons: [ {
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: async () => {
+          //await this.miLoading.dismiss();
+          console.log('cancelar');
+          
+         
+          
+        }
+        
+      }, {
+        text: 'Aceptar',
+        handler: async () => {
+          try{
+            await this.authS.logout();
+            this.router.navigate(['']);
+            console.log("usuario logout");
+            
+            
+          }catch(err) {
+            console.log(err);
+            
+          }}
+      }]
+    });
+    
+    await alert.present();
   }
 
 }
