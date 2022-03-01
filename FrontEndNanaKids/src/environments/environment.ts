@@ -15,8 +15,16 @@ export const environment = {
     appId: "x:1920292929:xxxx:xxxxxxxxxx"
   },
   
-  endpoint:'http://localhost:8100/',
-  apiItem:'kid/'
+  endpoint:'https://nanakidsbackends.herokuapp.com/',
+  apiKid:'kid/',
+  apiClient:'client/',
+  apiFeli:'felicitation/',
+  feliSearchByType:'felicitation/search/',
+  feliDaySearchByType:'felicitation/count/date-type/',
+  feliCount:'felicitation/count/',
+  feliSent:'felicitation/change-to-sent/',
+  feliUnSent:'felicitation/change-to-unsent/',
+  
 };
 
 /*
