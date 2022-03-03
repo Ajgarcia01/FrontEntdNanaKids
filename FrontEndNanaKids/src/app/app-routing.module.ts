@@ -17,7 +17,15 @@ const routes: Routes = [
   {
     path: 'editkid',
     loadChildren: () => import('./pages/modal-edit-kid/modal-edit-kid.module').then( m => m.ModalEditKidPageModule)
+  },  {
+    path: 'modal-add-parent',
+    loadChildren: () => import('./pages/modal-add-parent/modal-add-parent.module').then( m => m.ModalAddParentPageModule)
+  },
+  {
+    path: 'modal-edit-parent',
+    loadChildren: () => import('./pages/modal-edit-parent/modal-edit-parent.module').then( m => m.ModalEditParentPageModule)
   }
+
 ];
 @NgModule({
   imports: [
