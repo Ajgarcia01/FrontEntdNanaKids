@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-toolbar color="darking">
+    <ion-buttons slot="start">
+      <ion-button class="exit" (click)="exit()">
+        <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <center>
+      <ion-title class="title">NUEVA FELICITACION</ion-title>
+    </center>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content color="dark">
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-subtitle color="dark"></ion-card-subtitle>
+      <br>
+      <center>
+        <ion-card-title color="dark">NUEVA FELICITACION</ion-card-title>
+      </center>
+
+    </ion-card-header>
+    <ion-card-content>
+      <div class="centrado">
+        <form [formGroup]="formFelicitation">
+          <ion-item color="white">
+            <ion-label>Tipo de felicitacion</ion-label>
+            <ion-select (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert">
+              <ion-select-option value='1'>Cumpleaños</ion-select-option>
+              <ion-select-option value='2'>Navidad</ion-select-option>
+            </ion-select>
+            <ion-button color="warning" expand="block">Guardar felicitacion &nbsp;</ion-button>
+        </form>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

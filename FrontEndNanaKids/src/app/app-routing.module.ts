@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'editkid',
     loadChildren: () => import('./pages/modal-edit-kid/modal-edit-kid.module').then( m => m.ModalEditKidPageModule)
+  },  {
+    path: 'modal-add-felicitation',
+    loadChildren: () => import('./pages/modal-add-felicitation/modal-add-felicitation.module').then( m => m.ModalAddFelicitationPageModule)
   }
+
 ];
 @NgModule({
   imports: [
