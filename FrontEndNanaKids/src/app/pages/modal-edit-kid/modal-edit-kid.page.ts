@@ -42,6 +42,12 @@ export class ModalEditKidPage implements OnInit {
 
   async ionViewDidEnter(){
     
+    this.formKid=this.fb.group({
+      name:[this.kid.name],
+      gender:[this.kid.gender],
+      birth_date:[this.kid.birthDate],
+      
+    });
     await this.getKids();
   
     

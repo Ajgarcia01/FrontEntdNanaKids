@@ -13,40 +13,41 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginPage implements OnInit {
   person:Admin;
   public formAdmin:FormGroup;
+
   constructor(private router:Router,private authS:AuthService,private fb:FormBuilder,private toast:ToastController,private alert:AlertController) {
     this.formAdmin=this.fb.group({
-      email:["",Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+      email:["",[Validators.required,Validators.email]],
       password:["",Validators.required],
     });
 
   }
 
   ngOnInit() {
-
+    
   }
 
   ionViewWillEnter(){
-    
-    if(this.authS.isLogged){
-     console.log('iniciado');
-     
-    }else{
-      console.log('no iniciado');
-      
+
+    if(this.authS.isLogged()){
+      this.router.navigate(['home/tabs/tab1']);
     }
+    
+    
     
   }
 
 
-  public async logIn(email: { value: string; },password: { value: string; }) {
+  public async logIn() {
+    if(!this.formAdmin.valid) return;
+
     try {
-      const user:any=await this.authS.loginwithEmail(email.value,password.value);
-      if(user){
-        this.router.navigate(['home/tabs/tab1']);
-      }else{
-        this.presentToast();
-      }
+      await this.authS.login(this.formAdmin.value.email,this.formAdmin.value.password);
+      
+        await this.router.navigate(['home/tabs/tab1']);
+      
     } catch (error) {
+      this.presentToast();
+      console.log(error);
       
     }
 

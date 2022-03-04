@@ -19,12 +19,12 @@ export class StorageService {
         await Storage.set({
           key:key,
           value:JSON.stringify(value)
+          
         })
         result=true;
       }catch(err){
         console.error(err);
       }
-      
       return Promise.resolve(result);
     }
 

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, IonItemSliding, ModalController } from '@ionic/angular';
 import { Kid } from '../model/Kid';
 import { ModalAddKidPage } from '../pages/modal-add-kid/modal-add-kid.page';
 import { ModalEditKidPage } from '../pages/modal-edit-kid/modal-edit-kid.page';
@@ -18,6 +18,7 @@ export class Tab1Page {
   person:Kid
   kids:Kid[]=[]
   gender: boolean = true
+  @ViewChild('slidingItem',{ static: false }) slidingItem:IonItemSliding;
   constructor(private apiKid:KidService,public modalController:ModalController,private router:Router,private alert:AlertController,private authS:AuthService) {}
 
   /**
@@ -85,14 +86,6 @@ export class Tab1Page {
     return await modal.present();
   }
 
-
-  /**
-   * 
-   */
-  async exit(){
-    await this.router.navigate(['']);
-  }
-
   /**
    * 
    * @param kid 
@@ -148,5 +141,6 @@ export class Tab1Page {
     
     await alert.present();
   }
+
 
 }

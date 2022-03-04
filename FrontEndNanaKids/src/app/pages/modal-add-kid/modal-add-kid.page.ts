@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonDatetime, ModalController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
 import { Kid } from 'src/app/model/Kid';
+import { Parent } from 'src/app/model/Parent';
 import { KidService } from 'src/app/services/kid.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class ModalAddKidPage implements OnInit {
   formattedString='';
   public formKid:FormGroup;
   kids:Kid[]=[]
+  parents:Parent[]=[]
   selectedOption:number; //select gender
 
   
@@ -38,7 +40,7 @@ export class ModalAddKidPage implements OnInit {
 
   async ionViewDidEnter(){
     
-    await this.getKids();
+    await this.getParents();
   
     
   }
@@ -48,10 +50,11 @@ export class ModalAddKidPage implements OnInit {
     let newKid:Kid={
         name:this.formKid.get("name").value,
         birthDate:this.dateValue,
-        gender:this.formKid.get('').value,
-        client:this.formKid.get('').value,
+        gender:this.formKid.get("gender").value,
+        client:this.formKid.get("client").value,
         felicitations:this.formKid.get('').value,
         id:-1
+
     }
     try {
       await this.apiKid.createKid(newKid);
@@ -79,22 +82,8 @@ export class ModalAddKidPage implements OnInit {
   select(){
     this.datetime.confirm(true);
   }
-
-
-  probar(){
-    let name;let birth_date;let gender;
-    name=this.formKid.get("name").value
-    birth_date=this.dateValue;
-    gender=this.selectedOption
-    console.log(name)
-    console.log(birth_date)
-    console.log(gender)
-  }
-
  
-
-
-  public async getKids(){
+  public async getParents(){
     this.kids=[];
     this.kids=await this.apiKid.getKid();
     console.log(this.kids);
