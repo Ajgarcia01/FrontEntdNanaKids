@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { FelicitationService } from 'src/app/services/felicitation.service';
 
 @Component({
   selector: 'app-modal-add-felicitation',
@@ -7,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalAddFelicitationPage implements OnInit {
 
-  constructor() { }
+  public formFelicitation:FormGroup;
+  constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,private modalController:ModalController) { }
 
   ngOnInit() {
   }

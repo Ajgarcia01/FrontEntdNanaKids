@@ -64,7 +64,7 @@ export class Tab3Page {
   
   async openCreateFelicitation(felicitation:Felicitation){
     const modal = await this.modalController.create({
-      component: ModalAddFelicitationPage,//CREAR NUEVA PAGE PARA AÑADIR FELICITACION
+      component: ModalAddFelicitationPage,
       componentProps: {
         'felicitation': felicitation
       }
