@@ -1,6 +1,6 @@
 export interface Parent{
     name:string,
-    id:string,
+    id:number,
     email:string,
     phone:string,
     surname:string,

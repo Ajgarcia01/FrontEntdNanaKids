@@ -27,11 +27,11 @@ export class LoginPage implements OnInit {
   }
 
   ionViewWillEnter(){
-
+/*
     if(this.authS.isLogged()){
       this.router.navigate(['home/tabs/tab1']);
     }
-    
+  */  
     
     
   }

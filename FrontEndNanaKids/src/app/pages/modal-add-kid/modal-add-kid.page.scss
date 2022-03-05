@@ -10,7 +10,7 @@ ion-toolbar{
 
 ion-card{
     background-color: #164b81;
-    height: 64%;
+    height: 100%;
 }
 
 .card{
@@ -26,7 +26,7 @@ ion-button{
 }
 
 ion-modal{
-
+   
     --background:rgba(36, 36, 36, 0.2);
 
     &::part(content){

@@ -19,6 +19,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" id="refresher">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-slides [options]="slideOpt"  *ngFor="let kid of searchedUser" >
     <ion-slide>
       <ion-card >
@@ -33,7 +36,7 @@
  
     <ion-slide>
       <div class="opcs">
-        <ion-fab-button color="danger">
+        <ion-fab-button color="danger" (click)="borrar(kid)" vertical="bottom">
           <ion-icon name="trash"></ion-icon>
         </ion-fab-button>
       </div>

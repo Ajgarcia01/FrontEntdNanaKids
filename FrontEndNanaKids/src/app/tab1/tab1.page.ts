@@ -18,8 +18,9 @@ export class Tab1Page {
   person:Kid
   kids:Kid[]=[]
   gender: boolean = true
-  @ViewChild('slidingItem',{ static: false }) slidingItem:IonItemSliding;
-  constructor(private apiKid:KidService,public modalController:ModalController,private router:Router,private alert:AlertController,private authS:AuthService) {}
+  constructor(private apiKid:KidService,public modalController:ModalController,
+    private router:Router,private alert:AlertController,
+    private authS:AuthService,private kidService:KidService) {}
 
   /**
    * 
@@ -95,6 +96,7 @@ export class Tab1Page {
   async openModalEditKid(kid:Kid){
     const modal = await this.modalController.create({
       component: ModalEditKidPage,
+      cssClass: '',
       componentProps: {
         'kid': kid
       }
@@ -143,4 +145,13 @@ export class Tab1Page {
   }
 
 
+  private async borrar(kid:Kid){
+    
+      await this.kidService.deleteKid(kid).then(d=>{
+        console.log(d);
+      }).catch(err=>{
+        console.log(err);
+      });
+    
+  }
 }

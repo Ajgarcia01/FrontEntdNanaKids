@@ -18,25 +18,27 @@ export class KidService {
   }
 
 
-  public deleteKid(kid:Kid):Promise<void>{
+  public deleteKid(kid:Kid):Promise<Kid>{
     const id:any= kid.id ? kid.id:kid;
     const endpoint = environment.endpoint+environment.apiKid+id;
     return new Promise ((resolve,reject)=>{
       this.http.delete(endpoint,this.header).toPromise()
       .then(d=>{
         console.log(d);
-        resolve();
+        resolve(kid);
       }).catch(err=>reject(err));
     });
   }
 
+ 
 
-  public createKid(kid:Kid):Promise<void>{
+
+  public createKid(kid:Kid):Promise<Kid>{
     const endpoint = environment.endpoint+environment.apiKid;
     return new Promise ((resolve,reject)=>{
       if(kid){
         this.http.post(endpoint,kid,this.header).toPromise().then(d=>{
-          resolve();
+          resolve(kid);
           console.log(d);
         }).catch(err=> reject(err));
       }else{
@@ -46,12 +48,12 @@ export class KidService {
   }
 
 
-  public updateKid(kid:Kid):Promise<void>{
+  public updateKid(kid:Kid):Promise<Kid>{
     const endpoint = environment.endpoint+environment.apiKid;
     return new Promise ((resolve,reject)=>{
       if(kid){
         this.http.put(endpoint,kid,this.header).toPromise().then(d=>{
-          resolve();
+          resolve(kid);
           console.log(d);
         }).catch(err=> reject(err));
       }else{
