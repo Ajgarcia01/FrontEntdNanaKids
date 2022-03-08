@@ -20,6 +20,10 @@ const routes: Routes = [
   },  {
     path: 'modal-add-felicitation',
     loadChildren: () => import('./pages/modal-add-felicitation/modal-add-felicitation.module').then( m => m.ModalAddFelicitationPageModule)
+  },
+  {
+    path: 'modal-edit-felicitation',
+    loadChildren: () => import('./pages/modal-edit-felicitation/modal-edit-felicitation.module').then( m => m.ModalEditFelicitationPageModule)
   }
 
 ];

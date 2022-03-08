@@ -34,20 +34,29 @@ export class FelicitationService {
       }).catch(err=>reject(err));
     });
     }
-    
-    public createFelicitation(felicitation:Felicitation):Promise<void>{
+    public async createFelicitation(fromData:any):Promise<Felicitation[]>{
       const endpoint = environment.endpoint+environment.apiFeli;
-      return new Promise ((resolve,reject)=>{
-        if(felicitation){
-          this.http.post(endpoint,felicitation,this.header).toPromise().then(d=>{
-            resolve();
-            console.log(d);
-          }).catch(err=> reject(err));
-        }else{
-          reject('No hay resultados')
-        }
-      });
-    }
+    return new Promise(async (resolve, reject) => {
+      const endpoint = environment.endpoint + environment.apiFeli;
+      try {
+        let felicitation:Felicitation[]= await this.http.post(endpoint, fromData,).toPromise() as Felicitation[];
+        resolve(felicitation);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  public async updateFelicitation(fromData:any):Promise<Felicitation[]>{
+    return new Promise (async (resolve,reject)=>{
+      try {
+        const endpoint = environment.endpoint+environment.apiFeli;
+        let felicitation:Felicitation[]= await this.http.put(endpoint, fromData,).toPromise() as Felicitation[];
+        resolve(felicitation);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
   
   private get header():any{
     return{
@@ -55,4 +64,5 @@ export class FelicitationService {
       'Content-Type':'application/json'
     }
   }
+  
 }

@@ -1,19 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="darking">
-    <ion-buttons slot="start">
-      <ion-button>
-        <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    
     <center>
       <ion-title class="title">FELICITACIONES</ion-title>
     </center>
   </ion-toolbar>
-  <ion-item >
+  <ion-item  color="dark">
     <ion-label>Tipo de felicitacion</ion-label>
     <ion-select (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert" >
       <ion-select-option value='1'>Cumpleaños</ion-select-option>
       <ion-select-option value='2'>Navidad</ion-select-option>
+      <ion-select-option value='0'>Mostrar todos</ion-select-option>
     </ion-select>
   </ion-item>
 </ion-header>
@@ -24,12 +21,12 @@
       <ion-card>
         <ion-card-header>
          <!-- <img src= "https://www.kindpng.com/picc/m/552-5525706_globos-fiesta-png-imagenes-de-feliz-cumpleaos-capricornio.png" />-->
-          <img src= "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1646126654/letra_dp6fxg.png" class="imgF"/>
+          <img src= "{{felicitation.image}}" class="imgF"/>
           <br>
          <!-- <ion-card-title> ID: {{felicitation.id}}</ion-card-title> -->
           <ion-card-subtitle> </ion-card-subtitle>
           <ion-card-subtitle> Tipo : {{conversorTipo(felicitation)}}</ion-card-subtitle>
-          <ion-card-subtitle> Fecha envio : {{felicitation.dateSend}}</ion-card-subtitle>
+          <ion-card-subtitle> Dia y mes de envio : {{felicitation.dateSend | date:'dd-MM'}}</ion-card-subtitle>
           <ion-card-subtitle> Estado : {{conversorEstado(felicitation)}}</ion-card-subtitle>
           
         </ion-card-header>
@@ -39,14 +36,14 @@
     <ion-slide>
       <div class="opcs">
         <ion-fab-button color="danger">
-          <ion-icon name="trash"></ion-icon>
+          <ion-icon name="trash" (click)="deleteFelicitation(felicitation)"></ion-icon>
         </ion-fab-button>
       </div>
 
     </ion-slide>
     <ion-slide>
       <div class="opcs">
-        <ion-fab-button (click)="openModalEditFelicitation(felicitation)" color="primary">
+        <ion-fab-button (click)="openEditFelicitation(felicitation)" color="primary">
           <ion-icon name="create"></ion-icon>
         </ion-fab-button>
       </div>
@@ -60,30 +57,3 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
-<!--
-<ion-content>
-
-  <ion-card *ngFor="let felicitation of felicitations">
- 
-    <ion-card-header>
-      
-      <ion-card-title> ID: {{felicitation.id}}</ion-card-title>
-      <ion-card-subtitle>  </ion-card-subtitle>
-      <ion-card-subtitle> Tipo : {{conversorTipo(felicitation)}}</ion-card-subtitle>
-      <ion-card-subtitle> Fecha envio : {{felicitation.dateSend}}</ion-card-subtitle>
-      <ion-card-subtitle> Estado : {{conversorEstado(felicitation)}}</ion-card-subtitle> 
-      
-    </ion-card-header>
-  </ion-card>
-
-
-   fab placed to the bottom end 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addFelicitacion">
-    <ion-fab-button>
-      Imagen del boton
-      <ion-icon name="duplicate-outline" ></ion-icon>
-    </ion-fab-button>
-
-  </ion-fab>
-</ion-content>
--->

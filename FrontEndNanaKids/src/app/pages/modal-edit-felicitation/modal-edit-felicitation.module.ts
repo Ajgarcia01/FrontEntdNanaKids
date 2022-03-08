@@ -4,18 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ModalAddFelicitationPageRoutingModule } from './modal-add-felicitation-routing.module';
+import { ModalEditFelicitationPageRoutingModule } from './modal-edit-felicitation-routing.module';
 
-import { ModalAddFelicitationPage } from './modal-add-felicitation.page';
+import { ModalEditFelicitationPage } from './modal-edit-felicitation.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ModalAddFelicitationPageRoutingModule,
+    ModalEditFelicitationPageRoutingModule,
     FormsModule,ReactiveFormsModule
+
   ],
-  declarations: [ModalAddFelicitationPage]
+  declarations: [ModalEditFelicitationPage]
 })
-export class ModalAddFelicitationPageModule {}
+export class ModalEditFelicitationPageModule {}
