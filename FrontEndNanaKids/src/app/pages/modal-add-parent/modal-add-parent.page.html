@@ -55,15 +55,14 @@
 
           <ion-item color="white">
             <ion-label>Selecciona el genero</ion-label>
-            <ion-select (ionChange)="notifyChange($event)">
+            <ion-select (ionChange)="notifyChange($event)" formControlName="type">
               <ion-select-option value='0'>Hombre</ion-select-option>
               <ion-select-option value='1'>Mujer</ion-select-option>
             </ion-select>
           </ion-item>
           <br>
-            <ion-button color="warning" expand="block" *ngIf="formParent" (click)="createParent()">Guardar Padre </ion-button>
-          <br>
-        </form>
+        <ion-button color="warning" expand="block" type="submit" [disabled]="formParent.invalid" (click)="createParent()">Guardar Padre </ion-button>
+      </form>
       </div>
 
     </ion-card-content>

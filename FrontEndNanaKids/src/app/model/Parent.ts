@@ -1,3 +1,4 @@
+import { Admin } from "./Admin";
 import { Kid } from "./Kid";
 
 export interface Parent{
@@ -9,4 +10,5 @@ export interface Parent{
     surname:string,
     type:boolean,
     kids:Kid[],
+    admin:Admin
 }
