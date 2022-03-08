@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonDatetime, ModalController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
 import { Kid } from 'src/app/model/Kid';
+import { Parent } from 'src/app/model/Parent';
+import { ClientService } from 'src/app/services/client.service';
 import { KidService } from 'src/app/services/kid.service';
 
 @Component({
@@ -18,15 +20,20 @@ export class ModalAddKidPage implements OnInit {
   formattedString='';
   public formKid:FormGroup;
   kids:Kid[]=[]
-  selectedOption:number; //select gender
-
+  parents:Parent[]=[]
+  selectedOption:boolean; //select gender
+  selectedParent:Parent[]=[];
   
-  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController) {
+  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController,private ClientService:ClientService) {
 
     this.formKid=this.fb.group({
       name:["",Validators.required],
       gender:[""],
       birth_date:[""],
+      client:[],
+      felicitations:[],
+      id:-1
+
     });
 
     this.setToday();
@@ -38,7 +45,7 @@ export class ModalAddKidPage implements OnInit {
 
   async ionViewDidEnter(){
     
-    await this.getKids();
+    await this.getParents();
   
     
   }
@@ -47,14 +54,20 @@ export class ModalAddKidPage implements OnInit {
    
     let newKid:Kid={
         name:this.formKid.get("name").value,
-        birthDate:this.dateValue,
-        gender:this.formKid.get('').value,
-        client:this.formKid.get('').value,
-        felicitations:this.formKid.get('').value,
+        birthDate:this.formattedString,
+        gender:this.selectedOption,
+        client:this.selectedParent,
+        felicitations:[],
         id:-1
+
     }
     try {
+      console.log(newKid);
+        
       await this.apiKid.createKid(newKid);
+
+      this.modalController.dismiss(null , 'cancel');
+
     } catch (err) {
       console.log(err);
     }
@@ -64,12 +77,12 @@ export class ModalAddKidPage implements OnInit {
   dateChanged(value)
   {
     this.dateValue=value;
-    this.formattedString= format(parseISO(value),'HH:mm,MMM d, yyyy');
+    this.formattedString= format(parseISO(value),'yyyy-MM-dd');
       console.log(value);
   }
 
   setToday(){
-    this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')+'T09:00:00.00Z'),'HH:mm,MMM d, yyyy');
+    this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')),'yyyy-MM-dd');
   }
 
   close(){
@@ -79,25 +92,11 @@ export class ModalAddKidPage implements OnInit {
   select(){
     this.datetime.confirm(true);
   }
-
-
-  probar(){
-    let name;let birth_date;let gender;
-    name=this.formKid.get("name").value
-    birth_date=this.dateValue;
-    gender=this.selectedOption
-    console.log(name)
-    console.log(birth_date)
-    console.log(gender)
-  }
-
  
-
-
-  public async getKids(){
-    this.kids=[];
-    this.kids=await this.apiKid.getKid();
-    console.log(this.kids);
+  public async getParents(){
+    this.parents=[];
+    this.parents=await this.ClientService.getClient();
+    console.log(this.parents);
 
     
   }
@@ -109,7 +108,20 @@ export class ModalAddKidPage implements OnInit {
    */
     notifyChange(event:CustomEvent){
     this.selectedOption=event.detail.value;
+    
     console.log(this.selectedOption);
+    
+  }
+
+  /**
+   * 
+   * @param event 
+   */
+   cambioPadre(event:CustomEvent){
+    
+    this.selectedParent=event.detail.value;
+
+    console.log(this.selectedParent);
   }
 
 

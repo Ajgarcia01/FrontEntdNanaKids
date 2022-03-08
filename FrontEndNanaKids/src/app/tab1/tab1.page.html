@@ -5,7 +5,7 @@
         <ion-title class="title">NIÑOS</ion-title>
       </center>
         <ion-buttons slot="start">
-          <ion-button (click)="exit()">
+          <ion-button (click)="logout()">
             <ion-icon name="log-out" ios="log-out" md="log-out"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -19,7 +19,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-slides [options]="slideOpt" *ngFor="let kid of searchedUser" >
+  <ion-refresher slot="fixed"(ionRefresh)="getKids($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-slides [options]="slideOpt"  *ngFor="let kid of searchedUser" >
     <ion-slide>
       <ion-card >
         <ion-card-header>
@@ -33,7 +37,7 @@
  
     <ion-slide>
       <div class="opcs">
-        <ion-fab-button color="danger">
+        <ion-fab-button color="danger" (click)="borrar(kid)" vertical="bottom">
           <ion-icon name="trash"></ion-icon>
         </ion-fab-button>
       </div>
