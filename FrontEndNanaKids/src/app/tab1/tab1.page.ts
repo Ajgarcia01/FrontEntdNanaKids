@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, IonItemSliding, ModalController } from '@ionic/angular';
+import { AlertController, IonItemSliding, IonRefresher, LoadingController, ModalController } from '@ionic/angular';
 import { Kid } from '../model/Kid';
 import { ModalAddKidPage } from '../pages/modal-add-kid/modal-add-kid.page';
 import { ModalEditKidPage } from '../pages/modal-edit-kid/modal-edit-kid.page';
@@ -18,14 +18,17 @@ export class Tab1Page {
   person:Kid
   kids:Kid[]=[]
   gender: boolean = true
+  event:any
+  refresh:IonRefresher
+  miLoading:HTMLIonLoadingElement
   constructor(private apiKid:KidService,public modalController:ModalController,
     private router:Router,private alert:AlertController,
-    private authS:AuthService,private kidService:KidService) {}
+    private authS:AuthService,private kidService:KidService,private loading:LoadingController) {}
 
   /**
    * 
    */
-  async ionViewDidEnter(){
+   async ionViewDidEnter(){
     
     await this.getKids();
     this.searchedUser=this.kids;
@@ -35,11 +38,30 @@ export class Tab1Page {
   /**
    * 
    */
-  public async getKids(){
+  public async getKids(event?){
+    if(!event){
+      await this.presentLoading();
+    }
     this.kids=[];
-    this.kids=await this.apiKid.getKid();
+    try{
+      this.kids=await this.apiKid.getKid();
+    }catch(err){
+      console.error(err);
+      //await this.presentToast("Error cargando datos","danger",'bottom');
+    } finally{
+      if(event){
+        event.target.complete();
+      }else{
+        await this.miLoading.dismiss();
+      }
+    }
+  }
 
-    
+  async presentLoading() {
+    this.miLoading = await this.loading.create({
+      message: ''
+    });
+    await this.miLoading.present();
   }
 
   /**
@@ -50,6 +72,7 @@ export class Tab1Page {
   public async deleteKid(kid:Kid){
    
     this.apiKid.deleteKid(kid);
+    await this.getKids();
   }
 
 
@@ -145,13 +168,39 @@ export class Tab1Page {
   }
 
 
-  private async borrar(kid:Kid){
-    
-      await this.kidService.deleteKid(kid).then(d=>{
-        console.log(d);
-      }).catch(err=>{
-        console.log(err);
+  public async borrar(kid:Kid){
+  
+      const alert = await this.alert.create({
+        cssClass: 'my-custom-class',
+        header: 'Atencion', 
+        subHeader: 'Eliminado de niño',
+        message: '¿Está seguro de que quiere eliminar?',
+        buttons: [ {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: async () => {
+            //await this.miLoading.dismiss();
+            console.log('cancelar');
+            
+           
+            
+          }
+          
+        }, {
+          text: 'Aceptar',
+          handler: async () => {
+            try{
+              await this.kidService.deleteKid(kid);
+              await this.getKids();
+            }catch(err) {
+              console.log(err);
+              
+            }}
+        }]
       });
-    
+      
+      await alert.present();
+    }
+
   }
-}

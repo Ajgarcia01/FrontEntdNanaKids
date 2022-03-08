@@ -20,6 +20,7 @@ export const environment = {
   apiClient:'client/',
   apiFeli:'felicitation/',
   feliSearchByType:'felicitation/search/',
+  feliSearchByTypeAndDate:'felicitation/search/date-type/',
   feliDaySearchByType:'felicitation/count/date-type/',
   feliCount:'felicitation/count/',
   feliSent:'felicitation/change-to-sent/',

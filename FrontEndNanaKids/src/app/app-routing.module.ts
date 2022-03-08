@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'editkid',
     loadChildren: () => import('./pages/modal-edit-kid/modal-edit-kid.module').then( m => m.ModalEditKidPageModule)
+  },  {
+    path: 'tab4',
+    loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
   },
+
   /*
   {
     path: 'modal-add-parent',

@@ -65,6 +65,9 @@ export class ModalAddKidPage implements OnInit {
       console.log(newKid);
         
       await this.apiKid.createKid(newKid);
+
+      this.modalController.dismiss(null , 'cancel');
+
     } catch (err) {
       console.log(err);
     }
