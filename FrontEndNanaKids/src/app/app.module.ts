@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { AlertController, IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [BrowserModule,HttpClientModule ,IonicModule.forRoot(), AppRoutingModule,
   AngularFireModule.initializeApp(environment.firebaseConfig),
   AngularFireAuthModule,FormsModule,ReactiveFormsModule,],
-  providers: [HttpClient,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [HttpClient,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy},AlertController],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

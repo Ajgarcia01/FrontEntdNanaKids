@@ -1,8 +1,14 @@
+import { Admin } from "./Admin";
+import { Kid } from "./Kid";
+
 export interface Parent{
+    id?:number,
     name:string,
-    id:number,
+    dni:string,
     email:string,
     phone:string,
     surname:string,
-    type:boolean
+    type:boolean,
+    kids:Kid[],
+    admin:Admin
 }
