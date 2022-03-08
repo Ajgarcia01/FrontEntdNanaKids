@@ -1,14 +1,17 @@
 .addKid{
-    margin-right: 2px;
+    margin-right: 5px;
     margin-bottom: 20px;
     
 }
 
-
+.modal-wrapper {
+    --width: 60%;
+    --height: 70%;
+  }
 
 ion-card{
-    height: 20%;
-    width: 60%;
+    height: 10%;
+    width: 35%;
     background-color: #164b81;
 }
 
@@ -22,10 +25,22 @@ ion-toolbar{
 }
 
 .opcs{
-    margin-top: 80px;
+    margin-top: 220px;
 }
 
 ion-content{
     --ion-background-color:white;
 }
 
+ion-fab-button {
+    width: 80px;
+    height: 80px;
+  }
+
+  ion-card-subtitle{
+      font-size: 35px;
+  }
+
+  ion-card-title{
+    font-size: 30px;
+}

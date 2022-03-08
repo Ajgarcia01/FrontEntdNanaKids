@@ -3,7 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonDatetime, ModalController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
 import { Kid } from 'src/app/model/Kid';
+import { Parent } from 'src/app/model/Parent';
+import { ClientService } from 'src/app/services/client.service';
 import { KidService } from 'src/app/services/kid.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-modal-edit-kid',
@@ -15,17 +18,18 @@ export class ModalEditKidPage implements OnInit {
   @ViewChild(IonDatetime)datetime:IonDatetime
   selectecMode='date';
   showPicker=false;
-  dateValue= format(new Date(),'yyy-MM-dd') + 'T09:00:00.000Z';
+  dateValue= format(new Date(),'yyy-MM-dd');;
   formattedString='';
   public formKid:FormGroup;
-  kids:Kid[]=[]
-  selectedOption:number; //select gender
+  parents:Parent[]=[]
+  selectedOption:boolean; //select gender
   enviado: string ="Niño";
   noenviado: string ="Niña";;
+  selectedParent:Parent[]=[];
 
 
   
-  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController) {
+  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController,private ClientService:ClientService,private toast:ToastService) {
 
     this.formKid=this.fb.group({
       name:["",Validators.required],
@@ -42,7 +46,13 @@ export class ModalEditKidPage implements OnInit {
 
   async ionViewDidEnter(){
     
-    await this.getKids();
+    this.formKid=this.fb.group({
+      name:[this.kid.name],
+      gender:[this.kid.gender],
+      birth_date:[this.kid.birthDate],
+      
+    });
+    await this.getParents();
   
     
   }
@@ -52,14 +62,16 @@ export class ModalEditKidPage implements OnInit {
     let newKid:Kid={
         name:this.formKid.get("name").value,
         birthDate:this.dateValue,
-        gender:this.formKid.get('').value,
-        client:this.formKid.get('').value,
-        felicitations:this.formKid.get('').value,
-        id:-1
+        gender:this.selectedOption,
+        client:this.selectedParent,
+        felicitations:[],
+        id:this.kid.id
     }
     try {
-      await this.apiKid.createKid(newKid);
+      await this.apiKid.updateKid(newKid);
+      await this.toast.presentToast("Niño actualizado con exito",10,"middle","success");
     } catch (err) {
+      await this.toast.presentToast("Hay errores",10,"middle","danger");
       console.log(err);
     }
    
@@ -68,12 +80,12 @@ export class ModalEditKidPage implements OnInit {
   dateChanged(value)
   {
     this.dateValue=value;
-    this.formattedString= format(parseISO(value),'HH:mm,MMM d, yyyy');
+    this.formattedString= format(parseISO(value),'yyyy-MM-dd');
       console.log(value);
   }
 
   setToday(){
-    this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')+'T09:00:00.00Z'),'HH:mm,MMM d, yyyy');
+    this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')),'yyyy-MM-dd');
   }
 
   close(){
@@ -85,23 +97,10 @@ export class ModalEditKidPage implements OnInit {
   }
 
 
-  probar(){
-    let name;let birth_date;let gender;
-    name=this.formKid.get("name").value
-    birth_date=this.dateValue;
-    gender=this.selectedOption
-    console.log(name)
-    console.log(birth_date)
-    console.log(gender)
-  }
-
- 
-
-
-  public async getKids(){
-    this.kids=[];
-    this.kids=await this.apiKid.getKid();
-    console.log(this.kids);
+  public async getParents(){
+    this.parents=[];
+    this.parents=await this.ClientService.getClient();
+    console.log(this.parents);
 
     
   }
@@ -125,6 +124,16 @@ export class ModalEditKidPage implements OnInit {
     }
   }
 
+  /**
+   * 
+   * @param event 
+   */
+   cambioPadre(event:CustomEvent){
+    
+    this.selectedParent=event.detail.value;
+
+    console.log(this.selectedParent);
+  }
 
   async exit(){
     await this.modalController.dismiss(null , 'cancel');

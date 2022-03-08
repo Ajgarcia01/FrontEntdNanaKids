@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="darking">
+    <center>
+      <ion-title>ENVIAR FELICITACION</ion-title>
+    </center>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="top1">
+    <center>
+      <ion-chip color="white">
+          <ion-icon class="dateSize" name="calendar"></ion-icon>
+        <ion-label class="date">{{formattedString}}</ion-label>
+      </ion-chip>
+    </center>
+  </div>
+<div class="top2">
+    <center>
+    <ion-chip color="white">
+      <ion-icon class="iconSize" name="checkbox"></ion-icon>
+      <ion-label class="check">{{estadodelenvio}}</ion-label>
+    </ion-chip>
+  </center>
+</div>
+<div class="top3">
+   <center>
+    <ion-chip color="white">
+      <ion-icon class="iconSize" name="person"></ion-icon>
+      <ion-label class="person">{{count}}</ion-label>
+    </ion-chip>
+  </center>
+</div>
+<div class="button">
+  <center>
+     <ion-button size="large" color="warning">ENVIAR</ion-button>
+  </center>
+</div>
+</ion-content>

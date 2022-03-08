@@ -32,10 +32,12 @@ export class ClientService {
     await this.http.post(endpoint, client,this.header).toPromise();
   }
 
+
   public async updateClient(client: Parent): Promise<void> {
     let endpoint = environment.endpoint + environment.apiClient;
     await this.http.put(endpoint, client,this.header).toPromise();
   }
+
 
 
 
