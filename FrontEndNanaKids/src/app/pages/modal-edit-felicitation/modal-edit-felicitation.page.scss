@@ -1,0 +1,54 @@
+ion-toolbar{
+    background-color: #164b81;
+}
+
+.title{
+    margin-top: 5px;
+    margin-right: 30px;
+}
+
+
+ion-card{
+    background-color: #164b81;
+    height: 100%;
+}
+
+.card{
+    margin-top: 70px;
+    margin-bottom: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+ion-button{
+ margin-top: 35px;
+
+}
+
+ion-modal{
+
+    --background:rgba(36, 36, 36, 0.2);
+
+    &::part(content){
+        backdrop-filter:blur(6px);
+    }
+
+    ion-content {
+        --background: transparent;
+        --padding-top:25vh;
+        --padding-start:20px;
+        --padding-end:20px;
+        ion-datetime{
+            border-radius: 8px;
+        }
+    }
+}
+
+
+ion-label{
+   --color: black;
+}
+
+.exit{
+    margin-bottom: 25px;
+}

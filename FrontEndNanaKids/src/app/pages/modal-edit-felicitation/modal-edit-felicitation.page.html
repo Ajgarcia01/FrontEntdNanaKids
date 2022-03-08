@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-toolbar color="darking">
+    <ion-buttons slot="start">
+      <ion-button class="exit" (click)="exit()">
+        <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <center>
+      <ion-title class="title">FELICITACION</ion-title>
+    </center>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content color="dark">
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-title color="dark"></ion-card-title>
+      <br>
+      <center>
+        <ion-card-title color="dark">Editar felicitacion</ion-card-title>
+      </center>
+
+    </ion-card-header>
+   
+    <ion-card-content>
+      <div class="centrado">
+        
+          <div class="container">
+            <form [formGroup]="form" (ngSubmit)="submitForm()">
+              <div class="form-group">
+                <input type="file" (change)="uploadFile($event)" accept="image/jpeg,image/jpg,image/png">
+              </div>
+              <div class="form-group">
+                <ion-button color="warning" expand="block" (click)="editFelicitation()">Guardar felicitacion &nbsp;</ion-button>    
+              </div>
+            </form>
+          </div>
+
+     </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

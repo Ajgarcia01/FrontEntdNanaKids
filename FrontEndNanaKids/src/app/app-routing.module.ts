@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
+    {
     path: 'home',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
@@ -19,12 +19,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/modal-edit-kid/modal-edit-kid.module').then( m => m.ModalEditKidPageModule)
   },
   {
+    path: 'modal-add-felicitation',
+    loadChildren: () => import('./pages/modal-add-felicitation/modal-add-felicitation.module').then( m => m.ModalAddFelicitationPageModule)
+  },
+  {
+    path: 'modal-edit-felicitation',
+    loadChildren: () => import('./pages/modal-edit-felicitation/modal-edit-felicitation.module').then( m => m.ModalEditFelicitationPageModule)
+  },
+  {
 
     path: 'tab4',
     loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
   },
-
-  
   {
     path: 'modal-add-parent',
     loadChildren: () => import('./pages/modal-add-parent/modal-add-parent.module').then( m => m.ModalAddParentPageModule)
@@ -35,7 +41,6 @@ const routes: Routes = [
     path: 'modal-edit-parent',
     loadChildren: () => import('./pages/modal-edit-parent/modal-edit-parent.module').then( m => m.ModalEditParentPageModule)
   }
-
 ];
 @NgModule({
   imports: [
