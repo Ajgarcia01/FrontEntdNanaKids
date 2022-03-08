@@ -17,14 +17,18 @@
 
 
 <ion-content [fullscreen]="true">
-
+    <ion-refresher slot="fixed" (ionRefresh)="getClients($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+      </ion-refresher>
     <ion-slides [options]="slideOpt" *ngFor="let client of searchedUser">
         <ion-slide>
 
             <ion-card>
                 <ion-card-header>
-                    <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
                     <ion-card-title>{{client.name}}</ion-card-title>
+                    <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
+                   <br>
                     <img src="https://st2.depositphotos.com/2931363/6511/i/600/depositphotos_65116237-stock-photo-happy-young-man-in-shirt.jpg" />
                 </ion-card-header>
             </ion-card>

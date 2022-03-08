@@ -34,26 +34,26 @@ export class ModalEditParentPage implements OnInit {
     this.client=this.parent;
     console.log(this.parent);
     this.formParent = this.fb.group({
-      name: ['', Validators.compose([
+      name: [this.parent.name, Validators.compose([
         Validators.required,
         Validators.minLength(1)
       ])],
-      dni: ["", Validators.compose([
+      dni: [this.parent.dni, Validators.compose([
         Validators.required,
         Validators.pattern("[0-9]{8}[A-Za-z]{1}")
       ])],
 
-      email: ["", Validators.compose([
+      email: [this.parent.email, Validators.compose([
         Validators.required,
         Validators.email
       ])],
-      phone: ["", Validators.compose([
+      phone: [this.parent.phone, Validators.compose([
         Validators.required,
         Validators.minLength(9),
         Validators.maxLength(9)
       ])],
-      surname: ["",Validators.required],
-      type: ["",Validators.required]
+      surname: [this.parent.surname,Validators.required],
+      type: [this.parent.type,Validators.required]
     });
 
 
@@ -108,6 +108,7 @@ export class ModalEditParentPage implements OnInit {
       toast.present()
       console.log(this.parent);
         await this.apiparent.updateClient(this.parent);
+        this.modalController.dismiss(null , 'cancel');
     }catch (err) {
       console.log(err);
     }

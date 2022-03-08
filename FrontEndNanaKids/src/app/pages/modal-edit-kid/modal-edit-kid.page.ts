@@ -29,7 +29,8 @@ export class ModalEditKidPage implements OnInit {
 
 
   
-  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController,private ClientService:ClientService,private toast:ToastService) {
+  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController,private ClientService:ClientService,
+    private toast:ToastService) {
 
     this.formKid=this.fb.group({
       name:["",Validators.required],

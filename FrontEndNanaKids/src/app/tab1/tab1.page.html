@@ -19,7 +19,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed"(ionRefresh)="getKids($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="getKids($event)">
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
@@ -28,7 +28,7 @@
       <ion-card >
         <ion-card-header>
           <ion-card-subtitle color="dark">{{kid.name}}</ion-card-subtitle>
-          <ion-card-title color="dark">{{kid.birthDate}}</ion-card-title>
+          <ion-card-title color="dark">{{kid.birthDate| date:'dd-MM-yyyy'}}</ion-card-title>
           <br>
           <img src="https://img.remediosdigitales.com/63b6f9/bebe_1/1366_2000.jpg" />
         </ion-card-header>

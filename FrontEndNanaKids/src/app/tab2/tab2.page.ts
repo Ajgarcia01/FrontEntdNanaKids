@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { Kid } from '../model/Kid';
+import { Component } from '@angular/core';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Parent } from '../model/Parent';
 import { ModalAddParentPage } from '../pages/modal-add-parent/modal-add-parent.page';
 import { ModalEditParentPage } from '../pages/modal-edit-parent/modal-edit-parent.page';
-import { ApiService } from '../services/api.service';
 import { ClientService } from '../services/client.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-tab2',
@@ -17,8 +16,10 @@ export class Tab2Page {
   clients: Parent[] = []
   gender: boolean = true
   searchedUser: any;
+  miLoading:HTMLIonLoadingElement
 
-  constructor(private servicioClient: ClientService, private alertController:AlertController,public modalController:ModalController) { }
+  constructor(private servicioClient: ClientService, private alertController:AlertController,
+    public modalController:ModalController,private loading:LoadingController,private toast:ToastService) { }
 
 
   async ionViewDidEnter() {
@@ -26,11 +27,32 @@ export class Tab2Page {
     await this.getClients();
     this.searchedUser = this.clients;
   }
-
-  public async getClients() {
+  public async getClients(event?){
+    if(!event){
+      await this.presentLoading();
+    }
     this.clients = [];
-    this.clients = await this.servicioClient.getClient();
+    try{
+      this.clients = await this.servicioClient.getClient();
+    }catch(err){
+      console.error(err);
+      //await this.presentToast("Error cargando datos","danger",'bottom');
+    } finally{
+      if(event){
+        event.target.complete();
+      }else{
+        await this.miLoading.dismiss();
+      }
+    }
   }
+
+  async presentLoading() {
+    this.miLoading = await this.loading.create({
+      message: ''
+    });
+    await this.miLoading.present();
+  }
+
   public async getclientsid(client: Parent) {
     this.client = await this.servicioClient.GetClientByID(client.id);
     console.log(this.client);
@@ -59,6 +81,7 @@ export class Tab2Page {
               if(i>-1){
                 this.clients.splice(i,1);
               }
+              this.toast.presentToast("Cliente borrado con exito",2000,"center","danger");
             } catch (error) {
               console.log(error);
             }

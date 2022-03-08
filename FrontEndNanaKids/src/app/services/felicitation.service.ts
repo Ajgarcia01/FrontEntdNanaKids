@@ -2,9 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Felicitation } from '../model/Felicitation';
-
-import { environment } from 'src/environments/environment';
-import { Felicitation } from '../model/Felicitation';
 @Injectable({
 
   providedIn: 'root'
@@ -20,7 +17,7 @@ export class FelicitationService {
   }
 
   public async getFelicitations():Promise<Felicitation[]>{
-    let endpoint=environment.endpoint+environment.feliSearchByTypeAndDate+1;
+    let endpoint=environment.endpoint+environment.apiFeli;
     let felicitations:any=await this.http.get(endpoint,this.header).toPromise();
     return felicitations;
   }
@@ -43,7 +40,6 @@ export class FelicitationService {
     });
     }
     public async createFelicitation(fromData:any):Promise<Felicitation[]>{
-      const endpoint = environment.endpoint+environment.apiFeli;
     return new Promise(async (resolve, reject) => {
       const endpoint = environment.endpoint + environment.apiFeli;
       try {

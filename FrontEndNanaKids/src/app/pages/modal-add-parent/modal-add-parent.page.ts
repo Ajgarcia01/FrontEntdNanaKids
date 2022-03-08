@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Admin } from 'src/app/model/Admin';
 import { Parent } from 'src/app/model/Parent';
 import { ClientService } from 'src/app/services/client.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-modal-add-parent',
@@ -15,7 +15,7 @@ export class ModalAddParentPage implements OnInit {
   private selectedOption: number; //select gender
   private gender: boolean;
 
-  constructor(private fb: FormBuilder, private modalController: ModalController, private apiparent: ClientService,public toastCtrl: ToastController) {
+  constructor(private fb: FormBuilder, private modalController: ModalController, private apiparent: ClientService,public toast: ToastService) {
 
    
   }
@@ -94,14 +94,13 @@ export class ModalAddParentPage implements OnInit {
       id: -1
     }
     try {
-      const toast = await this.toastCtrl.create({  
-        message: 'Padre creado correctamente',   
-        duration: 4000  
-      });  
-      toast.present()
+      
         await this.apiparent.CreateClient(newParent); 
+        this.toast.presentToast("Cliente creado con exito",2000,"center","success");
+        this.modalController.dismiss(newParent , 'cancel');
         console.log(newParent); 
     }catch (err) {
+      this.toast.presentToast("Hay algun error revisa los datos",2000,"center","danger");
       console.log(err);
     }
 

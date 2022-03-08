@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Felicitation } from '../model/Felicitation';
 import { Kid } from '../model/Kid';
 import { ModalAddFelicitationPage } from '../pages/modal-add-felicitation/modal-add-felicitation.page';
 import { ModalEditFelicitationPage } from '../pages/modal-edit-felicitation/modal-edit-felicitation.page';
 import { FelicitationService } from '../services/felicitation.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-tab3',
@@ -21,8 +22,11 @@ export class Tab3Page {
   cumpleaños:string="CUMPLEAÑOS";
   navidad:string="NAVIDAD";
   nombre:string="";
+  miLoading:HTMLIonLoadingElement
 
-  constructor(private apiFelicitation:FelicitationService,public modalController:ModalController,public toastController: ToastController) {}
+  constructor(private apiFelicitation:FelicitationService,
+    public modalController:ModalController,private loading:LoadingController,
+    public toast: ToastService,private alert:AlertController) {}
 
   conversorEstado(felicitationEstado:Felicitation):string{
     if (felicitationEstado.estate){
@@ -54,6 +58,7 @@ export class Tab3Page {
     console.log(event.detail.value);
     this.optionSelected = event.detail.value;
     this.felicitations = [];
+    
     if(this.optionSelected != 0){
     this.felicitations = await this.apiFelicitation.getFelicitationsByType(this.optionSelected);
     }else{
@@ -61,16 +66,59 @@ export class Tab3Page {
     }
   }
 
-  public async getFelicitations(){
-
+  public async getFelicitations(event?){
+    if(!event){
+      await this.presentLoading();
+    }
     this.felicitations = [];
-    this.felicitations = await this.apiFelicitation.getFelicitations();
+    try{
+      this.felicitations = await this.apiFelicitation.getFelicitations();
+      
+    }catch(err){
+      console.error(err);
+      //await this.presentToast("Error cargando datos","danger",'bottom');
+    } finally{
+      if(event){
+        event.target.complete();
+      }else{
+        await this.miLoading.dismiss();
+      }
+     
+    }
   }
 
   public async deleteFelicitation(felicitation:Felicitation){
-      await this.apiFelicitation.deleteFelicitation(felicitation);
-      this.presentToastDelete();
+    const alert = await this.alert.create({
+      header:'Confirmación',
+      message:'Estas seguro de que quieres eliminar',
+      buttons: [
+        {
+          text:'Cancelar',
+          handler:(blah)=>{
+            //nada
+          }
+        },
+        {
+          text:'Eliminar',
+          handler: async()=>{
+            try {
+             await this.apiFelicitation.deleteFelicitation(felicitation);
+              //Para recargar la lista
+              let i = this.felicitations.indexOf(felicitation,0);
+              if(i>-1){
+                this.felicitations.splice(i,1);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
+    this.toast.presentToast("Felicitacion borrada con exito",2000,"center","danger");
   }
+     
 
   async openCreateFelicitation(felicitation:Felicitation){
     const modal = await this.modalController.create({
@@ -94,12 +142,13 @@ export class Tab3Page {
     return await modal.present();
   }
 
-  async presentToastDelete() {
-    const toast = await this.toastController.create({
-      message: 'FELICITACION ELIMINADA CORRECTAMENTE',
-      duration: 2000
+
+  async presentLoading() {
+    this.miLoading = await this.loading.create({
+      message: ''
     });
-    toast.present();
+    await this.miLoading.present();
   }
+
   
 }

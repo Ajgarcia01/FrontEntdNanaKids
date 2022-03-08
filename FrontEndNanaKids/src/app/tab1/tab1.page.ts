@@ -6,6 +6,7 @@ import { ModalAddKidPage } from '../pages/modal-add-kid/modal-add-kid.page';
 import { ModalEditKidPage } from '../pages/modal-edit-kid/modal-edit-kid.page';
 import { AuthService } from '../services/auth.service';
 import { KidService } from '../services/kid.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-tab1',
@@ -23,7 +24,7 @@ export class Tab1Page {
   miLoading:HTMLIonLoadingElement
   constructor(private apiKid:KidService,public modalController:ModalController,
     private router:Router,private alert:AlertController,
-    private authS:AuthService,private kidService:KidService,private loading:LoadingController) {}
+    private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService) {}
 
   /**
    * 
@@ -47,7 +48,6 @@ export class Tab1Page {
       this.kids=await this.apiKid.getKid();
     }catch(err){
       console.error(err);
-      //await this.presentToast("Error cargando datos","danger",'bottom');
     } finally{
       if(event){
         event.target.complete();
@@ -192,7 +192,11 @@ export class Tab1Page {
           handler: async () => {
             try{
               await this.kidService.deleteKid(kid);
-              await this.getKids();
+              let i = this.kids.indexOf(kid,0);
+              if(i>-1){
+                this.kids.splice(i,1);
+              }
+              this.toast.presentToast("Niño borrado con exito",2000,"center","danger");
             }catch(err) {
               console.log(err);
               

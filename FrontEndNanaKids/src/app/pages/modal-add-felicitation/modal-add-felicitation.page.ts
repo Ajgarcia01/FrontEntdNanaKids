@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { FelicitationService } from 'src/app/services/felicitation.service';
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera'
 import { Kid } from 'src/app/model/Kid';
 import { Felicitation } from 'src/app/model/Felicitation';
 import { KidService } from 'src/app/services/kid.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 
 
@@ -23,7 +23,8 @@ export class ModalAddFelicitationPage implements OnInit {
   selectedKid:Kid;    // Niñ@ seleccionado
   kid:Kid;
   kids:Kid[] =[];
-  constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,private modalController:ModalController, private kidService:KidService,public toastController: ToastController) {
+  constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,
+    private modalController:ModalController, private kidService:KidService,public toast: ToastService) {
     
     this.formFelicitation=this.fb.group({
       type:[],
@@ -70,7 +71,7 @@ public async createFelicitation(){
     })
     console.log("ESTE ES EL CONSOLE"+this.form.get('multipartFile').value);
     
-    this.presentToast();
+    this.toast.presentToast("Felicitacion creada con exito",2000,"center","success");
     this.exit();
    
    }
@@ -118,12 +119,5 @@ public async createFelicitation(){
     await this.modalController.dismiss(null , 'cancel');
   }
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'FELICITACION AÑADIRDA CORRECTAMENTE',
-      duration: 2000
-    });
-    toast.present();
-  }
 
 }

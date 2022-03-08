@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Felicitation } from 'src/app/model/Felicitation';
 import { FelicitationService } from 'src/app/services/felicitation.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-modal-edit-felicitation',
@@ -13,17 +14,22 @@ export class ModalEditFelicitationPage implements OnInit {
   @Input() felicitation:Felicitation;
 
   public form:FormGroup;
-  constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,private modalController:ModalController,public toastController: ToastController) { 
+  constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,
+    private modalController:ModalController,
+    public toastController: ToastController,private toast:ToastService) { 
     this.form = this.fb.group({
       multipartFile:[null]
     })
   }
 
   ngOnInit() {
+    console.log(this.felicitation);
   }
 
   public async editFelicitation(){
-
+  
+    
+    
     var formData: any = new FormData();
     formData.append("f", new Blob([JSON.stringify(this.felicitation)], {
       type: "application/json"
@@ -33,7 +39,7 @@ export class ModalEditFelicitationPage implements OnInit {
       console.log(response);
     })
     console.log("ESTE ES EL CONSOLE"+this.form.get('multipartFile').value);
-    this.presentToast();
+    this.toast.presentToast("Felicitacion actualizada con exito",2000,"center","success");
     this.exit();
   }
 
@@ -49,13 +55,7 @@ export class ModalEditFelicitationPage implements OnInit {
   async exit(){
     await this.modalController.dismiss(null , 'cancel');
   }
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'FELICITACION EDITADA CORRECTAMENTE',
-      duration: 2000
-    });
-    toast.present();
-  }
+
 
 
 }
