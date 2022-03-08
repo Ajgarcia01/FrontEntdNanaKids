@@ -3,6 +3,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { Kid } from '../model/Kid';
 import { Parent } from '../model/Parent';
 import { ModalAddParentPage } from '../pages/modal-add-parent/modal-add-parent.page';
+import { ModalEditParentPage } from '../pages/modal-edit-parent/modal-edit-parent.page';
 import { ApiService } from '../services/api.service';
 import { ClientService } from '../services/client.service';
 
@@ -91,5 +92,17 @@ export class Tab2Page {
     //this.closeSliding();
     return await modal.present();
   }
+
+ async editModal(parent:Parent){
+  const modal = await this.modalController.create({
+    component: ModalEditParentPage,
+    componentProps: {
+      'parent': parent
+    }
+  });
+  //this.closeSliding();
+  return await modal.present();
+
+ }
 
 }
