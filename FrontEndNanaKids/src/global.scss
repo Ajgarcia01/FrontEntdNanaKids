@@ -24,3 +24,59 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.trasparent-modal {
+    --background: #164b81;
+   
+    
+    ion-content {
+        --background: transparent;
+        ion-toolbar{
+            background-color: #164b81;
+        }
+        
+        .title{
+            margin-top: 5px;
+            margin-right: 30px;
+        }
+        
+        
+        ion-card{
+            background-color: #164b81;
+            height: 80%;
+        }
+        
+        .card{
+            margin-top: 70px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        
+        ion-button{
+         margin-top: 35px;
+        
+        }
+        
+        
+        
+        ion-label{
+           --color: black;
+        }
+        
+        .exit{
+            margin-bottom: 25px;
+        }
+        
+    }
+
+    ion-modal::part(content) {
+        backdrop-filter: blur(12px);
+        width: 200px;
+    }
+
+    &::part(content){
+        width: 1300px;
+        height: 800px;
+
+    }
+}

@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-modal-add-parent',
   templateUrl: './modal-add-parent.page.html',
-  styleUrls: ['./modal-add-parent.page.scss'],
+  styleUrls: ['./modal-add-kid.page.scss',]['./global.scss'],
 })
 export class ModalAddParentPage implements OnInit {
   public formParent: FormGroup;

@@ -5,15 +5,16 @@
         <ion-title class="title">NIÑOS</ion-title>
       </center>
         <ion-buttons slot="start">
-          <ion-button (click)="logout()">
-            <ion-icon name="log-out" ios="log-out" md="log-out"></ion-icon>
+          <ion-button (click)="logout()" class="btn-Logout" > 
+            <ion-icon class="icon-Logout" name="log-out" ios="log-out" md="log-out"></ion-icon>
           </ion-button>
+
         </ion-buttons>
         
       </ion-toolbar>
       
       <ion-toolbar color="darking">
-        <ion-searchbar (ionChange)="buscar($event)" class="new-background-color" placeholder="Nombre del niño"></ion-searchbar>
+        <ion-searchbar (ionChange)="buscar($event)"  color="dark" placeholder="Nombre del niño"></ion-searchbar>
       </ion-toolbar>
       
 </ion-header>

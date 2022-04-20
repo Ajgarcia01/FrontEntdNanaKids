@@ -10,7 +10,7 @@ import { KidService } from 'src/app/services/kid.service';
 @Component({
   selector: 'app-modal-add-kid',
   templateUrl: './modal-add-kid.page.html',
-  styleUrls: ['./modal-add-kid.page.scss'],
+  styleUrls: ['./modal-add-kid.page.scss',]['./global.scss'],
 })
 export class ModalAddKidPage implements OnInit {
   @ViewChild(IonDatetime)datetime:IonDatetime

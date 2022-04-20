@@ -29,17 +29,21 @@ ion-content{
     --ion-background-color:white;
 }
 
-ion-fab-button {
-    width: 80px;
-    height: 80px;
-  }
-  
 .edit{
-    margin-top: 10px;
-    margin-left: 60px;
+    margin-top: 2vh;
+    margin-right: 1vh;
+    margin-bottom: 2vh;
 }
 
 .supreme{
-    margin-top: 10px;
-    margin-right: 60px;
+    margin-top: 2vh;
+    margin-left: 2vh;
+    margin-right: 3vh;
+    margin-bottom: 2vh;
 }
+
+
+ion-fab-button {
+    width: 7vh;
+    height: 7vh;
+  }

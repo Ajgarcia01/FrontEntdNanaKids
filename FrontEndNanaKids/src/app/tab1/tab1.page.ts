@@ -102,6 +102,7 @@ export class Tab1Page {
   async openModal(kid:Kid){
     const modal = await this.modalController.create({
       component: ModalAddKidPage,
+      cssClass: 'trasparent-modal',
       componentProps: {
         'kid': kid
       }
@@ -119,7 +120,7 @@ export class Tab1Page {
   async openModalEditKid(kid:Kid){
     const modal = await this.modalController.create({
       component: ModalEditKidPage,
-      cssClass: '',
+      cssClass: 'trasparent-modal',
       componentProps: {
         'kid': kid
       }

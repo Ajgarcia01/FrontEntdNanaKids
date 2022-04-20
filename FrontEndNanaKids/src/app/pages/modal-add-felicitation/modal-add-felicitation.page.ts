@@ -12,7 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-modal-add-felicitation',
   templateUrl: './modal-add-felicitation.page.html',
-  styleUrls: ['./modal-add-felicitation.page.scss'],
+  styleUrls: ['./modal-add-kid.page.scss',]['./global.scss'],
 })
 export class ModalAddFelicitationPage implements OnInit {
 
