@@ -21,35 +21,41 @@
         <ion-refresher-content>
         </ion-refresher-content>
       </ion-refresher>
-    <ion-slides [options]="slideOpt" *ngFor="let client of searchedUser">
-        <ion-slide>
+   
+            <center>
 
-            <ion-card>
-                <ion-card-header>
-                    <ion-card-title>{{client.name}}</ion-card-title>
-                    <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
-                   <br>
-                    <img src="https://st2.depositphotos.com/2931363/6511/i/600/depositphotos_65116237-stock-photo-happy-young-man-in-shirt.jpg" />
-                </ion-card-header>
-            </ion-card>
-        </ion-slide>
+                <ion-card *ngFor="let client of searchedUser">
+                    <ion-card-header>
+                        <ion-card-title>{{client.name}}</ion-card-title>
+                        <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
+                       
+                       <br>
+                        <img src="https://static1.abc.es/media/familia/2016/11/07/familia-monoparental-kjpB--620x349@abc.jpg" />
+                        <br>
+                        <tr>
+                            <td> <div class="supreme">
+                                <ion-fab-button color="danger" (click)="DeleteClient(client)">
+                                    <ion-icon name="trash"></ion-icon>
+                                </ion-fab-button>
+                            </div></td>
+                            <td>  <div class="edit">
+                                <ion-fab-button color="primary" (click)="editModal(client)">
+                                    <ion-icon name="create"></ion-icon>
+                                </ion-fab-button>
+                            </div></td>
+                        </tr>
+                    </ion-card-header>
+                </ion-card>
 
-        <ion-slide>
-            <div class="opcs">
-                <ion-fab-button color="danger" (click)="DeleteClient(client)">
-                    <ion-icon name="trash"></ion-icon>
-                </ion-fab-button>
-            </div>
+            </center>
+         
+      
 
-        </ion-slide>
-        <ion-slide>
-            <div class="opcs">
-                <ion-fab-button color="primary" (click)="editModal(client)">
-                    <ion-icon name="create"></ion-icon>
-                </ion-fab-button>
-            </div>
-        </ion-slide>
-    </ion-slides>
+      
+           
+
+       
+          
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addClient">
         <ion-fab-button (click)="openModal()" color="warning">

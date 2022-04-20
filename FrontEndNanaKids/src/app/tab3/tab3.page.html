@@ -16,40 +16,48 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-slides [options]="slideOpt" *ngFor="let felicitation of felicitations">
-    <ion-slide>
-      <ion-card>
-        <ion-card-header>
-         <!-- <img src= "https://www.kindpng.com/picc/m/552-5525706_globos-fiesta-png-imagenes-de-feliz-cumpleaos-capricornio.png" />-->
-          <img src= "{{felicitation.image}}" class="imgF"/>
-          <br>
-         <!-- <ion-card-title> ID: {{felicitation.id}}</ion-card-title> -->
-          <ion-card-subtitle> </ion-card-subtitle>
-          <ion-card-subtitle> Tipo : {{conversorTipo(felicitation)}}</ion-card-subtitle>
-          <ion-card-subtitle> Dia y mes de envio : {{felicitation.dateSend | date:'dd-MM'}}</ion-card-subtitle>
-          <ion-card-subtitle> Estado : {{conversorEstado(felicitation)}}</ion-card-subtitle>
-          
-        </ion-card-header>
-      </ion-card>
-    </ion-slide>
+  <center>
+    <ion-card *ngFor="let felicitation of felicitations">
+      <ion-card-header>
+       <!-- <img src= "https://www.kindpng.com/picc/m/552-5525706_globos-fiesta-png-imagenes-de-feliz-cumpleaos-capricornio.png" />-->
+        <img src= "{{felicitation.image}}" class="imgF"/>
+        <br>
+       <!-- <ion-card-title> ID: {{felicitation.id}}</ion-card-title> -->
+        <ion-card-subtitle> </ion-card-subtitle>
+        <ion-card-subtitle> Tipo : {{conversorTipo(felicitation)}}</ion-card-subtitle>
+        <ion-card-subtitle> Dia y mes de envio : {{felicitation.dateSend | date:'dd-MM'}}</ion-card-subtitle>
+        <ion-card-subtitle> Estado : {{conversorEstado(felicitation)}}</ion-card-subtitle>
+      </ion-card-header>
+      <br>
+      <tr>
+        <td>
+          <div class="supreme">
+          <ion-fab-button color="danger">
+            <ion-icon name="trash" (click)="deleteFelicitation(felicitation)"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </td>
+        <td>
+          <div class="edit">
+          <ion-fab-button (click)="openEditFelicitation(felicitation)" color="primary">
+            <ion-icon name="create"></ion-icon>
+          </ion-fab-button>
+        </div>
+       </td>
+      </tr>
+      <br>
+    </ion-card>
+  </center>    
+ 
+    
 
-    <ion-slide>
-      <div class="opcs">
-        <ion-fab-button color="danger">
-          <ion-icon name="trash" (click)="deleteFelicitation(felicitation)"></ion-icon>
-        </ion-fab-button>
-      </div>
+  
+ 
 
-    </ion-slide>
-    <ion-slide>
-      <div class="opcs">
-        <ion-fab-button (click)="openEditFelicitation(felicitation)" color="primary">
-          <ion-icon name="create"></ion-icon>
-        </ion-fab-button>
-      </div>
+    
+    
 
-    </ion-slide>
-  </ion-slides>
+
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addFeli">
     <ion-fab-button (click)="openCreateFelicitation(felicitacion)" color="warning">

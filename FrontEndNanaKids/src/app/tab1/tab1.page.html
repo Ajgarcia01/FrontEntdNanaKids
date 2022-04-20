@@ -23,35 +23,28 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-slides [options]="slideOpt"  *ngFor="let kid of searchedUser" >
-    <ion-slide>
-      <ion-card >
-        <ion-card-header>
-          <ion-card-subtitle color="dark">{{kid.name}}</ion-card-subtitle>
-          <ion-card-title color="dark">{{kid.birthDate| date:'dd-MM-yyyy'}}</ion-card-title>
-          <br>
-          <img src="https://img.remediosdigitales.com/63b6f9/bebe_1/1366_2000.jpg" />
-        </ion-card-header>
-      </ion-card>
-    </ion-slide>
- 
-    <ion-slide>
-      <div class="opcs">
-        <ion-fab-button color="danger" (click)="borrar(kid)" vertical="bottom">
-          <ion-icon name="trash"></ion-icon>
-        </ion-fab-button>
-      </div>
+  <center>
+    <ion-card  *ngFor="let kid of searchedUser" >
+      <ion-card-header>
+        <ion-card-subtitle color="dark">{{kid.name}}</ion-card-subtitle>
+        <ion-card-title color="dark">{{kid.birthDate| date:'dd-MM-yyyy'}}</ion-card-title>
       
-    </ion-slide>
-    <ion-slide>
-      <div class="opcs" >
-        <ion-fab-button (click)="openModalEditKid(kid)" color="primary">
+        <br>
+        <img src="https://img.remediosdigitales.com/63b6f9/bebe_1/1366_2000.jpg" />
+      </ion-card-header>
+  
+      <tr>
+        <td><ion-fab-button class="supreme" color="danger" (click)="borrar(kid)" vertical="bottom">
+          <ion-icon name="trash"></ion-icon>
+        </ion-fab-button></td>
+        <td> <ion-fab-button class="edit" (click)="openModalEditKid(kid)" color="primary">
           <ion-icon name="create"></ion-icon>
-        </ion-fab-button>
-      </div>
-    
-  </ion-slide>
-  </ion-slides>
+        </ion-fab-button></td>
+      </tr>        
+      <br>
+    </ion-card>
+  </center>
+     
 
       <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addKid">
         <ion-fab-button (click)="openModal()" color="warning">
