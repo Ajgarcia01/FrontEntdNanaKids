@@ -5,9 +5,9 @@
       <ion-title class="title">FELICITACIONES</ion-title>
     </center>
   </ion-toolbar>
-  <ion-item  color="dark">
-    <ion-label>Tipo de felicitacion</ion-label>
-    <ion-select (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert" >
+  <ion-item class="select">
+    <ion-label class="select">Tipo de felicitacion</ion-label>
+    <ion-select class="select"  (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert" >
       <ion-select-option value='1'>Cumpleaños</ion-select-option>
       <ion-select-option value='2'>Navidad</ion-select-option>
       <ion-select-option value='0'>Mostrar todos</ion-select-option>
