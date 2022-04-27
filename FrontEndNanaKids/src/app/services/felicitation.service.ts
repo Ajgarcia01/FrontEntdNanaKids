@@ -11,7 +11,7 @@ export class FelicitationService {
   constructor(private http:HttpClient) {}
 
   public async getCount():Promise<Number[]>{
-    let endpoint=environment.endpoint+environment.feliDaySearchByType+'1';
+    let endpoint=environment.endpoint+environment.feliCount;
     let count:any=await this.http.get(endpoint,this.header).toPromise();
     return count;
   }
