@@ -25,6 +25,6 @@ export const environment = {
   feliCount:'felicitation/count/',
   feliSent:'felicitation/change-to-sent/',
   feliUnSent:'felicitation/change-to-unsent/',
-  sendMessage:'message/',
+  sendMessage:'message',
   
 };

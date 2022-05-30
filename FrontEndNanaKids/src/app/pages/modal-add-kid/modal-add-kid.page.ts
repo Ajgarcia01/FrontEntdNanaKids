@@ -6,6 +6,7 @@ import { Kid } from 'src/app/model/Kid';
 import { Parent } from 'src/app/model/Parent';
 import { ClientService } from 'src/app/services/client.service';
 import { KidService } from 'src/app/services/kid.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-modal-add-kid',
@@ -24,27 +25,29 @@ export class ModalAddKidPage implements OnInit {
   selectedOption:boolean; //select gender
   selectedParent:Parent[]=[];
   
-  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController,private ClientService:ClientService) {
+  constructor(private fb:FormBuilder,private apiKid:KidService,private modalController:ModalController,private ClientService:ClientService,private toast:ToastService) {
 
-    this.formKid=this.fb.group({
-      name:["",Validators.required],
-      gender:[""],
-      birth_date:[""],
-      client:[],
-      felicitations:[],
-      id:-1
-
-    });
-
+   
     this.setToday();
 
    }
 
   ngOnInit() {
+
+     this.formKid=this.fb.group({
+      name:["",Validators.compose([Validators.required,Validators.minLength(1)])],
+      gender:["",Validators.required],
+      birth_date:[""],
+      client:[[],Validators.required],
+      felicitations:[],
+      id:-1
+      
+    });
+
   }
 
   async ionViewDidEnter(){
-    
+    this.formKid.invalid
     await this.getParents();
   
     
@@ -52,11 +55,13 @@ export class ModalAddKidPage implements OnInit {
 
   public async createKid(){
    
+    if(!this.formKid.valid) return;
+
     let newKid:Kid={
         name:this.formKid.get("name").value,
         birthDate:this.formattedString,
-        gender:this.selectedOption,
-        client:this.selectedParent,
+        gender:this.formKid.get("gender").value(this.selectedOption),
+        client:this.formKid.get("client").value(this.selectedParent),
         felicitations:[],
         id:-1
 
@@ -65,8 +70,10 @@ export class ModalAddKidPage implements OnInit {
       console.log(newKid);
         
       await this.apiKid.createKid(newKid);
-
+      await this.toast.presentToast("Felicitacion creada con exito",2000,"center","success");
+      await this.formKid.reset();
       this.modalController.dismiss(null , 'cancel');
+      
 
     } catch (err) {
       console.log(err);

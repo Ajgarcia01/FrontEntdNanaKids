@@ -4,6 +4,6 @@ import { Parent } from "./Parent";
 export interface messsage{
     message: string;
 	urlImage: string;
-	client: Parent;
+	client: Parent[];
 	felicitation: Felicitation;
 }

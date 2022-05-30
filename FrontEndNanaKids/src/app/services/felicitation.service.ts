@@ -29,6 +29,16 @@ export class FelicitationService {
     return felicitations;
 
   }
+
+
+  public async getFelicitationsByTypeAndDate(type:number):Promise<Felicitation[]>{
+    let endpoint = environment.endpoint+environment.feliSearchByTypeAndDate+type;
+    let felicitations:any = await this.http.get(endpoint,this.header).toPromise();
+    return felicitations;
+
+  }
+
+
   public async deleteFelicitation(felicitation:Felicitation):Promise<void>{
     const id:any = felicitation.id ? felicitation.id:felicitation;
     const endpoint = environment.endpoint+environment.apiFeli+id;

@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { messsage } from '../model/message';
 
 
+
+
 @Injectable({
     providedIn: 'root'
   })
@@ -13,10 +15,20 @@ import { messsage } from '../model/message';
 
 
     public async sendMessage(message:messsage):Promise<messsage>{
-        let endpoint="http://localhost:8100/"+environment.sendMessage;
-        let send:any=await this.http.post(endpoint,message,this.header).toPromise();
-        return send;
+        let endpoint=environment.endpoint+environment.sendMessage;
+        return new Promise ((resolve,reject)=>{
+          if(message){
+            this.http.post(endpoint,message,this.header).toPromise().then(d=>{
+              resolve(message);
+            }).catch(err=> reject(err));
+          }else{
+            reject('No hay resultados')
+          }
+        });
       }
+
+
+      
       private get header():any{
         return{
           'Access-Control-Allow-Origin':'*',

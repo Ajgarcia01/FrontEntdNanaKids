@@ -1,40 +1,71 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <ion-header>
   <ion-toolbar color="darking">
+    <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
+      <br>
+      <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
+    </ion-button>
     <center>
-      <ion-title>ENVIAR FELICITACION</ion-title>
+       <table>
+      <tr>
+  
+      <td> <i><img src="https://i.postimg.cc/sXvStnWH/send.png" class="send"></i></td>
+  
+      <td><h3>FELICITACIONES PENDIENTES: {{count}}</h3>
+      
+      </td>  
+    </tr>
+    </table>
     </center>
-    
+  
   </ion-toolbar>
 </ion-header>
 
 <ion-content >
-  <div class="top1">
-    <center>
-      <ion-chip color="white">
-          <ion-icon class="dateSize" name="calendar"></ion-icon>
-        <ion-label class="date">{{formattedString}}</ion-label>
-      </ion-chip>
-    </center>
-  </div>
-<div class="top2">
-    <center>
-    <ion-chip color="white">
-      <ion-icon class="iconSize" name="checkbox"></ion-icon>
-      <ion-label class="check">{{estadodelenvio}}</ion-label>
-    </ion-chip>
-  </center>
+ 
+  <table class="tabla">
+  <tr>
+  
+      <td> <i><img src="https://i.postimg.cc/cH2YZQMx/date.png" alt=""></i></td>
+  
+      <td><h1>
+        <span>{{formattedString}}</span>
+        <span>{{formattedString}}</span>
+      </h1>
+      
+      </td>  
+    </tr>
+
+    <tr>
+  
+      <td> <i><img src="https://i.postimg.cc/DzCLpVSb/check.png" alt=""></i></td>
+  
+      <td><h1>
+        <span>{{estadodelenvio}}</span>
+        <span>{{estadodelenvio}}</span>
+      </h1>
+      
+      </td>  
+    </tr>
+  
+    
+    
+     
+  </table>
+  
+  <div class="fondo">
+        <center>
+         <ion-button class="button2" size="large" (click)="sendMessage()">ENVIAR</ion-button> 
+        </center>
+    
+  
 </div>
-<div class="top3">
-   <center>
-    <ion-chip color="white">
-      <ion-icon class="iconSize" name="person"></ion-icon>
-      <ion-label class="person">{{count}}</ion-label>
-    </ion-chip>
-  </center>
-</div>
-<div class="button">
-  <center>
-     <ion-button class="button2" size="large" (click)="sendMessage()">ENVIAR</ion-button>
-  </center>
-</div>
+
+
+  
+<ion-refresher slot="fixed" (ionRefresh)="countFelicitation($event)">
+  <ion-refresher-content>
+  </ion-refresher-content>
+</ion-refresher>
 </ion-content>

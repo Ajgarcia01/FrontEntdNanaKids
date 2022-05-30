@@ -52,6 +52,8 @@ export class Tab3Page {
   async ionViewDidEnter(){
     
     await this.getFelicitations();
+
+    
     
   }
   public async recoverAlertValue(event:CustomEvent){

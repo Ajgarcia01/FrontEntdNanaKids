@@ -1,43 +1,73 @@
-.card{
-    margin-top: 80px;
-    margin-bottom: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-ion-button{
-    margin-top: 20px;
-    margin-bottom: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
 
 ion-content{
-    --background:url('https://s1.1zoom.me/big0/297/Toys_Airplane_567900_1280x937.jpg');
+ 
+    --background:url('https://i.postimg.cc/Wz2jBjpt/personaje.jpg');
+
+    width: 60vh;
+   
+}
+
+ion-input{
+ 
+    --background:url('https://i.postimg.cc/Wz2jBjpt/personaje.jpg');
+
+    width: 60vh;
    
 }
 
 .logo{
-            background-position: center center;
-			background-repeat:  no-repeat;
-			background-attachment: fixed;
-			background-size:  cover;
-            margin-bottom: 10px;
+   
+    margin-top: -10px;
+    margin-bottom: -220px;
+    margin-right: 50px;
 }
 
+
 .form1{
-    margin-bottom: 40px;
+    margin-top: 5vh;
 }
 
 .form2{
-    margin-bottom: 60px;
+    
+    padding: 50px;
+
+
+}
+
+.card{
+    flex: 1;
+    margin-top: 52vh;
+    margin-left: 8vh;
+    margin-right: 12vh;
+    width: 35vh;
+    height: 35vh;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
 }
 
 ion-card{
-    background-color: #164b81;
+    background-color: #ffc00e;
 }
 
 span{
     font-size: 15px;
+    color: black;
 }
+
+.button{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    --background: #164b81;
+}
+
+.campos{
+    color: #000000;
+    --ion-item-background:#ffc00e;
+}
+
+ion-input{
+    --background: #ffc00e;
+    }
 

@@ -1,48 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <center>
+    <div class="logo" > <img src="https://i.postimg.cc/nLWBbsB4/logo2.png"> </div>
+     
+  </center>
+  
   <style>
     
   </style>
     <div>
-      <ion-card class="card" >
-        <ion-card-content>
-          <center>
-            <img class="logo" src="https://i.postimg.cc/nLWBbsB4/logo2.png"> 
-          </center>
-          <form [formGroup]="formAdmin">
-            <div class="form1">
-             <ion-item color="white"  class="campos">
-              <br>
-              <span class="ion-float-sm-left">Usuario:</span>
-              <ion-label></ion-label>
-              <ion-input  formControlName="email" type="text" #email required placeholder="Introduzca el usuario"></ion-input>
-            </ion-item> 
-            </div>
-            <div  class="form2">
-              <ion-item color="white" lines="full">
-                <span class="ion-float-sm-left">Contraseña:</span>
-                <ion-label></ion-label>
-                <ion-input formControlName="password"  type="password" #password required placeholder="Introduzca contraseña">
-                </ion-input>
-                </ion-item>
-            </div>
-        </form>
-        <div class="button">
-          <ion-row>
-            <ion-col > 
-              <ion-button (click)="logIn()" color="warning" expand="block">Iniciar Sesión &nbsp;
-                <ion-icon name="log-in"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>  
+      <ion-card class="card">
+       
+        <form [formGroup]="formAdmin">
+          <div class="form1">
+           <ion-item class="campos">
+            <br>
+           
+            <ion-label></ion-label>
+            <ion-input  formControlName="email" type="text" #email required placeholder="Introduzca el usuario"></ion-input>
+          </ion-item> 
+          <ion-item class="campos">
+           
+            <ion-label></ion-label>
+            <ion-input formControlName="password"  type="password" #password required placeholder="Introduzca contraseña">
+            </ion-input>
+            </ion-item>
+            <ion-button (click)="logIn()" class="button" expand="block">Iniciar Sesión &nbsp;
+              <ion-icon name="log-in"></ion-icon>
+            </ion-button>
           </div>
-        </ion-card-content>
+      </form>
       </ion-card>
+      
     </div>
    
 </ion-content>
