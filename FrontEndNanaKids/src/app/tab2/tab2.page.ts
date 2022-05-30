@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Parent } from '../model/Parent';
 import { ModalAddParentPage } from '../pages/modal-add-parent/modal-add-parent.page';
 import { ModalEditParentPage } from '../pages/modal-edit-parent/modal-edit-parent.page';
 import { ClientService } from '../services/client.service';
+import { StorageService } from '../services/storage.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -19,10 +21,15 @@ export class Tab2Page {
   miLoading:HTMLIonLoadingElement
 
   constructor(private servicioClient: ClientService, private alertController:AlertController,
-    public modalController:ModalController,private loading:LoadingController,private toast:ToastService) { }
+    public modalController:ModalController,private loading:LoadingController,private toast:ToastService,private storage:StorageService,private router:Router) { }
 
 
-  async ionViewDidEnter() {
+  async ionViewDidEnter() {   
+    let user= await this.storage.getItem('user');
+  if(user==null){
+    this.router.navigate(['']);
+
+  }
 
     await this.getClients();
     this.searchedUser = this.clients;
@@ -35,7 +42,6 @@ export class Tab2Page {
     try{
       this.clients = await this.servicioClient.getClient();
     }catch(err){
-      console.error(err);
       //await this.presentToast("Error cargando datos","danger",'bottom');
     } finally{
       if(event){

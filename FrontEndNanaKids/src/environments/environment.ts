@@ -5,15 +5,15 @@
 export const environment = {
   production: false,
   
-   firebaseConfig : {
-    apiKey: "AIzaSyAtXVPKiFM1SE4c9eSUuCaZTj0lfl3jSxk",
-    authDomain: "nanakids.firebaseapp.com",
-    projectId: "nanakids",
-    storageBucket: "nanakids.appspot.com",
-    messagingSenderId: "58574132844",
-    appId: "1:58574132844:web:def5b24d767cd32faaea49",
-    measurementId: "G-W0C40SEPCN"
-  },
+ // Your web app's Firebase configuration
+ firebaseConfig : {
+  apiKey: "AIzaSyA8ReMge0Dq3bz-hPSzFf1Xwrrh4upW8OY",
+  authDomain: "nanakids-3f532.firebaseapp.com",
+  projectId: "nanakids-3f532",
+  storageBucket: "nanakids-3f532.appspot.com",
+  messagingSenderId: "189754207132",
+  appId: "1:189754207132:web:2e91824524c91ae62a7659"
+},
   
   endpoint:'https://nanakidsbackends.herokuapp.com/',
   apiKid:'kid/',
