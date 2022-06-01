@@ -5,4 +5,11 @@
         "secure":false,
         "logeLevel":"debug"
     }
+,
+    "/message":{
+        "target":"http://localhost:8080",
+        "changeOrigin":true,
+        "secure":false,
+        "logeLevel":"debug"
+    }
 }

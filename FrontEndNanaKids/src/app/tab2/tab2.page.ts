@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import {  Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Parent } from '../model/Parent';
 import { ModalAddParentPage } from '../pages/modal-add-parent/modal-add-parent.page';
 import { ModalEditParentPage } from '../pages/modal-edit-parent/modal-edit-parent.page';
 import { ClientService } from '../services/client.service';
+import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -24,7 +26,7 @@ export class Tab2Page {
     imagenPadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/dad_aifb6d.png";
     imagenMadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/mother_n9z4vq.png";
   constructor(private servicioClient: ClientService, private alertController:AlertController,
-    public modalController:ModalController,private loading:LoadingController,private toast:ToastService) { }
+    public modalController:ModalController,private loading:LoadingController,private toast:ToastService, private route: Router,private data:DataService) { }
 
     mostrarFoto(client:Parent):string{
       if(!client.type){
@@ -121,6 +123,7 @@ export class Tab2Page {
   async openModal(parent:Parent){
     const modal = await this.modalController.create({
       component: ModalAddParentPage,
+      cssClass: 'trasparent-modal',
       componentProps: {
         'parent': parent
       }
@@ -132,6 +135,7 @@ export class Tab2Page {
  async editModal(parent:Parent){
   const modal = await this.modalController.create({
     component: ModalEditParentPage,
+    cssClass: 'trasparent-modal',
     componentProps: {
       'parent': parent
     }
@@ -140,5 +144,14 @@ export class Tab2Page {
   return await modal.present();
 
  }
+
+ async atras(){
+  await this.route.navigate(['home']);
+ }
+
+ exportToExcel() {
+  this.data.exportToExcel(this.clients, 'Clientes');
+}
+
 
 }

@@ -1,22 +1,30 @@
-<ion-header [translucent]="true">
-    <ion-toolbar color="black">
-        <center>
-            <ion-title class="title">CLIENTES</ion-title>
-        </center>
-        <ion-buttons slot="start">
-            <ion-button>
-                <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-    <ion-toolbar color="darking">
-        <ion-searchbar placeholder="Nombre del cliente" [animated]="true" (ionChange)="buscar($event)"> </ion-searchbar>
-    </ion-toolbar>
-</ion-header>
 
 
 
 <ion-content [fullscreen]="true">
+    <ion-header [translucent]="true">
+        <ion-toolbar color="black">
+            <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
+                <br>
+               
+                <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
+              </ion-button>
+            <center>
+                <ion-title class="title">CLIENTES</ion-title>
+            </center>
+            <ion-buttons slot="start">
+                <ion-button (click)="atras()">
+                    <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar color="darking">
+            <br>
+            <ion-searchbar placeholder="Nombre del cliente" [animated]="true" color="dark" (ionChange)="buscar($event)"> </ion-searchbar>
+            <br>
+        </ion-toolbar>
+    </ion-header>
+    
     <ion-refresher slot="fixed" (ionRefresh)="getClients($event)">
         <ion-refresher-content>
         </ion-refresher-content>

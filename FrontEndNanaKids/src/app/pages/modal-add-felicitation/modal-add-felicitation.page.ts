@@ -1,5 +1,6 @@
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { FelicitationService } from 'src/app/services/felicitation.service';
 import { Kid } from 'src/app/model/Kid';
@@ -63,6 +64,7 @@ export class ModalAddFelicitationPage implements OnInit {
 
   fraseNanakids:string="";
 
+
   //BOTON DESHABILITADO
   public disabledDescargar = true;
   public disabledCrear = true;
@@ -77,10 +79,40 @@ export class ModalAddFelicitationPage implements OnInit {
       kid: [],
       estate: false,
       image: "",
+
+  public formFelicitation:FormGroup;
+  public form:FormGroup;
+  
+  selectedType:number;  //Tipo felicitacion
+  selectedKid:Kid;    // Niñ@ seleccionado
+  kid:Kid;
+  kids:Kid[] =[];
+  constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,
+    private modalController:ModalController, private kidService:KidService,public toast: ToastService) {
+    
+    
+
+    
+    
+  }
+  
+  ngOnInit() {
+    
+    this.form = this.fb.group({
+      multipartFile:[null]
+    })
+
+    this.formFelicitation=this.fb.group({
+      type:[[],Validators.required],
+      kid:[[],Validators.required],
+      estate:false,
+      image:"",
+
       dateSend: undefined,
       id: -1
 
     });
+
 
     this.form = this.fb.group({
       multipartFile: [null]
@@ -89,7 +121,9 @@ export class ModalAddFelicitationPage implements OnInit {
   }
 
   async ngOnInit() {
+
   }
+    
   async ionViewDidEnter() {
 
     await this.getKidS();

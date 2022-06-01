@@ -25,24 +25,6 @@ ion-button{
 
 }
 
-ion-modal{
-   
-    --background:rgba(36, 36, 36, 0.2);
-
-    &::part(content){
-        backdrop-filter:blur(6px);
-    }
-
-    ion-content {
-        --background: transparent;
-        --padding-top:25vh;
-        --padding-start:20px;
-        --padding-end:20px;
-        ion-datetime{
-            border-radius: 8px;
-        }
-    }
-}
 
 
 ion-label{
