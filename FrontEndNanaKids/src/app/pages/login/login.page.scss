@@ -1,47 +1,87 @@
-
-
-.card{
+.card {
     margin-top: 80px;
     margin-bottom: 50px;
     margin-left: 20px;
     margin-right: 20px;
 }
 
-ion-button{
+ion-button {
     margin-top: 20px;
     margin-bottom: 30px;
     margin-left: 20px;
     margin-right: 20px;
 }
-
-ion-content{
-    --background:url('https://s1.1zoom.me/big0/297/Toys_Airplane_567900_1280x937.jpg');
-   
+element.style {
+    display: grid;
 }
 
-.logo{
-            background-position: center center;
-			background-repeat:  no-repeat;
-			background-attachment: fixed;
-			background-size:  cover;
-            margin-bottom: 10px;
+ion-content {
+    --background: url('https://s1.1zoom.me/big0/297/Toys_Airplane_567900_1280x937.jpg');
+
 }
 
-.form1{
+.logo {
+    width: 85%; margin-top: 15%;
+}
+
+.form1 {
     margin-bottom: 40px;
 }
 
-.form2{
+.form2 {
     margin-bottom: 60px;
 }
 
-ion-card{
+ion-card {
     background-color: #164b81;
 }
 
-span{
+
+
+span {
     font-size: 15px;
 }
 
+.inputItem {
+    --background: white;
+    --border-radius: 16px;
+    --border-color: #000558;
+    --border-width: 1px;
+    margin: 32px
+}
 
-  
+
+.loginIcon {
+    margin-top: 22px;
+    margin-right: auto;
+    padding-right: 20px;
+    color: #4d4d4d;
+}
+
+
+.inputLabel {
+    color: #000558;
+
+}
+
+.inputs {
+    font-size: 18px;
+    caret-color: #000558;
+    color: black;
+
+}
+
+.loginButton {
+    margin-left: 32%;
+    margin-right: 32%;
+    --background: yellow;
+    color: black;
+    --border-radius: 16px;
+    text-align: center;
+    --ripple-color: #dbdbdb;
+
+    #loginButtonText {
+
+        margin: 20px;
+    }
+}

@@ -1,49 +1,47 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<ion-content [fullscreen]="true">
   <style>
-    
+
   </style>
-    <div>
-      <ion-card class="card" >
-        <ion-card-content>
-          <center>
-            <img class="logo" src="https://i.postimg.cc/nLWBbsB4/logo2.png"> 
-          </center>
-          <form [formGroup]="formAdmin">
-            <div class="form1">
-             <ion-item color="white"  class="campos">
-              <br>
-              <span class="ion-float-sm-left">Usuario:</span>
-              <ion-label></ion-label>
-              <ion-input  formControlName="email" type="text" #email required placeholder="Introduzca el usuario"></ion-input>
-            </ion-item> 
-            </div>
-            <div  class="form2">
-              <ion-item color="white" lines="full">
-                <span class="ion-float-sm-left">Contraseña:</span>
-                <ion-label></ion-label>
-                <ion-input formControlName="password"  type="password" #password required placeholder="Introduzca contraseña">
-                </ion-input>
-                </ion-item>
-            </div>
-        </form>
-        <div class="button">
-          <ion-row>
-            <ion-col > 
-              <ion-button (click)="logIn()" color="warning" expand="block">Iniciar Sesión &nbsp;
-                <ion-icon name="log-in"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>  
+  <div>
+    <ion-card class="card">
+      <ion-card-header>
+        
+          <ion-img src="https://i.postimg.cc/90GKz2Kh/logo2.png" style="width: 50%; display: block; margin-left: auto; margin-right: auto;"></ion-img>
+        
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="formAdmin">
+          <ion-item lines="none" class="inputItem">
+            <ion-icon slot="start" class="loginIcon" name="person"></ion-icon>
+            <ion-label position="floating" class="inputLabel">
+              Usuario
+            </ion-label>
+            <ion-input class="inputs" formControlName="email"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="inputItem">
+            <ion-icon slot="start" class="loginIcon" name="shield-half-sharp"></ion-icon>
+            <ion-label position="floating" class="inputLabel">
+              Contraseña
+            </ion-label>
+            <ion-input class="inputs" type="password" formControlName="password" clearOnEdit="false"></ion-input>
+          </ion-item>
+
+          <div style="text-align: center; padding-top: 32px; padding-bottom: 16px;">
+            <ion-item class="loginButton" (click)="logIn()" button="true" lines="none">
+              <ion-label style=" font-size: 18px;">Iniciar
+                sesión</ion-label>
+            </ion-item>
           </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+
+
+
 
 
 </ion-content>
