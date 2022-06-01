@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Parent } from '../model/Parent';
@@ -12,62 +12,59 @@ import { ToastService } from '../services/toast.service';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
   client: Parent
   clients: Parent[] = []
   gender: boolean = true
   searchedUser: any;
-  miLoading:HTMLIonLoadingElement
-/*
-    IMAGEN CAMBIANTE
-  */
-    imagenCliente:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652730991/padres_qkes3d.png";
-    imagenPadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/dad_aifb6d.png";
-    imagenMadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/mother_n9z4vq.png";
-  constructor(private servicioClient: ClientService, private alertController:AlertController,
+  miLoading: HTMLIonLoadingElement
+  /*
+      IMAGEN CAMBIANTE
+    */
+  imagenCliente: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652730991/padres_qkes3d.png";
+  imagenPadre: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/dad_aifb6d.png";
+  imagenMadre: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/mother_n9z4vq.png";
+  constructor(private servicioClient: ClientService, private alertController: AlertController,
+    public modalController: ModalController, private loading: LoadingController, 
+    private toast: ToastService, private storage: StorageService, 
+    private router: Router, private data: DataService) { }
 
-    public modalController:ModalController,private loading:LoadingController,private toast:ToastService,private storage:StorageService,private router:Router,private data:DataService) { }
-
-
-  async ionViewDidEnter() {   
-    let user= await this.storage.getItem('user');
-  if(user==null){
-    this.router.navigate(['']);
-    
-     await this.getClients();
-    this.searchedUser = this.clients;
-
-  }
-
-    mostrarFoto(client:Parent):string{
-      if(!client.type){
-        return this.imagenPadre;
-      }else if(client.type){
-        return this.imagenMadre;
-      }else{
-        return this.imagenCliente;
-      }
-    }
   async ionViewDidEnter() {
+    let user = await this.storage.getItem('user');
+    if (user == null) {
+      this.router.navigate(['']);
 
-
-   
+    }
+    await this.getClients();
+      this.searchedUser = this.clients;
   }
-  public async getClients(event?){
-    if(!event){
+
+  mostrarFoto(client: Parent): string {
+    if (!client.type) {
+      return this.imagenPadre;
+    } else if (client.type) {
+      return this.imagenMadre;
+    } else {
+      return this.imagenCliente;
+    }
+  }
+
+
+  async getClients(event?) {
+    if (!event) {
       await this.presentLoading();
     }
     this.clients = [];
-    try{
+    try {
       this.clients = await this.servicioClient.getClient();
-    }catch(err){
+    } catch (err) {
       //await this.presentToast("Error cargando datos","danger",'bottom');
-    } finally{
-      if(event){
+    } finally {
+      if (event) {
         event.target.complete();
-      }else{
+      } else {
         await this.miLoading.dismiss();
       }
     }
@@ -80,35 +77,35 @@ export class Tab2Page {
     await this.miLoading.present();
   }
 
-  public async getclientsid(client: Parent) {
+  async getclientsid(client: Parent) {
     this.client = await this.servicioClient.GetClientByID(client.id);
     console.log(this.client);
   }
 
   public async DeleteClient(client: Parent) {
-    
+
     const alert = await this.alertController.create({
-      header:'Confirmación',
-      message:'Estas seguro de que quieres eliminar',
+      header: 'Confirmación',
+      message: 'Estas seguro de que quieres eliminar',
       buttons: [
         {
-          text:'Cancelar',
-          handler:(blah)=>{
+          text: 'Cancelar',
+          handler: (blah) => {
             //nada
           }
         },
         {
-          text:'Eliminar',
-          handler: async()=>{
+          text: 'Eliminar',
+          handler: async () => {
             try {
               await this.servicioClient.DeleteClient(client.id);
               console.log(client);
               //Para recargar la lista
-              let i = this.clients.indexOf(client,0);
-              if(i>-1){
-                this.clients.splice(i,1);
+              let i = this.clients.indexOf(client, 0);
+              if (i > -1) {
+                this.clients.splice(i, 1);
               }
-              this.toast.presentToast("Cliente borrado con exito",2000,"center","danger");
+              this.toast.presentToast("Cliente borrado con exito", 2000, "center", "danger");
             } catch (error) {
               console.log(error);
             }
@@ -132,7 +129,7 @@ export class Tab2Page {
     }
   }
 
-  async openModal(parent:Parent){
+  async openModal(parent: Parent) {
     const modal = await this.modalController.create({
       component: ModalAddParentPage,
       cssClass: 'trasparent-modal',
@@ -144,26 +141,28 @@ export class Tab2Page {
     return await modal.present();
   }
 
- async editModal(parent:Parent){
-  const modal = await this.modalController.create({
-    component: ModalEditParentPage,
-    cssClass: 'trasparent-modal',
-    componentProps: {
-      'parent': parent
-    }
-  });
-  //this.closeSliding();
-  return await modal.present();
+  async editModal(parent: Parent) {
+    const modal = await this.modalController.create({
+      component: ModalEditParentPage,
+      cssClass: 'trasparent-modal',
+      componentProps: {
+        'parent': parent
+      }
+    });
+    //this.closeSliding();
+    return await modal.present();
 
- }
+  }
 
- async atras(){
-  await this.route.navigate(['home']);
- }
+  async atras() {
+    await this.router.navigate(['home']);
+  }
 
- exportToExcel() {
-  this.data.exportToExcel(this.clients, 'Clientes');
+  exportToExcel() {
+    this.data.exportToExcel(this.clients, 'Clientes');
+  }
+
+
 }
 
 
-}

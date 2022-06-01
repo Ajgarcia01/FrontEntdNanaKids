@@ -1,26 +1,12 @@
-
-<ion-header [translucent]="true">
-    <ion-toolbar color="black">
-        <center>
-            <ion-title class="title">CLIENTES</ion-title>
-        </center>
-    </ion-toolbar>
-    <ion-toolbar color="darking">
-        <ion-searchbar placeholder="Nombre del cliente" [animated]="true" (ionChange)="buscar($event)"> </ion-searchbar>
-    </ion-toolbar>
-</ion-header>
-
-
-
-
 <ion-content [fullscreen]="true">
     <ion-header [translucent]="true">
         <ion-toolbar color="black">
             <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
                 <br>
-               
-                <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
-              </ion-button>
+
+                <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png"
+                        class="excel"></i>
+            </ion-button>
             <center>
                 <ion-title class="title">CLIENTES</ion-title>
             </center>
@@ -32,42 +18,48 @@
         </ion-toolbar>
         <ion-toolbar color="darking">
             <br>
-            <ion-searchbar placeholder="Nombre del cliente" [animated]="true" color="dark" (ionChange)="buscar($event)"> </ion-searchbar>
+            <ion-searchbar placeholder="Nombre del cliente" [animated]="true" color="dark" (ionChange)="buscar($event)">
+            </ion-searchbar>
             <br>
         </ion-toolbar>
     </ion-header>
-    
+
     <ion-refresher slot="fixed" (ionRefresh)="getClients($event)">
         <ion-refresher-content>
         </ion-refresher-content>
-      </ion-refresher>
-   
-            <center>
+    </ion-refresher>
 
-                <ion-card *ngFor="let client of searchedUser">
-                    <ion-card-header>
-                        <ion-card-title>{{client.name}}</ion-card-title>
-                        <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
-                       
-                       <br>
-                       <img src="{{mostrarFoto(client)}}" style="background-color:white; padding-top: 5px;"/>
-                        <br>
-                        <tr>
-                            <td> <div class="supreme">
-                                <ion-fab-button color="danger" (click)="DeleteClient(client)">
-                                    <ion-icon name="trash"></ion-icon>
-                                </ion-fab-button>
-                            </div></td>
-                            <td>  <div class="edit">
-                                <ion-fab-button color="primary" (click)="editModal(client)">
-                                    <ion-icon name="create"></ion-icon>
-                                </ion-fab-button>
-                            </div></td>
-                        </tr>
-                    </ion-card-header>
-                </ion-card>
+    <center>
 
-            </center>
+        <ion-card *ngFor="let client of searchedUser">
+            <ion-card-header>
+                <ion-card-title>{{client.name}}</ion-card-title>
+                <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
+
+                <br>
+                <img src="https://static1.abc.es/media/familia/2016/11/07/familia-monoparental-kjpB--620x349@abc.jpg" />
+                <br>
+                <tr>
+                    <td>
+                        <div class="supreme">
+                            <ion-fab-button color="danger" (click)="DeleteClient(client)">
+                                <ion-icon name="trash"></ion-icon>
+                            </ion-fab-button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="edit">
+                            <ion-fab-button color="primary" (click)="editModal(client)">
+                                <ion-icon name="create"></ion-icon>
+                            </ion-fab-button>
+                        </div>
+                    </td>
+                </tr>
+            </ion-card-header>
+        </ion-card>
+
+    </center>
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addClient">
         <ion-fab-button (click)="openModal()" color="warning">
             <!--Imagen del boton-->
