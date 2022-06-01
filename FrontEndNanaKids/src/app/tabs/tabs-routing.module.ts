@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-
+import { AuthguardService } from '../services/authguard.service';
 const routes: Routes = [
   {
     path: 'tabs',
@@ -25,10 +25,10 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: 'private/tabs/tab1',
         pathMatch: 'full'
-      }
-    ]
+      },
+    ],
   },
   {
     path: '',
@@ -40,4 +40,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

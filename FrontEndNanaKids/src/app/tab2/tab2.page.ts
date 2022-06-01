@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Parent } from '../model/Parent';
 import { ModalAddParentPage } from '../pages/modal-add-parent/modal-add-parent.page';
 import { ModalEditParentPage } from '../pages/modal-edit-parent/modal-edit-parent.page';
 import { ClientService } from '../services/client.service';
+import { StorageService } from '../services/storage.service';
 import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
 
@@ -26,7 +27,19 @@ export class Tab2Page {
     imagenPadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/dad_aifb6d.png";
     imagenMadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/mother_n9z4vq.png";
   constructor(private servicioClient: ClientService, private alertController:AlertController,
-    public modalController:ModalController,private loading:LoadingController,private toast:ToastService, private route: Router,private data:DataService) { }
+
+    public modalController:ModalController,private loading:LoadingController,private toast:ToastService,private storage:StorageService,private router:Router,private data:DataService) { }
+
+
+  async ionViewDidEnter() {   
+    let user= await this.storage.getItem('user');
+  if(user==null){
+    this.router.navigate(['']);
+    
+     await this.getClients();
+    this.searchedUser = this.clients;
+
+  }
 
     mostrarFoto(client:Parent):string{
       if(!client.type){
@@ -39,8 +52,8 @@ export class Tab2Page {
     }
   async ionViewDidEnter() {
 
-    await this.getClients();
-    this.searchedUser = this.clients;
+
+   
   }
   public async getClients(event?){
     if(!event){
@@ -50,7 +63,6 @@ export class Tab2Page {
     try{
       this.clients = await this.servicioClient.getClient();
     }catch(err){
-      console.error(err);
       //await this.presentToast("Error cargando datos","danger",'bottom');
     } finally{
       if(event){

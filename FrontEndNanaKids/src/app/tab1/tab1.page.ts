@@ -7,6 +7,7 @@ import { ModalEditKidPage } from '../pages/modal-edit-kid/modal-edit-kid.page';
 import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
 import { KidService } from '../services/kid.service';
+import { StorageService } from '../services/storage.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -33,7 +34,11 @@ export class Tab1Page {
  
 
   constructor(private apiKid:KidService,public modalController:ModalController,
-    private router:Router,private alert:AlertController, private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService) {}
+
+    private router:Router,private alert:AlertController,
+    private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService,
+    private storage:StorageService) {}
+
     
     mostrarFoto(kid:Kid):string{
       if(kid.gender){
@@ -48,10 +53,16 @@ export class Tab1Page {
     private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService,private data:DataService) {}
 
 
+
   /**
    * 
    */
    async ionViewDidEnter(){
+    let user= await this.storage.getItem('user');
+    if(user==null){
+      this.router.navigate(['']);
+
+    }
     
     await this.getKids();
     this.searchedUser=this.kids;
@@ -182,10 +193,7 @@ export class Tab1Page {
         handler: async () => {
           try{
             await this.authS.logout();
-            this.router.navigate(['']);
-            console.log("usuario logout");
-            
-            
+            this.router.navigate(['']);                     
           }catch(err) {
             console.log(err);
             

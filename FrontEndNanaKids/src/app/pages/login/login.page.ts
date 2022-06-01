@@ -11,44 +11,46 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  person:Admin;
-  public formAdmin:FormGroup;
+  person: Admin;
+  public formAdmin: FormGroup;
 
-  constructor(private router:Router,private authS:AuthService,private fb:FormBuilder,private toast:ToastController,private alert:AlertController) {
-    this.formAdmin=this.fb.group({
-      email:["",[Validators.required,Validators.email]],
-      password:["",Validators.required],
+  constructor(private router: Router, private authS: AuthService, private fb: FormBuilder, private toast: ToastController, private alert: AlertController) {
+    this.formAdmin = this.fb.group({
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required],
     });
 
   }
 
-  ngOnInit() {
+ async ngOnInit() {
     
-  }
-
-  ionViewWillEnter(){
-/*
-    if(this.authS.isLogged()){
-      this.router.navigate(['home/tabs/tab1']);
+    if (await this.authS.isLogged()) {
+      this.router.navigate(['private/tabs/tab1']);
     }
-  */  
-    
     
   }
 
+  async ionViewWillEnter() {
+
+    if (await this.authS.isLogged()) {
+      this.router.navigate(['private/tabs/tab1']);
+    }
+
+
+
+  }
 
   public async logIn() {
-    if(!this.formAdmin.valid) return;
+    if (!this.formAdmin.valid) return;
 
     try {
-      await this.authS.login(this.formAdmin.value.email,this.formAdmin.value.password);
-      
-        await this.router.navigate(['home/tabs/tab1']);
-      
+      await this.authS.login(this.formAdmin.value.email, this.formAdmin.value.password)
+
+
     } catch (error) {
       this.presentToast();
-      console.log(error);
-      
+      console.log("oaoaoaoaoaoaoaoa");
+
     }
 
   }
@@ -56,11 +58,11 @@ export class LoginPage implements OnInit {
   async presentToast() {
     const toast = await this.toast.create({
       message: "Inserte un correo valido",
-      position:'top'
+      position: 'top'
     });
     toast.present();
   }
 
- 
+
 
 }

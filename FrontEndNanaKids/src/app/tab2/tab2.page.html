@@ -1,4 +1,16 @@
 
+<ion-header [translucent]="true">
+    <ion-toolbar color="black">
+        <center>
+            <ion-title class="title">CLIENTES</ion-title>
+        </center>
+    </ion-toolbar>
+    <ion-toolbar color="darking">
+        <ion-searchbar placeholder="Nombre del cliente" [animated]="true" (ionChange)="buscar($event)"> </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+
 
 
 <ion-content [fullscreen]="true">
