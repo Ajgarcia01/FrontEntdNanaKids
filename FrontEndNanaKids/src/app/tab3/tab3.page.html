@@ -1,13 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="darking">
-    
+    <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
+      <br>
+     
+      <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
+    </ion-button>
     <center>
       <ion-title class="title">FELICITACIONES</ion-title>
     </center>
   </ion-toolbar>
-  <ion-item  color="dark">
-    <ion-label>Tipo de felicitacion</ion-label>
-    <ion-select (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert" >
+  <ion-item class="select">
+    <ion-label class="select">Tipo de felicitacion</ion-label>
+    <ion-select class="select"  (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert" >
       <ion-select-option value='1'>Cumpleaños</ion-select-option>
       <ion-select-option value='2'>Navidad</ion-select-option>
       <ion-select-option value='0'>Mostrar todos</ion-select-option>
@@ -16,18 +20,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+ 
+
   <center>
-    <ion-card *ngFor="let felicitation of felicitations">
+    <ion-card  *ngFor="let felicitation of felicitations"> 
       <ion-card-header>
-       <!-- <img src= "https://www.kindpng.com/picc/m/552-5525706_globos-fiesta-png-imagenes-de-feliz-cumpleaos-capricornio.png" />-->
-        <img src= "{{felicitation.image}}" class="imgF"/>
-        <br>
-       <!-- <ion-card-title> ID: {{felicitation.id}}</ion-card-title> -->
-        <ion-card-subtitle> </ion-card-subtitle>
-        <ion-card-subtitle> Tipo : {{conversorTipo(felicitation)}}</ion-card-subtitle>
-        <ion-card-subtitle> Dia y mes de envio : {{felicitation.dateSend | date:'dd-MM'}}</ion-card-subtitle>
-        <ion-card-subtitle> Estado : {{conversorEstado(felicitation)}}</ion-card-subtitle>
+        <img src= "{{felicitation.image}}" class="module"/>
       </ion-card-header>
+      <ion-card-content>
+
+        <div class="mid">
+          <h1>{{felicitation.kid.name}}</h1>
+          <h2>{{felicitation.kid.birthDate}}</h2>
+        </div>
+        
+      </ion-card-content>
       <br>
       <tr>
         <td>
@@ -48,16 +55,6 @@
       <br>
     </ion-card>
   </center>    
- 
-    
-
-  
- 
-
-    
-    
-
-
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addFeli">
     <ion-fab-button (click)="openCreateFelicitation(felicitacion)" color="warning">

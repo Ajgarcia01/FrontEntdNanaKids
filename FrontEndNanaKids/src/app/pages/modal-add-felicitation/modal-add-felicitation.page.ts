@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { FelicitationService } from 'src/app/services/felicitation.service';
 import { Kid } from 'src/app/model/Kid';
@@ -12,7 +12,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-modal-add-felicitation',
   templateUrl: './modal-add-felicitation.page.html',
-  styleUrls: ['./modal-add-felicitation.page.scss'],
+  styleUrls: ['./modal-add-felicitation.page.scss']['./global.scss'],
 })
 export class ModalAddFelicitationPage implements OnInit {
 
@@ -26,9 +26,21 @@ export class ModalAddFelicitationPage implements OnInit {
   constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,
     private modalController:ModalController, private kidService:KidService,public toast: ToastService) {
     
+    
+
+    
+    
+  }
+  
+  ngOnInit() {
+    
+    this.form = this.fb.group({
+      multipartFile:[null]
+    })
+
     this.formFelicitation=this.fb.group({
-      type:[],
-      kid:[],
+      type:[[],Validators.required],
+      kid:[[],Validators.required],
       estate:false,
       image:"",
       dateSend: undefined,
@@ -36,13 +48,6 @@ export class ModalAddFelicitationPage implements OnInit {
 
     });
 
-    this.form = this.fb.group({
-      multipartFile:[null]
-    })
-    
-  }
-  
-  async ngOnInit() {
   }
   async ionViewDidEnter(){
     

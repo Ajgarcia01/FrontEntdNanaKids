@@ -9,13 +9,13 @@
     </ion-buttons>
     
     <center>
-      <ion-title class="title">Añadir Niño</ion-title>
+      <img src="https://cdn-icons-png.flaticon.com/512/4290/4290443.png" height="80" width="80" style="margin-right: 30px;" alt="">
     </center>
     </ion-toolbar>
     
 </ion-header>
 
-<ion-content color="dark">
+<ion-content color="dark" class="adic-popup">
   <ion-card class="card">
     <ion-card-header>
       <ion-card-subtitle color="dark"></ion-card-subtitle>
@@ -44,15 +44,15 @@
       <ion-item color="white" id="open-modal">
         <ion-icon icon="calendar-outline"></ion-icon>
         <ion-label>&nbsp;&nbsp;Fecha</ion-label>
-        <ion-text>{{formattedString}}</ion-text>
+        <ion-text >{{formattedString}}</ion-text>
       </ion-item>
       <ion-modal trigger="open-modal">
         <ng-template>
          <ion-content>
-           <ion-datetime size="cover" showDefaultButtons="true" #datetime [value]="dateValue" size="cover" (ionChange)="dateChanged(datetime.value)" (ionCancel)="showPicker=false;"></ion-datetime>
+           <ion-datetime size="cover" showDefaultButtons="true" #datetime [value]="dateValue" size="cover" (ionChange)="dateChanged(datetime.value)"  (ionCancel)="showPicker=false;"></ion-datetime>
          <ion-buttons slot="buttons">
           <ion-button (click)="close()">Cancelar</ion-button>
-          <ion-button (click)="select()" color="primary">Confirmar</ion-button>
+          <ion-button (click)="select()"  color="primary" >Confirmar</ion-button>
          </ion-buttons>
           </ion-content>
         </ng-template>
@@ -60,12 +60,12 @@
       <br>
       <ion-item color="dark">
         <ion-label>Selecciona los padres</ion-label>
-        <ion-select (ionChange)="cambioPadre($event)" multiple="true" cancelText="Cancelar" okText="Aceptar">
+        <ion-select (ionChange)="cambioPadre($event)" multiple="true" cancelText="Cancelar" okText="Aceptar" formControlName="client">
           <ion-select-option *ngFor="let parent of parents; let i=index" [value]="parent" >{{parent.name}}</ion-select-option>
         </ion-select>
       </ion-item>
       <br>
-      <ion-button color="warning" expand="block" (click)="createKid()">Guardar Niño &nbsp;</ion-button>
+      <ion-button color="warning" expand="block" (click)="createKid()" [disabled]="formKid.invalid">Guardar Niño &nbsp;</ion-button>
       <br>
      </form>
       </div>

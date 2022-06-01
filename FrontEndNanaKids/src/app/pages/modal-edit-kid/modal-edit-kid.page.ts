@@ -11,7 +11,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-modal-edit-kid',
   templateUrl: './modal-edit-kid.page.html',
-  styleUrls: ['./modal-edit-kid.page.scss'],
+  styleUrls: ['./modal-add-kid.page.scss',]['./global.scss'],
 })
 export class ModalEditKidPage implements OnInit {
   @Input() kid:Kid;

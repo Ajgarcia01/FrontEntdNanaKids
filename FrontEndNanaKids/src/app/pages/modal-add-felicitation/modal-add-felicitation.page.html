@@ -8,19 +8,22 @@
     </ion-buttons>
 
     <center>
-      <ion-title class="title">FELICITACION</ion-title>
+      <img src="https://cdn4.iconfinder.com/data/icons/birthday-50/512/birthday_celebration_party_happy_celebrate_balloon_cake-10-512.png" height="80" width="80" style="margin-right: 30px;" alt="">
     </center>
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content color="dark">
+
+  
   <ion-card class="card">
     <ion-card-header>
       <ion-card-title color="dark"></ion-card-title>
       <br>
       <center>
         <ion-card-title color="dark">Nueva felicitacion</ion-card-title>
+        <br>
       </center>
 
     </ion-card-header>
@@ -35,6 +38,7 @@
               <ion-select-option value='2'>Navidad</ion-select-option>
             </ion-select>
           </ion-item>  
+          <br>
           <ion-item color="dark">
             <ion-label>Selecciona el hijo</ion-label>
             <ion-select (ionChange)="elegirHijo($event)"   placeholder="Elige" interface="alert" formControlName="kid">
@@ -49,7 +53,10 @@
             <input  type="file" (change)="uploadFile($event)" label="none" accept="image/jpeg,image/jpg,image/png">
           </div>
           <div class="form-group">
-            <ion-button color="warning" expand="block" (click)="createFelicitation()">Guardar felicitacion &nbsp;</ion-button>    
+            <center>
+              <ion-button color="warning" expand="block"[disabled]="formFelicitation.invalid" (click)="createFelicitation()">Guardar felicitacion &nbsp;</ion-button>
+            </center>
+               
           </div>
         </form>
       </div>
