@@ -10,16 +10,11 @@ import { ToastService } from 'src/app/services/toast.service';
 import html2canvas from 'html2canvas';
 
 
-
-
-
-
 @Component({
   selector: 'app-modal-add-felicitation',
   templateUrl: './modal-add-felicitation.page.html',
   styleUrls: ['./modal-add-felicitation.page.scss',]['./global.scss']
 })
-
 
 
 export class ModalAddFelicitationPage implements OnInit {
@@ -60,9 +55,9 @@ export class ModalAddFelicitationPage implements OnInit {
   InfoFonfo: number;
   ImagenFondo: string = "";
   imgcreada = false;
-  imagenCreada:string;
+  imagenCreada: string;
 
-  fraseNanakids:string="";
+  fraseNanakids: string = "";
 
 
   //BOTON DESHABILITADO
@@ -72,62 +67,39 @@ export class ModalAddFelicitationPage implements OnInit {
   public disabledElegir = true;
   //
   constructor(private fb: FormBuilder, private apiFelicitation: FelicitationService,
-    private modalController: ModalController, private kidService: KidService, public toast: ToastService) {
-
-    this.formFelicitation = this.fb.group({
-      type: [],
-      kid: [],
-      estate: false,
-      image: "",
-
-  public formFelicitation:FormGroup;
-  public form:FormGroup;
-  
-  selectedType:number;  //Tipo felicitacion
-  selectedKid:Kid;    // Niñ@ seleccionado
-  kid:Kid;
-  kids:Kid[] =[];
-  constructor(private fb:FormBuilder,private apiFelicitation:FelicitationService,
-    private modalController:ModalController, private kidService:KidService,public toast: ToastService) {
-    
-    
-
-    
-    
-  }
-  
-  ngOnInit() {
-    
-    this.form = this.fb.group({
-      multipartFile:[null]
-    })
-
-    this.formFelicitation=this.fb.group({
-      type:[[],Validators.required],
-      kid:[[],Validators.required],
-      estate:false,
-      image:"",
-
-      dateSend: undefined,
-      id: -1
-
-    });
+    private modalController: ModalController, private kidService: KidService, public toast: ToastService) {}
 
 
-    this.form = this.fb.group({
-      multipartFile: [null]
-    })
+    ngOnInit() {
 
-  }
+      this.form = this.fb.group({
+        multipartFile: [null]
+      })
 
-  async ngOnInit() {
+      this.formFelicitation = this.fb.group({
+        type: [[], Validators.required],
+        kid: [[], Validators.required],
+        estate: false,
+        image: "",
 
-  }
-    
+        dateSend: undefined,
+        id: -1
+
+      });
+
+
+      this.form = this.fb.group({
+        multipartFile: [null]
+      })
+
+    }
+
+
   async ionViewDidEnter() {
 
     await this.getKidS();
   }
+
 
 
   public async createFelicitation() {
@@ -157,7 +129,7 @@ export class ModalAddFelicitationPage implements OnInit {
     this.exit();
 
   }
-//OBTENER LOS HIJOS
+  //OBTENER LOS HIJOS
   public async getKidS() {
     this.kids = await this.kidService.getKid();
     console.log(this.kid);
@@ -169,14 +141,14 @@ export class ModalAddFelicitationPage implements OnInit {
     this.ImagenFondo = this.imagenUno;
     console.log("FONDO 1 ELEGIDO");
     console.log(this.imagenUno);
-    this.disabledCrear=false;
+    this.disabledCrear = false;
   }
   b2() {
     this.InfoFonfo = 2;
     this.ImagenFondo = this.imagenDos
     console.log("FONDO 2 ELEGIDO");
     console.log(this.imagenDos);
-    this.disabledCrear=false;
+    this.disabledCrear = false;
 
   }
   b3() {
@@ -184,17 +156,17 @@ export class ModalAddFelicitationPage implements OnInit {
     this.ImagenFondo = this.imagenTres;
     console.log("FONDO 3 ELEGIDO");
     console.log(this.imagenTres);
-    this.disabledCrear=false;
+    this.disabledCrear = false;
 
   }
-//ELEGIR HIJO
+  //ELEGIR HIJO
   elegirHijo(event: CustomEvent) {
     this.selectedKid = event.detail.value;
     this.kidInvitacion = this.selectedKid;
     this.fraseNanakids = "¡¡ Disfruta de tu dia, con cariño NANAKIDS !!";
     console.log(this.selectedKid);
   }
-//ELEGIR TIPO FELICITACION
+  //ELEGIR TIPO FELICITACION
   notifyChange(event: CustomEvent) {
     this.selectedType = event.detail.value;
     console.log(this.selectedType);
@@ -204,8 +176,8 @@ export class ModalAddFelicitationPage implements OnInit {
     this.selectedFondo = event.detail.value;
     console.log(this.selectedFondo);
   }
-  activarBt(){
-    this.disabledElegir=false;
+  activarBt() {
+    this.disabledElegir = false;
   }
   //ELEGIR IMAGEN DESCARGADA
   uploadFile(event) {
@@ -214,18 +186,18 @@ export class ModalAddFelicitationPage implements OnInit {
       multipartFile: file
     });
     this.form.get('multipartFile').updateValueAndValidity();
-    this.disabledGuardar=false;
+    this.disabledGuardar = false;
   }
   //
   //---GENERAR IMAGEN A PARTIR DE UN DIV
   crearImagen() {
     html2canvas(document.querySelector("#contenido")).then(canvas => {
-      this.imagenCreada = canvas.toDataURL();      
+      this.imagenCreada = canvas.toDataURL();
     });
     this.imgcreada = true;
     console.log(this.imagenCreada);
     console.log(this.imgcreada);
-    this.disabledDescargar=false;
+    this.disabledDescargar = false;
     this.toast.presentToast("Imagen lista para descargar.", 2000, "center", "success");
 
   }

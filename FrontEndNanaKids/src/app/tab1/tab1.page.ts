@@ -30,6 +30,7 @@ export class Tab1Page {
   imagenKid:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652697573/images_kyxuoo.jpg";
   imagenNiño:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696331/contento_sf932z.png";
   imagenNiña:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696328/nina_xowlps.png";
+  data: any;
 
  
 
@@ -49,10 +50,6 @@ export class Tab1Page {
         return this.imagenKid;
       }
     }
-
-    private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService,private data:DataService) {}
-
-
 
   /**
    * 
