@@ -25,6 +25,7 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+
 .trasparent-modal {
     --background: #164b81;
    
@@ -82,6 +83,7 @@
 }
 
 
+
 .trasparent-modal2 {
     --background: #164b81;
    
@@ -100,7 +102,11 @@
         
         ion-card{
             background-color: #164b81;
+
+            height: 100%;
+
             height: 75%;
+
         }
         
         .card{
@@ -128,6 +134,9 @@
 
     &::part(content){
         width: 800px;
+
+        height: 850px;
+
         height: 600px;
 
     }
@@ -190,6 +199,7 @@
     &::part(content){
         width: 700px;
         height: 500px;
+
 
     }
 

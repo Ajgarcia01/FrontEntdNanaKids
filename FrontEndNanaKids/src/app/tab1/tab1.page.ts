@@ -23,9 +23,30 @@ export class Tab1Page {
   event:any
   refresh:IonRefresher
   miLoading:HTMLIonLoadingElement
+  /*
+    IMAGEN CAMBIANTE
+  */
+  imagenKid:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652697573/images_kyxuoo.jpg";
+  imagenNiño:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696331/contento_sf932z.png";
+  imagenNiña:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696328/nina_xowlps.png";
+
+ 
+
   constructor(private apiKid:KidService,public modalController:ModalController,
-    private router:Router,private alert:AlertController,
+    private router:Router,private alert:AlertController, private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService) {}
+    
+    mostrarFoto(kid:Kid):string{
+      if(kid.gender){
+        return this.imagenNiño;
+      }else if(!kid.gender){
+        return this.imagenNiña;
+      }else{
+        return this.imagenKid;
+      }
+    }
+
     private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService,private data:DataService) {}
+
 
   /**
    * 
@@ -214,5 +235,7 @@ export class Tab1Page {
       
       await alert.present();
     }
+
+   
 
   }
