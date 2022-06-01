@@ -5,6 +5,7 @@ import { Kid } from '../model/Kid';
 import { ModalAddKidPage } from '../pages/modal-add-kid/modal-add-kid.page';
 import { ModalEditKidPage } from '../pages/modal-edit-kid/modal-edit-kid.page';
 import { AuthService } from '../services/auth.service';
+import { DataService } from '../services/data.service';
 import { KidService } from '../services/kid.service';
 import { StorageService } from '../services/storage.service';
 import { ToastService } from '../services/toast.service';
@@ -23,10 +24,35 @@ export class Tab1Page {
   event:any
   refresh:IonRefresher
   miLoading:HTMLIonLoadingElement
+  /*
+    IMAGEN CAMBIANTE
+  */
+  imagenKid:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652697573/images_kyxuoo.jpg";
+  imagenNiño:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696331/contento_sf932z.png";
+  imagenNiña:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696328/nina_xowlps.png";
+
+ 
+
   constructor(private apiKid:KidService,public modalController:ModalController,
+
     private router:Router,private alert:AlertController,
     private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService,
     private storage:StorageService) {}
+
+    
+    mostrarFoto(kid:Kid):string{
+      if(kid.gender){
+        return this.imagenNiño;
+      }else if(!kid.gender){
+        return this.imagenNiña;
+      }else{
+        return this.imagenKid;
+      }
+    }
+
+    private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService,private data:DataService) {}
+
+
 
   /**
    * 
@@ -43,6 +69,12 @@ export class Tab1Page {
     
     
   }
+
+
+    exportToExcel() {
+    this.data.exportToExcel(this.kids, 'Niños');
+  }
+
   /**
    * 
    */
@@ -66,7 +98,7 @@ export class Tab1Page {
 
   async presentLoading() {
     this.miLoading = await this.loading.create({
-      message: ''
+      message: 'CARGANDO'
     });
     await this.miLoading.present();
   }
@@ -109,6 +141,7 @@ export class Tab1Page {
   async openModal(kid:Kid){
     const modal = await this.modalController.create({
       component: ModalAddKidPage,
+      cssClass: 'trasparent-modal',
       componentProps: {
         'kid': kid
       }
@@ -126,7 +159,7 @@ export class Tab1Page {
   async openModalEditKid(kid:Kid){
     const modal = await this.modalController.create({
       component: ModalEditKidPage,
-      cssClass: '',
+      cssClass: 'trasparent-modal',
       componentProps: {
         'kid': kid
       }
@@ -210,5 +243,7 @@ export class Tab1Page {
       
       await alert.present();
     }
+
+   
 
   }

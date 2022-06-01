@@ -33,8 +33,8 @@ ion-content{
 }
 
 ion-fab-button {
-    width: 80px;
-    height: 80px;
+    width: 7vh;
+    height: 7vh;
   }
 
   ion-card-subtitle{
@@ -46,11 +46,42 @@ ion-fab-button {
 }
 
 .edit{
-    margin-top: 10px;
-    margin-left: 60px;
+    margin-top: 2vh;
+    margin-right: 3vh;
+    margin-bottom: 2vh;
 }
 
 .supreme{
-    margin-top: 10px;
-    margin-right: 60px;
+    margin-top: 2vh;
+    margin-left: 3vh;
+    margin-right: 3vh;
+    margin-bottom: 2vh;
+}
+
+.btn-Logout{
+    width: 10vh;
+    height: 7vh;
+   
+
+}
+
+.icon-Logout{
+    box-shadow: 0px 3px 10px black;
+    width: 8vh;
+    height: 5vh;
+    
+}
+
+
+.excel{
+    width: 2.3rem;
+    height: 2.3rem;
+}
+
+.button-excel{
+    box-shadow: 0px 0px 2px #0e0e0e;
+    margin-right: 1.5rem;
+    border-top: 1.5rem;
+    background-color: #1D6F42;
+   
 }

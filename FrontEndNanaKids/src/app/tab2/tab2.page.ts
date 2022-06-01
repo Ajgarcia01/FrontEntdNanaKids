@@ -6,6 +6,7 @@ import { ModalAddParentPage } from '../pages/modal-add-parent/modal-add-parent.p
 import { ModalEditParentPage } from '../pages/modal-edit-parent/modal-edit-parent.page';
 import { ClientService } from '../services/client.service';
 import { StorageService } from '../services/storage.service';
+import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -19,20 +20,40 @@ export class Tab2Page {
   gender: boolean = true
   searchedUser: any;
   miLoading:HTMLIonLoadingElement
-
+/*
+    IMAGEN CAMBIANTE
+  */
+    imagenCliente:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652730991/padres_qkes3d.png";
+    imagenPadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/dad_aifb6d.png";
+    imagenMadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/mother_n9z4vq.png";
   constructor(private servicioClient: ClientService, private alertController:AlertController,
-    public modalController:ModalController,private loading:LoadingController,private toast:ToastService,private storage:StorageService,private router:Router) { }
+
+    public modalController:ModalController,private loading:LoadingController,private toast:ToastService,private storage:StorageService,private router:Router,private data:DataService) { }
 
 
   async ionViewDidEnter() {   
     let user= await this.storage.getItem('user');
   if(user==null){
     this.router.navigate(['']);
+    
+     await this.getClients();
+    this.searchedUser = this.clients;
 
   }
 
-    await this.getClients();
-    this.searchedUser = this.clients;
+    mostrarFoto(client:Parent):string{
+      if(!client.type){
+        return this.imagenPadre;
+      }else if(client.type){
+        return this.imagenMadre;
+      }else{
+        return this.imagenCliente;
+      }
+    }
+  async ionViewDidEnter() {
+
+
+   
   }
   public async getClients(event?){
     if(!event){
@@ -114,6 +135,7 @@ export class Tab2Page {
   async openModal(parent:Parent){
     const modal = await this.modalController.create({
       component: ModalAddParentPage,
+      cssClass: 'trasparent-modal',
       componentProps: {
         'parent': parent
       }
@@ -125,6 +147,7 @@ export class Tab2Page {
  async editModal(parent:Parent){
   const modal = await this.modalController.create({
     component: ModalEditParentPage,
+    cssClass: 'trasparent-modal',
     componentProps: {
       'parent': parent
     }
@@ -133,5 +156,14 @@ export class Tab2Page {
   return await modal.present();
 
  }
+
+ async atras(){
+  await this.route.navigate(['home']);
+ }
+
+ exportToExcel() {
+  this.data.exportToExcel(this.clients, 'Clientes');
+}
+
 
 }

@@ -67,7 +67,8 @@ export class KidService {
   private get header():any{
     return{
       'Access-Control-Allow-Origin':'*',
-      'Content-Type':'application/json'
+      'Content-Type':'application/json',
+      
     }
   }
 }

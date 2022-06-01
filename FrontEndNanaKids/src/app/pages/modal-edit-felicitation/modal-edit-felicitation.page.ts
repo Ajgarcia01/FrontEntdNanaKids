@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-modal-edit-felicitation',
   templateUrl: './modal-edit-felicitation.page.html',
-  styleUrls: ['./modal-edit-felicitation.page.scss'],
+  styleUrls: ['./modal-add-kid.page.scss',]['./global.scss'],
 })
 export class ModalEditFelicitationPage implements OnInit {
   @Input() felicitation:Felicitation;

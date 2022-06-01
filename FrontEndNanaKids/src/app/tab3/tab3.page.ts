@@ -52,6 +52,8 @@ export class Tab3Page {
   async ionViewDidEnter(){
     
     await this.getFelicitations();
+
+    
     
   }
   public async recoverAlertValue(event:CustomEvent){
@@ -123,6 +125,7 @@ export class Tab3Page {
   async openCreateFelicitation(felicitation:Felicitation){
     const modal = await this.modalController.create({
       component: ModalAddFelicitationPage,
+      cssClass: 'trasparent-modal2',
       componentProps: {
         'felicitation': felicitation
       }
@@ -134,6 +137,7 @@ export class Tab3Page {
   async openEditFelicitation(felicitation:Felicitation){
     const modal = await this.modalController.create({
       component: ModalEditFelicitationPage,
+      cssClass: 'trasparent-modal3',
       componentProps: {
         'felicitation': felicitation
       }

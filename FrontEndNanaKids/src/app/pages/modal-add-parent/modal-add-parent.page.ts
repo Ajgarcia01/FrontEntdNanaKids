@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/services/toast.service';
 @Component({
   selector: 'app-modal-add-parent',
   templateUrl: './modal-add-parent.page.html',
-  styleUrls: ['./modal-add-parent.page.scss'],
+  styleUrls: ['./modal-add-parent.page.scss',]['./global.scss'],
 })
 export class ModalAddParentPage implements OnInit {
   public formParent: FormGroup;
@@ -96,7 +96,8 @@ export class ModalAddParentPage implements OnInit {
     try {
       
         await this.apiparent.CreateClient(newParent); 
-        this.toast.presentToast("Cliente creado con exito",2000,"center","success");
+        await this.toast.presentToast("Cliente creado con exito",2000,"center","success");
+        await this.formParent.reset();
         this.modalController.dismiss(newParent , 'cancel');
         console.log(newParent); 
     }catch (err) {
