@@ -17,11 +17,24 @@ export class Tab2Page {
   gender: boolean = true
   searchedUser: any;
   miLoading:HTMLIonLoadingElement
-
+/*
+    IMAGEN CAMBIANTE
+  */
+    imagenCliente:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652730991/padres_qkes3d.png";
+    imagenPadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/dad_aifb6d.png";
+    imagenMadre:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/mother_n9z4vq.png";
   constructor(private servicioClient: ClientService, private alertController:AlertController,
     public modalController:ModalController,private loading:LoadingController,private toast:ToastService) { }
 
-
+    mostrarFoto(client:Parent):string{
+      if(!client.type){
+        return this.imagenPadre;
+      }else if(client.type){
+        return this.imagenMadre;
+      }else{
+        return this.imagenCliente;
+      }
+    }
   async ionViewDidEnter() {
 
     await this.getClients();

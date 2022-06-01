@@ -1,5 +1,7 @@
 <ion-header>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <ion-toolbar color="darking">
     <ion-buttons slot="start">
       <ion-button class="exit" (click)="exit()">
@@ -8,7 +10,7 @@
     </ion-buttons>
 
     <center>
-      <ion-title class="title">FELICITACION</ion-title>
+      <ion-title class="title">Añadir Felicitacion</ion-title>
     </center>
   </ion-toolbar>
 
@@ -16,17 +18,60 @@
 
 <ion-content color="dark">
   <ion-card class="card">
-    <ion-card-header>
-      <ion-card-title color="dark"></ion-card-title>
-      <br>
-      <center>
-        <ion-card-title color="dark">Nueva felicitacion</ion-card-title>
-      </center>
-
-    </ion-card-header>
-   
     <ion-card-content>
       <div class="centrado">
+
+<!--ELEMENTO 1 - DIV PREVISUALIZACION -->
+
+        <div>
+          <div id="contenido" style="position: relative;
+          display: inline-block;
+          text-align: center;
+          width: 45%;
+          height: 45%;
+          margin-left: 200px; margin-right: 200px;">
+
+            <img src={{ImagenFondo}}>
+
+            <div style="position: absolute;
+            top: 55px;
+            left: 70px;
+            right: 70px;
+            color: black;
+            font-size: 35px;
+            font-family: 'Lobster', cursive;">
+              {{kidInvitacion.name}}</div>
+
+            <div style="position: absolute;
+            top: 45%;
+            left: 49%;
+            transform: translate(-48%, -48%);
+            color: black;
+            font-size: 18px;
+            font-family: 'Permanent Marker', cursive;">
+              {{fraseNanakids}}</div>
+          </div>
+        </div>
+
+<!--ELEMENTO 2 - ELEGIR FONDO -->
+
+        <div style="margin-left: 140px; margin-right: 140px;">
+          <table class="default">
+
+            <tr>
+              <td><img src={{imagenUno}} (click)="b1()" style=" border: 2px solid white; padding: 5px; margin: 5px;" width="150px"
+                  height="150px"></td>
+
+              <td><img src={{imagenDos}} (click)="b2()" style="border: 2px solid white; padding: 5px;margin: 5px;" width="150px"
+                  height="150px"></td>
+
+              <td><img src={{imagenTres}} (click)="b3()" style="border: 2px solid white; padding: 5px; margin: 5px;" width="150px"
+                  height="150px"></td>
+            </tr>
+          </table>
+        </div>
+
+<!--ELEMENTO 3 - ELEGIR TIPO Y NIÑ@ -->
         <form [formGroup]="formFelicitation">
           <ion-item color="white">
             <ion-label>Tipo</ion-label>
@@ -34,27 +79,29 @@
               <ion-select-option value='1'>Cumpleaños</ion-select-option>
               <ion-select-option value='2'>Navidad</ion-select-option>
             </ion-select>
-          </ion-item>  
+          </ion-item>
           <ion-item color="dark">
             <ion-label>Selecciona el hijo</ion-label>
-            <ion-select (ionChange)="elegirHijo($event)"   placeholder="Elige" interface="alert" formControlName="kid">
-              <ion-select-option *ngFor="let kid of kids; let i=index" [value]="kid" >{{kid.name}}</ion-select-option>
+            <ion-select (ionChange)="elegirHijo($event)" placeholder="Elige" interface="alert" formControlName="kid">
+              <ion-select-option *ngFor="let kid of kids; let i=index" [value]="kid">{{kid.name}}</ion-select-option>
             </ion-select>
-          </ion-item> 
-          <br>
-          <br> 
-      <div class="container">
-        <form [formGroup]="form" (ngSubmit)="submitForm()">
-          <div class="form-group"  class="selectImagen">
-            <input  type="file" (change)="uploadFile($event)" label="none" accept="image/jpeg,image/jpg,image/png">
-          </div>
-          <div class="form-group">
-            <ion-button color="warning" expand="block" (click)="createFelicitation()">Guardar felicitacion &nbsp;</ion-button>    
-          </div>
+          </ion-item>
+
+<!--ELEMENTO 4 - GENERAR FOTO Y GUARDARLA -->
+
+          
+          <ion-button [disabled]="disabledCrear" (click)="crearImagen()" style="margin-right: 10px;">1º Crear Imagen</ion-button>
+
+          <ion-button [disabled]="disabledDescargar" (click)="activarBt()"  href="{{imagenCreada}}" download  style="margin-right: 10px;">2º Descargar</ion-button>
+
+          <input [disabled]="disabledElegir"  type="file" (change)="uploadFile($event)" label="none" accept="image/png">
+
+          <ion-button [disabled]="disabledGuardar"color="warning" expand="block" (click)="createFelicitation()">GUARDAR FELICITACION</ion-button>  
+
         </form>
       </div>
-      </form>     
-     </div>
+
     </ion-card-content>
+
   </ion-card>
 </ion-content>

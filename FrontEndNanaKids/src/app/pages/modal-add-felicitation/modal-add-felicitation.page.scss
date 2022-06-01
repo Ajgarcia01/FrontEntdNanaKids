@@ -64,7 +64,61 @@ ion-modal{
 ion-label{
    --color: black;
 }
-
+.contenedorX{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+.texto-encima{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: red;
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.centrado{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+}
 .exit{
     margin-bottom: 25px;
 }
+ion-modal{
+   
+    --background:rgba(36, 36, 36, 0.2);
+
+    &::part(content){
+        backdrop-filter:blur(6px);
+    }
+
+    ion-content {
+        --background: transparent;
+        --padding-top:25vh;
+        --padding-start:20px;
+        --padding-end:20px;
+        ion-datetime{
+            border-radius: 8px;
+        }
+    }
+}
+.tituloFondo{
+    color: white;
+    font-size: 15px;
+}
+
+:root {
+    --url-image:"";
+}
+
+.contenido{
+    background-image: url(--url-image);
+}
+
+
+  

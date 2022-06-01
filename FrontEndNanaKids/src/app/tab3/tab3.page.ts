@@ -123,6 +123,7 @@ export class Tab3Page {
   async openCreateFelicitation(felicitation:Felicitation){
     const modal = await this.modalController.create({
       component: ModalAddFelicitationPage,
+      cssClass: 'trasparent-modal2',
       componentProps: {
         'felicitation': felicitation
       }

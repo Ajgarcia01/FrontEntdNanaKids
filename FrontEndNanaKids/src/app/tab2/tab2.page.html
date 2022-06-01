@@ -30,7 +30,7 @@
                         <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
                        
                        <br>
-                        <img src="https://static1.abc.es/media/familia/2016/11/07/familia-monoparental-kjpB--620x349@abc.jpg" />
+                       <img src="{{mostrarFoto(client)}}" style="background-color:white; padding-top: 5px;"/>
                         <br>
                         <tr>
                             <td> <div class="supreme">
@@ -48,15 +48,6 @@
                 </ion-card>
 
             </center>
-         
-      
-
-      
-           
-
-       
-          
-
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addClient">
         <ion-fab-button (click)="openModal()" color="warning">
             <!--Imagen del boton-->
