@@ -13,19 +13,19 @@ import { ToastService } from 'src/app/services/toast.service';
   templateUrl: './modal-edit-kid.page.html',
   styleUrls: ['./modal-add-kid.page.scss',]['./global.scss'],
 })
-export class ModalEditKidPage implements OnInit {
-  @Input() kid:Kid;
-  @ViewChild(IonDatetime)datetime:IonDatetime
-  selectecMode='date';
-  showPicker=false;
-  dateValue= format(new Date(),'yyy-MM-dd');;
-  formattedString='';
-  public formKid:FormGroup;
-  parents:Parent[]=[]
-  selectedOption:boolean; //select gender
-  enviado: string ="Niño";
-  noenviado: string ="Niña";;
-  selectedParent:Parent[]=[];
+export class ModalEditKidPage {
+  @Input() kid:Kid; //Input para traer los datos del niño selccionado y pasar informacion de una pantalla  a otra
+  @ViewChild(IonDatetime)datetime:IonDatetime //IonDate para establecer el modal que abre el picker de la fecha
+  selectecMode='date'; //Seleccionar del picker de la fecha
+  showPicker=false;  //Metodo para cerrar el modal
+  dateValue= format(new Date(),'yyy-MM-dd'); //Campo para formatear la fecha
+  formattedString=''; //Campo para establecer la fecha formateada
+  public formKid:FormGroup; //Formulario
+  parents:Parent[]=[] //Lista de los padres
+  selectedOption:boolean; //Género seleccionado en el select
+  enviado: string ="Niño"; //Formato para establecer el genero en niño
+  noenviado: string ="Niña"; // Formato para establecer el genero en niña
+  selectedParent:Parent[]=[]; //Array de padres seleccionados en el select
 
 
   
@@ -42,8 +42,10 @@ export class ModalEditKidPage implements OnInit {
 
    }
 
-  ngOnInit() {
-  }
+  /*
+  * Se establecen los valores del niñ@ elegid@ (@Input: Kid)
+  * Nos traemos a los padres, por si el usuario quiere cambiar los padres del niño
+  */
 
   async ionViewDidEnter(){
     
@@ -57,6 +59,15 @@ export class ModalEditKidPage implements OnInit {
   
     
   }
+
+  /*
+  *
+  * Metodo para editar el niño
+  * Se crea un modelo y se pasan los parametros establecidos por el usuario en el formulario
+  * Se hace una peticion (UPDATE) a la API para EDITAR el niño (updateKid)
+  * Una vez editado el niño se cierra el modal y se presenta un mensaje de exito (Toast)
+  * 
+  */
 
   public async createKid(){
    
@@ -78,6 +89,7 @@ export class ModalEditKidPage implements OnInit {
    
    }
 
+  //Método para formatear la fecha al formato de la base de datos
   dateChanged(value)
   {
     this.dateValue=value;
@@ -85,18 +97,26 @@ export class ModalEditKidPage implements OnInit {
       console.log(value);
   }
 
+  //Se establece la fecha del día actual formateada
   setToday(){
     this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')),'yyyy-MM-dd');
   }
 
+  //Metodo para cerrar el picker de la fecha
   close(){
     this.datetime.cancel(true);
   }
 
+  //Metodo para confimar la fecha una vez que el usuario la ha elegido en el picker-date
   select(){
     this.datetime.confirm(true);
   }
 
+
+  /*
+  * Metodo para obtener los padres
+  * Se hace una peticion a la API (GET) para obtener los padres (ClientService)
+  */
 
   public async getParents(){
     this.parents=[];
@@ -107,15 +127,22 @@ export class ModalEditKidPage implements OnInit {
   }
 
 
-  /**
-   * 
+  /*
    * @param event 
-   */
-    notifyChange(event:CustomEvent){
+   * Cambia el select cuando se hace un cambio imprimiendo la opcion seleccionada
+   * Se establece para el género
+  */
+
+  notifyChange(event:CustomEvent){
     this.selectedOption=event.detail.value;
     console.log(this.selectedOption);
   }
 
+  /*
+   * @param event 
+   * Cambia el nombre del género (true=niño, false=niña)
+   * Se establece para la seleccion de genero
+  */
 
   conversorEstado(gender:Kid):string{
     if (gender.gender){
@@ -125,16 +152,22 @@ export class ModalEditKidPage implements OnInit {
     }
   }
 
-  /**
-   * 
+  /*
    * @param event 
-   */
+   * Cambia el select cuando se hace un cambio imprimiendo la opcion seleccionada
+   * Se establece para la seleccion de padres
+  */
+
    cambioPadre(event:CustomEvent){
     
     this.selectedParent=event.detail.value;
 
     console.log(this.selectedParent);
   }
+
+  /*
+  * Metodo para cerrar el modal
+  */
 
   async exit(){
     await this.modalController.dismiss(null , 'cancel');

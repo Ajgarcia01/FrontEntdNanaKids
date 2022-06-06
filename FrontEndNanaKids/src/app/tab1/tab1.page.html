@@ -1,65 +1,69 @@
-
-
+<!-- Contenido de la página -->
 <ion-content [fullscreen]="true">
-  
+
+<!-- Header de la pagina con bóton de salida al login y otro boton para exportal a excel los datos del modelo que haya en la pagina -->
 <ion-header>
   <ion-toolbar color="darking">
-    <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
-      <br>
-     
+    <!-- Boton de exportar a EXCEL -->
+    <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()"><br>
       <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
     </ion-button>
     <center>
       <ion-title class="title">NIÑOS</ion-title>
     </center>
+    <!-- Boton de LogOut -->
       <ion-buttons slot="start">
         <ion-button (click)="logout()" class="btn-Logout" > 
           <ion-icon class="icon-Logout" name="log-out" ios="log-out" md="log-out"></ion-icon>
         </ion-button>
-
       </ion-buttons>
-      
     </ion-toolbar>
-    
+
+    <!-- Barra de búsqueda -->
     <ion-toolbar color="darking">
       <br>
       <ion-searchbar (ionChange)="buscar($event)"  color="dark" placeholder="Nombre del niño"></ion-searchbar>
       <br>
     </ion-toolbar>
-    
 </ion-header>
+
+<!-- ion-refresh -->
   <ion-refresher slot="fixed" (ionRefresh)="getKids($event)">
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
   <center>
+      <!-- Tarjeta que contiene los datos de los niños -->
     <ion-card  *ngFor="let kid of searchedUser" >
       <ion-card-header>
+        <!-- Nombre del niño -->
         <ion-card-subtitle color="dark">{{kid.name}}</ion-card-subtitle>
-        <ion-card-title color="dark">{{kid.birthDate| date:'dd-MM-yyyy'}}</ion-card-title>
-      
-        <br>
-        <img src="{{mostrarFoto(kid)}}" style="background-color:white; padding-top: 12px;"/>
+        <!-- Fecha de nacimiento del niño -->   
+        <ion-card-title color="dark">{{kid.birthDate| date:'dd-MM-yyyy'}}</ion-card-title><br>
+        <!-- Foto del niñ@, en funcion del gender se muestra una u otra --> 
+        <img src="{{mostrarFoto(kid)}}" style="background-color:white; padding-top: 12px;"/> 
       </ion-card-header>
-  
       <tr>
-        <td><ion-fab-button class="supreme" color="danger" (click)="borrar(kid)" vertical="bottom">
+        <td>
+           <!-- Boton borrar niño -->
+          <ion-fab-button class="supreme" color="danger" (click)="borrar(kid)" vertical="bottom">
           <ion-icon name="trash"></ion-icon>
-        </ion-fab-button></td>
-        <td> <ion-fab-button class="edit" (click)="openModalEditKid(kid)" color="primary">
+        </ion-fab-button>
+        </td>
+        <td> 
+          <!-- Boton abrir modal de editar niño -->
+          <ion-fab-button class="edit" (click)="openModalEditKid(kid)" color="primary"> 
           <ion-icon name="create"></ion-icon>
-        </ion-fab-button></td>
+        </ion-fab-button>
+        </td>
       </tr>        
       <br>
     </ion-card>
   </center>
-     
-
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addKid">
-        <ion-fab-button (click)="openModal()" color="warning">
-          <ion-icon name="person-add"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-
-      
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addKid">
+    <!-- Boton modal añadir niño -->
+   <ion-fab-button (click)="openModal()" color="warning">
+     <ion-icon name="person-add"></ion-icon>
+   </ion-fab-button>
+ </ion-fab>       
 </ion-content>

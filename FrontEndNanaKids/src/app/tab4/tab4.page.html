@@ -1,71 +1,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<!-- Header del modal con bóton de exportar a excel -->
 <ion-header>
   <ion-toolbar color="darking">
-    <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
-      <br>
+    <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()"><br>
       <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
     </ion-button>
     <center>
-       <table>
+    <table>
       <tr>
-  
-      <td> <i><img src="https://i.postimg.cc/sXvStnWH/send.png" class="send"></i></td>
-  
-      <td><h3>FELICITACIONES PENDIENTES: {{count}} </h3>
-      
-      </td>  
-    </tr>
+        <td>
+          <!-- Imagen junto a la cuenta de felicitaciones -->
+          <i><img src="https://i.postimg.cc/sXvStnWH/send.png" class="send"></i>
+        </td>
+        <td>
+           <!-- Cuenta de felicitaciones -->
+          <h3>FELICITACIONES PENDIENTES: {{count}} </h3>
+        </td>  
+      </tr>
     </table>
     </center>
-  
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
- 
+ <!-- Contenido de la página -->
+<ion-content > 
   <table class="tabla">
   <tr>
-  
-      <td> <i><img src="https://i.postimg.cc/cH2YZQMx/date.png" alt=""></i></td>
-  
-      <td><h1>
+    <td>
+      <!-- Imagen junto a la fecha --> 
+      <i><img src="https://i.postimg.cc/cH2YZQMx/date.png" alt=""></i>
+    </td>
+    <td>
+       <!-- Fecha -->
+      <h1>
         <span>{{formattedString}}</span>
         <span>{{formattedString}}</span>
-      </h1>
-      
-      </td>  
-    </tr>
-
-    <tr>
-  
-      <td> <i><img src="https://i.postimg.cc/DzCLpVSb/check.png" alt=""></i></td>
-  
-      <td><h1>
+      </h1>  
+    </td>  
+  </tr>
+  <tr>
+    <td> 
+      <!-- Imagen junto al estado --> 
+      <i><img src="https://i.postimg.cc/DzCLpVSb/check.png" alt=""></i>
+    </td>
+    <td>
+      <h1>
+        <!-- Estado del envio -->
         <span>{{estadodelenvio}}</span>
         <span>{{estadodelenvio}}</span>
-      </h1>
-      
-      </td>  
-    </tr>
-  
-    
-    
-     
+      </h1>  
+    </td>  
+  </tr>   
   </table>
   
+ <!-- Imagen junto a la cuenta de felicitaciones -->
   <div class="fondo">
-        <center>
-         <ion-button class="button2" size="large" (click)="sendMessage()">ENVIAR</ion-button> 
-        </center>
-    
-  
-</div>
-
-
-  
-<ion-refresher slot="fixed" (ionRefresh)="countFelicitation($event)">
-  <ion-refresher-content>
-  </ion-refresher-content>
-</ion-refresher>
+    <center>
+       <!-- Botón para enviar las felicitaciones del día -->
+      <ion-button class="button2" size="large" (click)="sendMessage()">ENVIAR</ion-button> 
+    </center>  
+  </div>
+   <!-- Ion-Refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="countFelicitation($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
 </ion-content>

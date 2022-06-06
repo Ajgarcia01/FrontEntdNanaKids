@@ -16,16 +16,17 @@ import { ToastService } from '../services/toast.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  users:any
-  searchedUser:any;
-  person:Kid
-  kids:Kid[]=[]
-  gender: boolean = true
-  event:any
-  refresh:IonRefresher
-  miLoading:HTMLIonLoadingElement
+  users:any //usuarios
+  searchedUser:any; //usuario que se busca en la barra de busqueda
+  person:Kid //modelo de niño
+  kids:Kid[]=[] //array de niños
+  gender: boolean = true //genero para las imagenes de niño o niña
+  event:any //event para la barra de busqueda
+  refresh:IonRefresher //IonRefresher
+  miLoading:HTMLIonLoadingElement //loading
+  
   /*
-    IMAGEN CAMBIANTE
+    IMAGENES CAMBIANTES
   */
   imagenKid:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652697573/images_kyxuoo.jpg";
   imagenNiño:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696331/contento_sf932z.png";
@@ -34,13 +35,16 @@ export class Tab1Page {
 
  
 
-  constructor(private apiKid:KidService,public modalController:ModalController,
-
-    private router:Router,private alert:AlertController,
-    private authS:AuthService,private kidService:KidService,private loading:LoadingController,private toast:ToastService,
-    private storage:StorageService) {}
-
+  constructor(private apiKid:KidService,public modalController:ModalController,private router:Router,private alert:AlertController,private authS:AuthService,private kidService:KidService,
+    private loading:LoadingController,private toast:ToastService,private storage:StorageService) {}
     
+    
+    /** 
+    *
+    * @param kid
+    * @return la foto de perfil establecida en funcion del genero que se detecte
+    * 
+    */
     mostrarFoto(kid:Kid):string{
       if(kid.gender){
         return this.imagenNiño;
@@ -51,9 +55,12 @@ export class Tab1Page {
       }
     }
 
-  /**
-   * 
-   */
+  /*
+    *
+    * @return coge usuario del storage para ver si esta logueado y carga todos los niños
+    * 
+  */
+
    async ionViewDidEnter(){
     let user= await this.storage.getItem('user');
     if(user==null){
@@ -67,14 +74,21 @@ export class Tab1Page {
     
   }
 
-
+  /*
+    *
+    * @return un excel con todos los datos de cada niño, con el nombre de 'Niños.xlsx' y con el array de niños que haya en la BBDD
+    * 
+  */
     exportToExcel() {
     this.data.exportToExcel(this.kids, 'Niños');
   }
 
-  /**
-   * 
-   */
+   /**
+    *
+    * @param event
+    * @return carga todos los niños de la BBDD, cargando con un loading y haciendo una llamada a la API (GET)
+    * 
+  */
   public async getKids(event?){
     if(!event){
       await this.presentLoading();
@@ -93,6 +107,11 @@ export class Tab1Page {
     }
   }
 
+  /*
+    * @return carga el loading y lo muestra en pantalla (se usa en todas las funciones que cargan datos) con un mensaje de cargando
+    * 
+  */
+ 
   async presentLoading() {
     this.miLoading = await this.loading.create({
       message: 'CARGANDO'
@@ -102,19 +121,8 @@ export class Tab1Page {
 
   /**
    * 
-   * @param kid 
-   */
-
-  public async deleteKid(kid:Kid){
-   
-    this.apiKid.deleteKid(kid);
-    await this.getKids();
-  }
-
-
-  /**
-   * 
    * @param event 
+   * @return muestra aquellos niños que coincida con el texto pasadado por parametro en la barra de busqueda
    * 
    */
 
@@ -132,7 +140,7 @@ export class Tab1Page {
   /**
    * 
    * @param kid 
-   * @returns 
+   * @return muestra un modal con un formulario para añadir los datos del niño
    */
 
   async openModal(kid:Kid){
@@ -150,7 +158,7 @@ export class Tab1Page {
   /**
    * 
    * @param kid 
-   * @returns 
+   * @returns muestra un modal con un formulario para editar los datos del niño, pasando los datos de una pantalla a otra
    */
 
   async openModalEditKid(kid:Kid){
@@ -165,6 +173,10 @@ export class Tab1Page {
     return await modal.present();
   }
 
+  /**
+   * 
+   * @return un logout del usuario y redirige a la pagina de login
+   */
 
   public async logout(){
       
@@ -201,6 +213,10 @@ export class Tab1Page {
     await alert.present();
   }
 
+  /**
+   * @param kid
+   * @return acciona el boton de borrar y hacer una llamada a la API (DELETE) y notifica con un Toast si todo ha ido bien
+   */
 
   public async borrar(kid:Kid){
   
@@ -240,7 +256,4 @@ export class Tab1Page {
       
       await alert.present();
     }
-
-   
-
   }

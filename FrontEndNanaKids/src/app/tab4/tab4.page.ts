@@ -15,34 +15,46 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit {
-  formattedString='';
-  estadodelenvio='';
-  count:Number;
-  fel:Felicitation;
-  felicidades:Felicitation[]=[];
-  par:Parent;
-  miLoading:HTMLIonLoadingElement;
+  formattedString=''; //Fecha formateada
+  estadodelenvio=''; //Campo para establecer el estado del envio (Enviado/No enviado) para asignarlo en el front
+  count:Number; //Campo para establecer el numero de felicitaciones que hay en el dia 
+  fel:Felicitation; //Felicitacion
+  felicidades:Felicitation[]=[]; //Felicitaciones
+  par:Parent; //Padre
+  miLoading:HTMLIonLoadingElement; //Loading
   constructor(private feliSer:FelicitationService,private messageApi:MessageService,private kid:KidService,private data:DataService,private loading:LoadingController) { 
     this.setToday();
   }
 
+  //Se inicializa a no enviadas las felicitaciones
   ngOnInit() {
     this.estadodelenvio='NO ENVIADO'
   }
-    exportToExcel() {
+
+  /*
+    *
+    * @return un excel con todos los datos de cada niño, con el nombre de 'Felicidades.xlsx' y con el array de niños que haya en la BBDD
+    * 
+  */
+  
+  exportToExcel() {
     this.data.exportToExcel(this.felicidades, 'Felicidades');
   }
     
 
+  /**
+   * @return todas las felicitaciones que haya el dia en el que este el usuario antes de que cargue la pagina al completo
+  */
 
  async ionViewDidEnter(){
-   
-    
     this.countFelicitation();
-   
   }
 
-
+ /**
+   * @return manda todas las felicitaciones que haya el dia a sus respectivos padres asignados a los niños via whatsapp
+   * En este caso, solo de cumpleaños (Type=1)
+   * Se hace una llamada a la api para enviar el mensaje (mensajeApi.sendMessage) (POST)
+ */
   async sendMessage(){
     let hoy:Felicitation[]= await this.feliSer.getFelicitationsByTypeAndDate(1);
     
@@ -59,39 +71,54 @@ export class Tab4Page implements OnInit {
     }
   }
 
-  setToday(){
-    this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')),'dd-MM-yyyy');
-  }
+  /**
+     * Se establece la fecha del día actual formateada
+  */
+
+    setToday(){
+      this.formattedString = format(parseISO(format(new Date(),'yyyy-MM-dd')),'dd-MM-yyyy');
+    }
 
 
- async countFelicitation(event?){
-   
-    if(!event){
-      await this.presentLoading();
+  /**
+   * @param event 
+   * @return el numero de todas las feliciationes que haya en el día actual
+   * Haciendo una peticion a la api para obtener una cuenta
+  */
 
-      this.count=0;
-    }else{
-      try {
-        this.feliSer.getFelicitationsByTypeAndDate(1).then(data=>{
-          console.log('cantidad de felicitaciones hoy----> '+data.length);
-           this.count=data.length
-          });
+  async countFelicitation(event?){
+    
+      if(!event){
+        await this.presentLoading();
 
-          this.felicidades=[]
-          this.felicidades= await this.feliSer.getFelicitations();
-        
-      } catch (error) {
-        console.log(error);
-        
-      }finally{
-        if(event){
-          event.target.complete();
-        }else{
-          await this.miLoading.dismiss();
+        this.count=0;
+      }else{
+        try {
+          this.feliSer.getFelicitationsByTypeAndDate(1).then(data=>{
+            console.log('cantidad de felicitaciones hoy----> '+data.length);
+            this.count=data.length
+            });
+
+            this.felicidades=[]
+            this.felicidades= await this.feliSer.getFelicitations();
+          
+        } catch (error) {
+          console.log(error);
+          
+        }finally{
+          if(event){
+            event.target.complete();
+          }else{
+            await this.miLoading.dismiss();
+          }
         }
       }
     }
-  }
+
+  /*
+    * @return carga el loading y lo muestra en pantalla (se usa en todas las funciones que cargan datos) con un mensaje de cargando
+    * 
+  */
 
   async presentLoading() {
     this.miLoading = await this.loading.create({

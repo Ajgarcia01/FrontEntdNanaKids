@@ -12,7 +12,13 @@ import { messsage } from '../model/message';
   export class MessageService {
   
     constructor(private http:HttpClient) { }
+    //Se realizan llamadas a la api de la APP mediante la clase HttpClient
 
+  /**
+   * 
+   * @param message
+   * @returns Promise<messsage>, un POST del mensaje pasado por parametro (con sus respectivos datos) para enviarlo por whatsapp
+   */
 
     public async sendMessage(message:messsage):Promise<messsage>{
         let endpoint=environment.endpoint+environment.sendMessage;
@@ -27,8 +33,9 @@ import { messsage } from '../model/message';
         });
       }
 
-
-      
+  /**
+   * Header para controlar el acceso a la API y los CORS
+  */
       private get header():any{
         return{
           'Access-Control-Allow-Origin':'*',

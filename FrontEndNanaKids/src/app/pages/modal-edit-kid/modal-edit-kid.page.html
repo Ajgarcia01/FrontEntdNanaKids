@@ -1,21 +1,21 @@
-
+<!-- Header del modal con bóton de salida y vuelta a los tabs, junto a una imagen centrada en el modal -->
 <ion-header>
-  
   <ion-toolbar color="darking">
     <ion-buttons slot="start">
       <ion-button class="exit"  (click)="exit()">
         <ion-icon name="arrow-back" ios="arrow-back" md="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    
     <center>
       <img src="https://cdn-icons-png.flaticon.com/512/4290/4290443.png" height="80" width="80" style="margin-right: 30px;" alt="">
     </center>
     </ion-toolbar>
-    
 </ion-header>
 
+<!-- Contenido del modal -->
 <ion-content color="dark">
+
+  <!-- Tarjeta que contiene el modal -->
   <ion-card class="card">
     <ion-card-header>
       <ion-card-subtitle color="dark"></ion-card-subtitle>
@@ -23,29 +23,35 @@
       <center>
         <ion-card-title color="dark">Editar Niño</ion-card-title>
       </center>
-      
     </ion-card-header>
+
+    <!-- Formulario del modal para editar un niño con el nombre, género, fecha y seleccion de padres-->
     <ion-card-content>
       <div class="centrado">
         <form [formGroup]="formKid" >
+    <!-- Text para establecer el nombre del niñ@ -->
        <ion-item color="white">
          <ion-label>Nombre: </ion-label>
          <ion-input type="text" formControlName="name"></ion-input>
-       </ion-item>
-       <br>
+       </ion-item><br>
+
+       <!-- Select para elegir el género del niñ@ -->
        <ion-item color="white">
         <ion-label>Género:</ion-label>
         <ion-select (ionChange)="notifyChange($event)" placeholder="{{conversorEstado(kid)}}"> 
           <ion-select-option value='true'>Niño</ion-select-option>
           <ion-select-option value='false'>Niña</ion-select-option>
         </ion-select>
-      </ion-item>
-      <br>
+      </ion-item><br>
+
+      <!-- Texto fecha con la fecha actual del día -->
       <ion-item color="white" id="open-modal">
         <ion-icon icon="calendar-outline"></ion-icon>
         <ion-label>&nbsp;&nbsp;Fecha</ion-label>
         <ion-text>{{formattedString}}</ion-text>
       </ion-item>
+
+      <!-- Modal para elegir la fecha -->
       <ion-modal trigger="open-modal">
         <ng-template>
          <ion-content>
@@ -56,19 +62,21 @@
          </ion-buttons>
           </ion-content>
         </ng-template>
-      </ion-modal>
-      <br>
+      </ion-modal><br>
+
+      <!-- Select para elegir los padres del niño -->
       <ion-item color="dark">
         <ion-label>Selecciona los padres</ion-label>
         <ion-select (ionChange)="cambioPadre($event)" multiple="true" cancelText="Cancelar" okText="Aceptar">
           <ion-select-option *ngFor="let parent of parents; let i=index"  [value]="parent" >{{parent.name}}</ion-select-option>
         </ion-select>
-      </ion-item>
-      <br>
-      <ion-button color="warning" expand="block" (click)="createKid()">Actualizar Niño &nbsp;</ion-button>
-      <br>
-     </form>
-      </div>
+      </ion-item><br>
+
+     <!-- Botón para editar niñ@ -->
+      <ion-button color="warning" expand="block" (click)="createKid()">Actualizar Niño &nbsp;</ion-button><br>
+
+      </form>
+     </div>
     </ion-card-content>
 
     </ion-card>

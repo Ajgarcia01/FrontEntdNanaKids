@@ -21,19 +21,7 @@
 </ion-header>
 
 <ion-content color="dark">
-
-  
   <ion-card class="card">
-    <ion-card-header>
-      <ion-card-title color="dark"></ion-card-title>
-      <br>
-      <center>
-        <ion-card-title color="dark">Nueva felicitacion</ion-card-title>
-        <br>
-      </center>
-
-    </ion-card-header>
-   
     <ion-card-content>
       <div class="centrado">
 
@@ -65,7 +53,7 @@
             color: black;
             font-size: 18px;
             font-family: 'Permanent Marker', cursive;">
-              {{fraseNanakids}} </div>
+              {{fraseNanakids}}</div>
           </div>
         </div>
 
@@ -96,16 +84,11 @@
               <ion-select-option value='2'>Navidad</ion-select-option>
             </ion-select>
           </ion-item>
-
-          </ion-item>  
-          <br>
-
           <ion-item color="dark">
             <ion-label>Selecciona el hijo</ion-label>
             <ion-select (ionChange)="elegirHijo($event)" placeholder="Elige" interface="alert" formControlName="kid">
               <ion-select-option *ngFor="let kid of kids; let i=index" [value]="kid">{{kid.name}}</ion-select-option>
             </ion-select>
-
           </ion-item>
 
 <!--ELEMENTO 4 - GENERAR FOTO Y GUARDARLA -->
@@ -118,22 +101,6 @@
           <input [disabled]="disabledElegir"  type="file" (change)="uploadFile($event)" label="none" accept="image/png">
 
           <ion-button [disabled]="disabledGuardar"color="warning" expand="block" (click)="createFelicitation()">GUARDAR FELICITACION</ion-button>  
-
-
-          </ion-item> 
-          <br>
-          <br> 
-      <div class="container">
-        <form [formGroup]="form" (ngSubmit)="submitForm()">
-          <div class="form-group"  class="selectImagen">
-            <input  type="file" (change)="uploadFile($event)" label="none" accept="image/jpeg,image/jpg,image/png">
-          </div>
-          <div class="form-group">
-            <center>
-              <ion-button color="warning" expand="block"[disabled]="formFelicitation.invalid" (click)="createFelicitation()">Guardar felicitacion &nbsp;</ion-button>
-            </center>
-               
-          </div>
 
         </form>
       </div>

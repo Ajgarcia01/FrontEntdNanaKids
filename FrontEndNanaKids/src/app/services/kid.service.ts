@@ -9,14 +9,22 @@ import { Kid } from '../model/Kid';
 export class KidService {
 
   constructor(private http:HttpClient) { }
+  //Se realizan llamadas a la api de la APP mediante la clase HttpClient, realizando peticiones GET, POST, PUT y DELETE
 
-
+  /**
+   * @returns Promise<Kid[]>, una lista de todos los niños de la base de datos
+   */
   public async getKid():Promise<Kid[]>{
     let endpoint=environment.endpoint+environment.apiKid;
     let kids:any=await this.http.get(endpoint,this.header).toPromise();
     return kids;
   }
 
+  /**
+   * 
+   * @param kid:Kid
+   * @returns Promise<Kid>, un DELETE del niño pasado por parametro (con sus respectivos datos)
+   */
 
   public deleteKid(kid:Kid):Promise<Kid>{
     const id:any= kid.id ? kid.id:kid;
@@ -31,7 +39,11 @@ export class KidService {
   }
 
  
-
+  /**
+   * 
+   * @param kid:Kid
+   * @returns Promise<Kid>, un POST del niño pasado por parametro (con sus respectivos datos)
+   */
 
   public createKid(kid:Kid):Promise<Kid>{
     const endpoint = environment.endpoint+environment.apiKid;
@@ -47,6 +59,11 @@ export class KidService {
     });
   }
 
+  /**
+   * 
+   * @param kid:Kid 
+   * @returns  Promise<Kid>, un UPDATE del niño pasado por parametro (con sus respectivos datos)
+   */
 
   public updateKid(kid:Kid):Promise<Kid>{
     const endpoint = environment.endpoint+environment.apiKid;
@@ -63,6 +80,9 @@ export class KidService {
   }
 
   
+  /**
+   * Header para controlar el acceso a la API y los CORS
+  */
 
   private get header():any{
     return{
