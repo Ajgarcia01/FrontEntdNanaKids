@@ -15,21 +15,36 @@ import { ToastService } from '../services/toast.service';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  felicitation: Felicitation
-  felicitations: Felicitation[] = []
 
-  optionSelected: number
+  felicitation: Felicitation  //Felicitación.
+  felicitations: Felicitation[] = []  //Array de felicitaciones.
+
+  optionSelected: number  //Opción seleccionada para buscar por tipo.
+  /**
+   * Estados de la felicitación.
+   */
   enviado: string = "ENVIADO";
   noEnviado: string = "NO ENVIADO";
+
+  /**
+   * Tipo de  felicitación.
+   */
   cumpleaños: string = "CUMPLEAÑOS";
   navidad: string = "NAVIDAD";
+
   nombre: string = "";
-  miLoading: HTMLIonLoadingElement
+  miLoading: HTMLIonLoadingElement;
 
   constructor(private apiFelicitation: FelicitationService,
     public modalController: ModalController, private loading: LoadingController,
     public toast: ToastService, private alert: AlertController,private router:Router,private storage:StorageService ) { }
 
+  /**
+   *  ->  Conversor de Estado <-
+   * En función del estado de la felicitación, mostrara uno de los string definidos arriba.
+   * @param felicitationEstado 
+   * @returns 
+   */
   conversorEstado(felicitationEstado: Felicitation): string {
     if (felicitationEstado.estate) {
       return this.enviado;
@@ -37,6 +52,13 @@ export class Tab3Page {
       return this.noEnviado;
     }
   }
+
+  /**
+   *  ->  Conversor de Tipo <-
+   * En función del tipo de la felicitación, mostrara uno de los string definidos arriba.
+   * @param felicitationEstado 
+   * @returns 
+   */
   conversorTipo(felicitationEstado: Felicitation): string {
     if (felicitationEstado.type == 1) {
       return this.cumpleaños;
@@ -44,15 +66,6 @@ export class Tab3Page {
       return this.navidad;
     }
   }
-  /*
-    nombreNino(felicitation:Felicitation):string{
-      const kid = felicitation.kid;
-      const nombre:string = kid.name;
-      return nombre;
-    }
-    */
-
-
   async ionViewDidEnter() {
     let user = await this.storage.getItem('user');
     if (user == null) {
@@ -62,7 +75,11 @@ export class Tab3Page {
     await this.getFelicitations();
   }
 
-
+  /**
+   *  ->  Metodo para mostrar felicitaciones por Tipo <-
+   * Mostrar x felicitaciones en funcion del tipo seleccionado en la barra seleccionadora.
+   * @param event 
+   */
   public async recoverAlertValue(event: CustomEvent) {
     console.log(event.detail.value);
     this.optionSelected = event.detail.value;
@@ -75,6 +92,10 @@ export class Tab3Page {
     }
   }
 
+  /**
+   * Obtener todas las felicitaciones.
+   * @param event 
+   */
   public async getFelicitations(event?) {
     if (!event) {
       await this.presentLoading();
@@ -95,7 +116,12 @@ export class Tab3Page {
 
     }
   }
-
+  /**
+   * 
+   * -> Borra una felicitación  <-
+   * Acciona el boton de borrar y hacer una llamada a la API (DELETE) y notifica con un Toast si todo ha ido bien
+   * @param felicitation 
+   */
   public async deleteFelicitation(felicitation: Felicitation) {
     const alert = await this.alert.create({
       header: 'Confirmación',
@@ -128,33 +154,16 @@ export class Tab3Page {
     this.toast.presentToast("Felicitacion borrada con exito", 2000, "center", "danger");
   }
 
-
+/**
+   * 
+   * -> Añadir felicitación  <-
+   * Muestra un modal para introducir los paramentros de la felicitación.
+   * @param felicitation 
+   */
   async openCreateFelicitation(felicitation: Felicitation) {
     const modal = await this.modalController.create({
       component: ModalAddFelicitationPage,
       cssClass: 'trasparent-modal2',
-      componentProps: {
-        'felicitation': felicitation
-      }
-    });
-    //this.closeSliding();
-     await modal.present();
-
-     modal.onWillDismiss().then(async (data) => {
-      
-      if (data.data = true) {
-        this.felicitations = await this.apiFelicitation.getFelicitations();
-      }
-
-    })
-
-
-  }
-
-  async openEditFelicitation(felicitation: Felicitation) {
-    const modal = await this.modalController.create({
-      component: ModalEditFelicitationPage,
-      cssClass: 'trasparent-modal3',
       componentProps: {
         'felicitation': felicitation
       }
@@ -169,9 +178,10 @@ export class Tab3Page {
       }
 
     })
+
+
   }
-
-
+  
   async presentLoading() {
     this.miLoading = await this.loading.create({
       message: ''

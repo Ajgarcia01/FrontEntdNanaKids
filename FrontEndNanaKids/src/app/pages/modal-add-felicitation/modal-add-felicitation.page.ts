@@ -26,7 +26,8 @@ export class ModalAddFelicitationPage implements OnInit {
 
   public formFelicitation: FormGroup;
   public form: FormGroup;
-  imageOriginal: string;
+
+  imageOriginal: string; 
   selectedType: number;  //Tipo felicitacion
   selectedFondo: number;  //Fondo de felicitacion
 
@@ -38,26 +39,25 @@ export class ModalAddFelicitationPage implements OnInit {
     gender: false,
     name: ''
   };
-  selectedKid: Kid;    // Niñ@ seleccionado
-  kid: Kid;
-  kids: Kid[] = [];
-  //
-  //Imagenes para elegir como fondo para felicitación
-  //Todas del mismo tamaño guardadas en cloudinary
-  /*
-  imagenUno: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1653923489/WhatsApp_Image_2022-05-30_at_2.42.16_PM_so0iti.jpg";
-  imagenDos: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1653923489/WhatsApp_Image_2022-05-30_at_2.42.16_PM_1_psxe5k.jpg";
-  imagenTres: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1653923489/WhatsApp_Image_2022-05-30_at_2.42.17_PM_ttzysn.jpg";
-*/
+
+  selectedKid: Kid;    // Niñ@ seleccionado.
+  kid: Kid;           //  Niñ@
+  kids: Kid[] = [];  //   Array de niñ@s para seleccionar.
+
+  /**
+   * Imagenes para felicitación guardadas en ruta ../assets/imagenesFeli/
+   */
   imagenUno: string = "assets/imagenesFeli/Imagen1.jpeg";
   imagenDos: string = "assets/imagenesFeli/Imagen2.jpeg";
   imagenTres: string = "assets/imagenesFeli/Imagen3.jpeg";
-  InfoFonfo: number;
-  ImagenFondo: string = "";
-  imgcreada = false;
-  imagenCreada: string;
+  //---
 
-  fraseNanakids: string = "";
+  InfoFonfo: number;//Info imagen de fondo escogida.
+  ImagenFondo: string = "";
+  imgcreada = false;  //Comprobante de si ha sido creada la imagen para la felicitación.
+  imagenCreada: string; 
+
+  fraseNanakids: string = ""; //Frase que apatecera en la parte inferior de la felicitacion.
 
 
   //BOTON DESHABILITADO
@@ -81,7 +81,6 @@ export class ModalAddFelicitationPage implements OnInit {
         kid: [[], Validators.required],
         estate: false,
         image: "",
-
         dateSend: undefined,
         id: -1
 
@@ -101,6 +100,13 @@ export class ModalAddFelicitationPage implements OnInit {
   }
 
 
+  /*
+   * ->  Metodo crear Felicitación <-
+   * Se crea un modelo y se pasan los parametros establecidos por el usuario en el formulario
+   * Se hace una peticion (POST) a la API para crear la felicitación (createFelicitation)
+   * Una vez creado la felicitación se cierra el modal y se presenta un mensaje de exito (Toast)
+   * 
+   */
 
   public async createFelicitation() {
 
@@ -124,18 +130,25 @@ export class ModalAddFelicitationPage implements OnInit {
       console.log(response);
     })
     console.log("ESTE ES EL CONSOLE" + this.form.get('multipartFile').value);
-    this.modalController.dismiss(true)
+    this.modalController.dismiss(true);
     this.toast.presentToast("Felicitacion creada con exito", 2000, "center", "success");
-    this.exit();
+    //this.exit();
 
   }
-  //OBTENER LOS HIJOS
+
+  /*
+  *  -> Obtener todos los niñ@ para mostrarlos en el selector.  <-
+  */
   public async getKidS() {
     this.kids = await this.kidService.getKid();
     console.log(this.kid);
   }
 
-  //BOTONES PARA ELEGIR FONDO
+  /*
+  *   -> Botones para elegir el fondo de la felicitacion.  <-
+  * Cada uno de ellos corresponde a una imagen guardada en la ruta anterior.
+  * Tras pulsar uno de ellos se activara el boton de crear imagen para felicitacion.
+  */
   b1() {
     this.InfoFonfo = 1;
     this.ImagenFondo = this.imagenUno;
@@ -159,27 +172,53 @@ export class ModalAddFelicitationPage implements OnInit {
     this.disabledCrear = false;
 
   }
-  //ELEGIR HIJO
+  /*
+  * @param event
+   * ->  Metodo para elegir el Niñ@ en el desplegable <-
+   * Nos mostrara todos los niñ@s y elegiremos al que vaya dirigida la felicitación.
+   * Tambien añadira una frase en la parti inferior de la felicitación.
+   * 
+   */
   elegirHijo(event: CustomEvent) {
     this.selectedKid = event.detail.value;
     this.kidInvitacion = this.selectedKid;
     this.fraseNanakids = "¡¡ Disfruta de tu dia, con cariño NANAKIDS !!";
     console.log(this.selectedKid);
   }
-  //ELEGIR TIPO FELICITACION
+  /*
+  * @param event
+   * ->  Metodo para elegir el tipo de felicitación en el desplegable <-
+   * Nos mostrara todos los tipos de  felicitación.
+   * Tambien añadira una frase en la parti inferior de la felicitación.
+   * 
+   */
   notifyChange(event: CustomEvent) {
     this.selectedType = event.detail.value;
     console.log(this.selectedType);
   }
-
+/*
   elegirFondo(event: CustomEvent) {
     this.selectedFondo = event.detail.value;
     console.log(this.selectedFondo);
   }
+  */
+
+  /*
+   * ->  Metodo para activar boton de elegir archivo <-
+   * Activara el boton de seleccionar archivo para escoger la imagen personalizada de la felicitación.
+   * 
+   */
   activarBt() {
     this.disabledElegir = false;
   }
-  //ELEGIR IMAGEN DESCARGADA
+
+  /*
+   * @param event
+   * ->  Metodo seleccionar imagen que ha sido descargada <-
+   * Nos permitira elegir la imagen previamente personalizada y descargada en nuestro pc.
+   * Ademas activara el botón de Guardar felicitación.
+   * 
+   */
   uploadFile(event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({
@@ -188,8 +227,13 @@ export class ModalAddFelicitationPage implements OnInit {
     this.form.get('multipartFile').updateValueAndValidity();
     this.disabledGuardar = false;
   }
-  //
-  //---GENERAR IMAGEN A PARTIR DE UN DIV
+  /*
+   * ->  Generar imagen a partir de un Div <-
+   * Esta función nos permitira generar una imagen a partir de div que previsualizamos al introducir los parametros
+   * de la felicitación. Todo lo que aparezca en el Div con id=contenido , sera convertido a imagen una vez se ejecute
+   * esta función. 
+   * 
+   */
   crearImagen() {
     html2canvas(document.querySelector("#contenido")).then(canvas => {
       this.imagenCreada = canvas.toDataURL();
@@ -201,7 +245,9 @@ export class ModalAddFelicitationPage implements OnInit {
     this.toast.presentToast("Imagen lista para descargar.", 2000, "center", "success");
 
   }
-  //---
+  /*
+  * Metodo para cerrar el modal
+  */
   async exit() {
     await this.modalController.dismiss(null, 'cancel');
   }

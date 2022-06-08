@@ -1,64 +1,55 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="darking">
-    <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
-      <br>
-     
-      <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
-    </ion-button>
+
+  <!-- Header de la pagina con bóton de salida al login y otro boton para exportal a excel los datos del modelo que haya en la pagina -->
+  <ion-header [translucent]="true">
+    <ion-toolbar color="darking">
+      <!--  Boton exportar felicitaciones a Excel -->
+      <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
+        <br>
+        <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
+      </ion-button>
+      <center>
+        <!--  Cabecera de felicitación  -->
+        <ion-title class="title">FELICITACIONES</ion-title>
+      </center>
+    </ion-toolbar>
+
+    <!--  Seleccionador de tipo de felicitación, para realizar filtrado por este  -->
+    <ion-item class="select">
+      <ion-label class="select">Tipo de felicitacion</ion-label>
+      <ion-select class="select"  (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert" >
+        <ion-select-option value='1'>Cumpleaños</ion-select-option>
+        <ion-select-option value='2'>Navidad</ion-select-option>
+        <ion-select-option value='0'>Mostrar todos</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
     <center>
-      <ion-title class="title">FELICITACIONES</ion-title>
-    </center>
-  </ion-toolbar>
-  <ion-item class="select">
-    <ion-label class="select">Tipo de felicitacion</ion-label>
-    <ion-select class="select"  (ionChange)="recoverAlertValue($event)" placeholder="Elige" interface="alert" >
-      <ion-select-option value='1'>Cumpleaños</ion-select-option>
-      <ion-select-option value='2'>Navidad</ion-select-option>
-      <ion-select-option value='0'>Mostrar todos</ion-select-option>
-    </ion-select>
-  </ion-item>
-</ion-header>
-
-<ion-content [fullscreen]="true">
- 
-
-  <center>
-    <ion-card  *ngFor="let felicitation of felicitations"> 
-      <ion-card-header>
-        <img src= "{{felicitation.image}}" class="module"/>
-      </ion-card-header>
-      <ion-card-content>
-
-        <div class="mid">
-          <h1>{{felicitation.kid.name}}</h1>
-          <h2>{{felicitation.kid.birthDate}}</h2>
-        </div>
+      <!--  Cada uno de estos elementos se mostraran felicitación por felicitación-->
+      <ion-card  *ngFor="let felicitation of felicitations"> 
+        <!--  Imagen de felicitadión  -->
+        <ion-card-header>
+          <img src= "{{felicitation.image}}" class="module"/>
+        </ion-card-header>
         
-      </ion-card-content>
-      <br>
-      <tr>
-        <td>
-          <div class="supreme">
-          <ion-fab-button color="danger">
-            <ion-icon name="trash" (click)="deleteFelicitation(felicitation)"></ion-icon>
-          </ion-fab-button>
-        </div>
-      </td>
-        <td>
-          <div class="edit">
-          <ion-fab-button (click)="openEditFelicitation(felicitation)" color="primary">
-            <ion-icon name="create"></ion-icon>
-          </ion-fab-button>
-        </div>
-       </td>
-      </tr>
-      <br>
-    </ion-card>
-  </center>    
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addFeli">
-    <ion-fab-button (click)="openCreateFelicitation(felicitacion)" color="warning">
-      <ion-icon name="duplicate-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        <tr>
+          <td>
+            <div class="supreme">
+              <!--  Botón de eliminar felicitación  -->
+            <ion-fab-button color="danger">
+              <ion-icon name="trash" (click)="deleteFelicitation(felicitation)"></ion-icon>
+            </ion-fab-button>
+          </div>
+        </td>
+        </tr>
+        <br>
+      </ion-card>
+    </center>    
+  <!--  Botón de crear felicitación  -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addFeli">
+      <ion-fab-button (click)="openCreateFelicitation(felicitacion)" color="warning">
+        <ion-icon name="duplicate-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>

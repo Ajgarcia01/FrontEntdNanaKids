@@ -1,17 +1,22 @@
+<!-- Contenido de la página -->
 <ion-content [fullscreen]="true">
+    <!-- Header de la pagina con bóton de salida al login y otro boton para exportal a excel los datos del modelo que haya en la pagina -->
+
     <ion-header [translucent]="true">
         <ion-toolbar color="black">
+            <!-- Boton de exportar a EXCEL -->
             <ion-button color="black" fill="solid" slot="end" class="button-excel" (click)="exportToExcel()">
                 <br>
-
-                <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png"
-                        class="excel"></i>
+                <i class="fas fa-file-excel"><img src="https://img.icons8.com/doodle/344/microsoft-excel-2019.png" class="excel"></i>
             </ion-button>
+             <!--  Cabecera de clientes  -->
             <center>
                 <ion-title class="title">CLIENTES</ion-title>
             </center>
 
         </ion-toolbar>
+        
+        <!-- Barra de búsqueda -->
         <ion-toolbar color="darking">
             <br>
             <ion-searchbar placeholder="Nombre del cliente" [animated]="true" color="dark" (ionChange)="buscar($event)">
@@ -19,6 +24,7 @@
             <br>
         </ion-toolbar>
     </ion-header>
+<!-- ion-refresh -->
 
     <ion-refresher slot="fixed" (ionRefresh)="getClients($event)">
         <ion-refresher-content>
@@ -26,24 +32,29 @@
     </ion-refresher>
 
     <center>
-
+      <!-- Tarjeta que contiene los datos de los clientes -->
         <ion-card *ngFor="let client of searchedUser">
             <ion-card-header>
+                <!-- Nombre del cliente -->
                 <ion-card-title>{{client.name}}</ion-card-title>
+                <!-- Apellido del cliente -->
                 <ion-card-subtitle>{{client.surname}}</ion-card-subtitle>
 
                 <br>
+                <!-- Foto del cliente, en funcion del gender se muestra una u otra --> 
                 <img src="{{mostrarFoto(client)}}" style="background-color:white; padding-top: 5px;"/>
                 <br>
                 <tr>
                     <td>
                         <div class="supreme">
+                            <!-- Boton borrar cliente -->
                             <ion-fab-button color="danger" (click)="DeleteClient(client)">
                                 <ion-icon name="trash"></ion-icon>
                             </ion-fab-button>
                         </div>
                     </td>
                     <td>
+                        <!-- Boton abrir modal de editar cliente -->
                         <div class="edit">
                             <ion-fab-button color="primary" (click)="editModal(client)">
                                 <ion-icon name="create"></ion-icon>
@@ -55,10 +66,9 @@
         </ion-card>
 
     </center>
-
+    <!-- Boton modal añadir cliente -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="addClient">
         <ion-fab-button (click)="openModal()" color="warning">
-            <!--Imagen del boton-->
             <ion-icon name="person-add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
