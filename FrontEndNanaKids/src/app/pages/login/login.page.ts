@@ -22,24 +22,34 @@ export class LoginPage implements OnInit {
 
   }
 
- async ngOnInit() {
-    
+  /**
+     * Comprobamos si esta logeado , en caso de estar logeado sen envia a la pantalla principal
+     */
+  async ngOnInit() {
+
     if (await this.authS.isLogged()) {
       this.router.navigate(['private/tabs/tab1']);
     }
-    
+
   }
 
+  /**
+   * Comprobamos si esta logeado , en caso de estar logeado sen envia a la pantalla principal
+   */
   async ionViewWillEnter() {
 
     if (await this.authS.isLogged()) {
       this.router.navigate(['private/tabs/tab1']);
     }
 
-
-
   }
 
+  /**
+   * 
+   * @returns
+   * Recogemos los campos email y contraseña y realizamos una peticion a firebase .
+   * En caso de ser correcto el login nos devolvera el usuario y entraremos a la pagina principal.
+   */
   public async logIn() {
     if (!this.formAdmin.valid) return;
 
@@ -49,8 +59,6 @@ export class LoginPage implements OnInit {
 
     } catch (error) {
       this.presentToast();
-      console.log("oaoaoaoaoaoaoaoa");
-
     }
 
   }

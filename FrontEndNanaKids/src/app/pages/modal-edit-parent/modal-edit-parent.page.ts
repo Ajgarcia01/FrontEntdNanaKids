@@ -11,12 +11,12 @@ import { ClientService } from 'src/app/services/client.service';
   styleUrls: ['./modal-edit-parent.page.scss'],
 })
 export class ModalEditParentPage implements OnInit {
-  @Input() parent:Parent;
+  @Input() parent:Parent;//Cliente que nos pasan para actualizar
 
-  private client:Parent;
-  public formParent: FormGroup;
+  private client:Parent;//Cliente a modificar
+  public formParent: FormGroup;//Formulario
   private selectedOption: number; //select gender
-  private gender: boolean;
+  private gender: boolean;//Genero del cliente
 
   constructor(private fb: FormBuilder, private modalController: ModalController, private apiparent: ClientService,public toastCtrl: ToastController) {
 
@@ -29,7 +29,9 @@ export class ModalEditParentPage implements OnInit {
 
     
   }
-
+/**
+ * Creacion del formulario y diferente validaciones a la hora de completar
+ */
   ngOnInit() {
     this.client=this.parent;
     console.log(this.parent);
@@ -59,10 +61,11 @@ export class ModalEditParentPage implements OnInit {
 
   }
 
-  /**
-  * 
-  * @param event 
-  */
+ /*
+   * @param event 
+   * Cambia el select cuando se hace un cambio imprimiendo la opcion seleccionada
+   * Se establece para el género
+   */
   notifyChange(event: CustomEvent) {
     this.selectedOption = event.detail.value;
     if (this.selectedOption == 1) {
@@ -72,13 +75,25 @@ export class ModalEditParentPage implements OnInit {
     }
     console.log(this.selectedOption);
   }
-
+  /**
+   * 
+   * @param parent Cliente
+   * @returns Devuelve un true en caso de que haya cumplido la validacion
+   */
   public validar(parent: Parent): boolean {
     if (parent.name.length >= 1) {
       return true;
     }
     console.log(parent.name.length);
   }
+     /*
+  *
+  * Metodo para actualizar el Cliente
+  * Se crea un modelo y se pasan los parametros establecidos por el usuario en el formulario
+  * Se hace una peticion (UPDATE) a la API para actualizar el cliente 
+  * Una vez actualizado el cliente se cierra el modal y se presenta un mensaje de exito (Toast)
+  * 
+  */
   public async UpdateParent() {
     let Kids:Kid[]=this.parent.kids;
    
@@ -114,9 +129,9 @@ export class ModalEditParentPage implements OnInit {
     }
 
   }
-  public test(){
-    console.log(this.formParent)
-  }
+  /**
+   * Cierra el modal
+   */
   async exit() {
     await this.modalController.dismiss(null, 'cancel');
   }

@@ -82,6 +82,7 @@ export class ModalEditKidPage {
     try {
       await this.apiKid.updateKid(newKid);
       await this.toast.presentToast("Niño actualizado con exito",10,"middle","success");
+      this.modalController.dismiss(true);
     } catch (err) {
       await this.toast.presentToast("Hay errores",10,"middle","danger");
       console.log(err);

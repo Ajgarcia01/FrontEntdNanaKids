@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
 import { Felicitation } from '../model/Felicitation';
@@ -8,6 +9,7 @@ import { DataService } from '../services/data.service';
 import { FelicitationService } from '../services/felicitation.service';
 import { KidService } from '../services/kid.service';
 import { MessageService } from '../services/message.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-tab4',
@@ -22,7 +24,8 @@ export class Tab4Page implements OnInit {
   felicidades:Felicitation[]=[]; //Felicitaciones
   par:Parent; //Padre
   miLoading:HTMLIonLoadingElement; //Loading
-  constructor(private feliSer:FelicitationService,private messageApi:MessageService,private kid:KidService,private data:DataService,private loading:LoadingController) { 
+  constructor(private feliSer:FelicitationService,private messageApi:MessageService,private kid:KidService,private data:DataService,private loading:LoadingController,
+    private router:Router,private storage:StorageService) { 
     this.setToday();
   }
 
@@ -46,8 +49,13 @@ export class Tab4Page implements OnInit {
    * @return todas las felicitaciones que haya el dia en el que este el usuario antes de que cargue la pagina al completo
   */
 
- async ionViewDidEnter(){
-    this.countFelicitation();
+   async ionViewDidEnter() {
+    let user = await this.storage.getItem('user');
+    if (user == null) {
+      this.router.navigate(['']);
+
+    }
+     this.countFelicitation();
   }
 
  /**

@@ -45,7 +45,7 @@ export class ModalAddKidPage implements OnInit {
      this.formKid=this.fb.group({
       name:["",Validators.compose([Validators.required,Validators.minLength(1)])],
       gender:["",Validators.required],
-      birth_date:[""],
+      birth_date:[this.formattedString],
       client:[[],Validators.required],
       felicitations:[],
       id:-1
@@ -83,19 +83,18 @@ export class ModalAddKidPage implements OnInit {
     if(!this.formKid.valid) return;
 
     let newKid:Kid={
-        name:this.formKid.get("name").value,
+        name:this.formKid.value.name,
         birthDate:this.formattedString,
-        gender:this.formKid.get("gender").value(this.selectedOption),
-        client:this.formKid.get("client").value(this.selectedParent),
+        gender:this.formKid.value.gender,
+        client:this.selectedParent,
         felicitations:[],
         id:-1
-
     }
     try {
       await this.apiKid.createKid(newKid);
       await this.toast.presentToast("Felicitacion creada con exito",2000,"center","success");
       await this.formKid.reset();
-      this.modalController.dismiss(null , 'cancel');
+      this.modalController.dismiss(true);
       
     } catch (err) {
       console.log(err);
@@ -146,7 +145,7 @@ export class ModalAddKidPage implements OnInit {
    * Se establece para el género
    */
 
-    notifyChange(event:CustomEvent){
+    notifyChange(event){
     this.selectedOption=event.detail.value;
     
     console.log(this.selectedOption);
@@ -159,7 +158,7 @@ export class ModalAddKidPage implements OnInit {
    * Se establece para la seleccion de padres
    */
   
-   cambioPadre(event:CustomEvent){
+   cambioPadre(event){
     
     this.selectedParent=event.detail.value;
 

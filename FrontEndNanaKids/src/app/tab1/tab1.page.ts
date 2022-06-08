@@ -151,8 +151,16 @@ export class Tab1Page {
         'kid': kid
       }
     });
-    //this.closeSliding();
-    return await modal.present();
+     await modal.present();
+
+     modal.onWillDismiss().then(async (data) => {
+      console.log(data.data)
+
+      if (data.data = true) {
+        this.searchedUser=await this.apiKid.getKid();
+      }
+
+    })
   }
 
   /**
@@ -169,8 +177,16 @@ export class Tab1Page {
         'kid': kid
       }
     });
-    //this.closeSliding();
-    return await modal.present();
+     await modal.present();
+     
+     modal.onWillDismiss().then(async (data) => {
+      console.log(data.data)
+
+      if (data.data = true) {
+        this.searchedUser=await this.apiKid.getKid();
+      }
+
+    })
   }
 
   /**

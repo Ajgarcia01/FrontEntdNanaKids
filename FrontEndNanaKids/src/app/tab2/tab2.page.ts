@@ -8,6 +8,7 @@ import { ClientService } from '../services/client.service';
 import { StorageService } from '../services/storage.service';
 import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
+import { async } from '@firebase/util';
 
 @Component({
   selector: 'app-tab2',
@@ -27,10 +28,14 @@ export class Tab2Page {
   imagenPadre: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/dad_aifb6d.png";
   imagenMadre: string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652731422/mother_n9z4vq.png";
   constructor(private servicioClient: ClientService, private alertController: AlertController,
-    public modalController: ModalController, private loading: LoadingController, 
-    private toast: ToastService, private storage: StorageService, 
+    public modalController: ModalController, private loading: LoadingController,
+    private toast: ToastService, private storage: StorageService,
     private router: Router, private data: DataService) { }
 
+    /**
+     * Comprueba que hemos iniciado sesion en caso de no haber iniciado sesión nos vuelvo a la pantalla de login.
+     * En caso de haber iniciado sesion nos devuelve un listado de todos los usuarios de nuestra base de datos
+     */
   async ionViewDidEnter() {
     let user = await this.storage.getItem('user');
     if (user == null) {
@@ -38,9 +43,12 @@ export class Tab2Page {
 
     }
     await this.getClients();
-      this.searchedUser = this.clients;
+    this.searchedUser = this.clients;
   }
 
+  /**
+   * Imagen para mostrar en la lista dependiendo del genero del cliente
+   */
   mostrarFoto(client: Parent): string {
     if (!client.type) {
       return this.imagenPadre;
@@ -51,7 +59,10 @@ export class Tab2Page {
     }
   }
 
-
+/**
+ * 
+ * Obtiene todos los clientes de la base de datos mostrando un login
+ */
   async getClients(event?) {
     if (!event) {
       await this.presentLoading();
@@ -70,6 +81,9 @@ export class Tab2Page {
     }
   }
 
+  /**
+   * Loading para cargar los datos de la base de datos
+   */
   async presentLoading() {
     this.miLoading = await this.loading.create({
       message: ''
@@ -77,11 +91,22 @@ export class Tab2Page {
     await this.miLoading.present();
   }
 
+  /**
+   * 
+   * @param client Cliente que recogemos por parametros
+   * 
+   * Buscamos un cliente por su ID en la base de datos a través de datos que hemos recibido por parametro
+   */
   async getclientsid(client: Parent) {
     this.client = await this.servicioClient.GetClientByID(client.id);
     console.log(this.client);
   }
 
+  /**
+   * 
+   * @param client Cliente selecciona en la lista
+   * Elimina el cliente seleccionado de la lista en la base de datos
+   */
   public async DeleteClient(client: Parent) {
 
     const alert = await this.alertController.create({
@@ -116,6 +141,10 @@ export class Tab2Page {
     await alert.present();
   }
 
+  /**
+   * 
+   * Buscador que filtra a través del nombre
+   */
   public buscar(event) {
     console.log(event);
     const text = event.target.value;
@@ -129,18 +158,36 @@ export class Tab2Page {
     }
   }
 
+  /**
+   * 
+   * Modal que lo utilizamos para añadir un cliente nuevo, al cerrar el modal actualizamos la lista.
+   */
   async openModal(parent: Parent) {
-    const modal = await this.modalController.create({
+    var modal = await this.modalController.create({
       component: ModalAddParentPage,
       cssClass: 'trasparent-modal',
       componentProps: {
         'parent': parent
       }
     });
-    //this.closeSliding();
-    return await modal.present();
-  }
+    await modal.present();
 
+    modal.onWillDismiss().then(async (data) => {
+      console.log(data.data)
+
+      if (data.data = true) {
+        this.searchedUser = await this.servicioClient.getClient();
+      }
+
+    })
+
+
+
+  }
+  /**
+   * 
+   * Modal que lo utilizamos para editar a un cliente, al cerrar el modal actualizamos la lista.
+   */
   async editModal(parent: Parent) {
     const modal = await this.modalController.create({
       component: ModalEditParentPage,
@@ -149,15 +196,13 @@ export class Tab2Page {
         'parent': parent
       }
     });
-    //this.closeSliding();
     return await modal.present();
 
   }
 
-  async atras() {
-    await this.router.navigate(['home']);
-  }
-
+  /**
+   * Exportamos a excel los datos que se encuentren en la base de datos.
+   */
   exportToExcel() {
     this.data.exportToExcel(this.clients, 'Clientes');
   }

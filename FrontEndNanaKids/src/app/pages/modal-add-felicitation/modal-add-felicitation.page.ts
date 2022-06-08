@@ -124,7 +124,7 @@ export class ModalAddFelicitationPage implements OnInit {
       console.log(response);
     })
     console.log("ESTE ES EL CONSOLE" + this.form.get('multipartFile').value);
-
+    this.modalController.dismiss(true)
     this.toast.presentToast("Felicitacion creada con exito", 2000, "center", "success");
     this.exit();
 

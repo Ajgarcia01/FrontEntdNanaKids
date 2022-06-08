@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { Felicitation } from '../model/Felicitation';
 import { Kid } from '../model/Kid';
 import { ModalAddFelicitationPage } from '../pages/modal-add-felicitation/modal-add-felicitation.page';
 import { ModalEditFelicitationPage } from '../pages/modal-edit-felicitation/modal-edit-felicitation.page';
 import { FelicitationService } from '../services/felicitation.service';
+import { StorageService } from '../services/storage.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -13,102 +15,107 @@ import { ToastService } from '../services/toast.service';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  felicitation:Felicitation
-  felicitations:Felicitation[] = []
-  
-  optionSelected:number
-  enviado:string="ENVIADO";
-  noEnviado:string="NO ENVIADO";
-  cumpleaños:string="CUMPLEAÑOS";
-  navidad:string="NAVIDAD";
-  nombre:string="";
-  miLoading:HTMLIonLoadingElement
+  felicitation: Felicitation
+  felicitations: Felicitation[] = []
 
-  constructor(private apiFelicitation:FelicitationService,
-    public modalController:ModalController,private loading:LoadingController,
-    public toast: ToastService,private alert:AlertController) {}
+  optionSelected: number
+  enviado: string = "ENVIADO";
+  noEnviado: string = "NO ENVIADO";
+  cumpleaños: string = "CUMPLEAÑOS";
+  navidad: string = "NAVIDAD";
+  nombre: string = "";
+  miLoading: HTMLIonLoadingElement
 
-  conversorEstado(felicitationEstado:Felicitation):string{
-    if (felicitationEstado.estate){
-     return  this.enviado;
-    }else{
-     return this.noEnviado;
+  constructor(private apiFelicitation: FelicitationService,
+    public modalController: ModalController, private loading: LoadingController,
+    public toast: ToastService, private alert: AlertController,private router:Router,private storage:StorageService ) { }
+
+  conversorEstado(felicitationEstado: Felicitation): string {
+    if (felicitationEstado.estate) {
+      return this.enviado;
+    } else {
+      return this.noEnviado;
     }
   }
-  conversorTipo(felicitationEstado:Felicitation):string{
-    if (felicitationEstado.type ==1){
-      return  this.cumpleaños;
-     }else if (felicitationEstado.type == 2){
+  conversorTipo(felicitationEstado: Felicitation): string {
+    if (felicitationEstado.type == 1) {
+      return this.cumpleaños;
+    } else if (felicitationEstado.type == 2) {
       return this.navidad;
-     }
+    }
   }
-/*
-  nombreNino(felicitation:Felicitation):string{
-    const kid = felicitation.kid;
-    const nombre:string = kid.name;
-    return nombre;
-  }
-  */
-  async ionViewDidEnter(){
-    
-    await this.getFelicitations();
+  /*
+    nombreNino(felicitation:Felicitation):string{
+      const kid = felicitation.kid;
+      const nombre:string = kid.name;
+      return nombre;
+    }
+    */
 
-    
-    
+
+  async ionViewDidEnter() {
+    let user = await this.storage.getItem('user');
+    if (user == null) {
+      this.router.navigate(['']);
+
+    }
+    await this.getFelicitations();
   }
-  public async recoverAlertValue(event:CustomEvent){
+
+
+  public async recoverAlertValue(event: CustomEvent) {
     console.log(event.detail.value);
     this.optionSelected = event.detail.value;
     this.felicitations = [];
-    
-    if(this.optionSelected != 0){
-    this.felicitations = await this.apiFelicitation.getFelicitationsByType(this.optionSelected);
-    }else{
+
+    if (this.optionSelected != 0) {
+      this.felicitations = await this.apiFelicitation.getFelicitationsByType(this.optionSelected);
+    } else {
       this.felicitations = await this.apiFelicitation.getFelicitations();
     }
   }
 
-  public async getFelicitations(event?){
-    if(!event){
+  public async getFelicitations(event?) {
+    if (!event) {
       await this.presentLoading();
     }
     this.felicitations = [];
-    try{
+    try {
       this.felicitations = await this.apiFelicitation.getFelicitations();
-      
-    }catch(err){
+
+    } catch (err) {
       console.error(err);
       //await this.presentToast("Error cargando datos","danger",'bottom');
-    } finally{
-      if(event){
+    } finally {
+      if (event) {
         event.target.complete();
-      }else{
+      } else {
         await this.miLoading.dismiss();
       }
-     
+
     }
   }
 
-  public async deleteFelicitation(felicitation:Felicitation){
+  public async deleteFelicitation(felicitation: Felicitation) {
     const alert = await this.alert.create({
-      header:'Confirmación',
-      message:'Estas seguro de que quieres eliminar',
+      header: 'Confirmación',
+      message: 'Estas seguro de que quieres eliminar',
       buttons: [
         {
-          text:'Cancelar',
-          handler:(blah)=>{
+          text: 'Cancelar',
+          handler: (blah) => {
             //nada
           }
         },
         {
-          text:'Eliminar',
-          handler: async()=>{
+          text: 'Eliminar',
+          handler: async () => {
             try {
-             await this.apiFelicitation.deleteFelicitation(felicitation);
+              await this.apiFelicitation.deleteFelicitation(felicitation);
               //Para recargar la lista
-              let i = this.felicitations.indexOf(felicitation,0);
-              if(i>-1){
-                this.felicitations.splice(i,1);
+              let i = this.felicitations.indexOf(felicitation, 0);
+              if (i > -1) {
+                this.felicitations.splice(i, 1);
               }
             } catch (error) {
               console.log(error);
@@ -118,11 +125,11 @@ export class Tab3Page {
       ]
     });
     await alert.present();
-    this.toast.presentToast("Felicitacion borrada con exito",2000,"center","danger");
+    this.toast.presentToast("Felicitacion borrada con exito", 2000, "center", "danger");
   }
-     
 
-  async openCreateFelicitation(felicitation:Felicitation){
+
+  async openCreateFelicitation(felicitation: Felicitation) {
     const modal = await this.modalController.create({
       component: ModalAddFelicitationPage,
       cssClass: 'trasparent-modal2',
@@ -131,10 +138,20 @@ export class Tab3Page {
       }
     });
     //this.closeSliding();
-    return await modal.present();
+     await modal.present();
+
+     modal.onWillDismiss().then(async (data) => {
+      
+      if (data.data = true) {
+        this.felicitations = await this.apiFelicitation.getFelicitations();
+      }
+
+    })
+
+
   }
 
-  async openEditFelicitation(felicitation:Felicitation){
+  async openEditFelicitation(felicitation: Felicitation) {
     const modal = await this.modalController.create({
       component: ModalEditFelicitationPage,
       cssClass: 'trasparent-modal3',
@@ -142,8 +159,16 @@ export class Tab3Page {
         'felicitation': felicitation
       }
     });
-    //this.closeSliding();
-    return await modal.present();
+    
+     await modal.present();
+
+     modal.onWillDismiss().then(async (data) => {
+      
+      if (data.data = true) {
+        this.felicitations = await this.apiFelicitation.getFelicitations();
+      }
+
+    })
   }
 
 
@@ -154,5 +179,5 @@ export class Tab3Page {
     await this.miLoading.present();
   }
 
-  
+
 }

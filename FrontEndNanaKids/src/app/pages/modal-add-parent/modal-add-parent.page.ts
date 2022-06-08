@@ -11,9 +11,9 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./modal-add-parent.page.scss',]['./global.scss'],
 })
 export class ModalAddParentPage implements OnInit {
-  public formParent: FormGroup;
+  public formParent: FormGroup;//Formulario
   private selectedOption: number; //select gender
-  private gender: boolean;
+  private gender: boolean;//Genero del cliente
 
   constructor(private fb: FormBuilder, private modalController: ModalController, private apiparent: ClientService,public toast: ToastService) {
 
@@ -24,7 +24,9 @@ export class ModalAddParentPage implements OnInit {
   ionViewDidEnter(){
     this.formParent.invalid
   }
-
+/**
+ * Creacion del formulario y diferente validaciones a la hora de completar
+ */
   ngOnInit() {
 
     this.formParent = this.fb.group({
@@ -53,10 +55,11 @@ export class ModalAddParentPage implements OnInit {
 
   }
 
-  /**
-  * 
-  * @param event 
-  */
+  /*
+   * @param event 
+   * Cambia el select cuando se hace un cambio imprimiendo la opcion seleccionada
+   * Se establece para el género
+   */
   notifyChange(event: CustomEvent) {
     this.selectedOption = event.detail.value;
     if (this.selectedOption == 1) {
@@ -67,12 +70,26 @@ export class ModalAddParentPage implements OnInit {
     console.log(this.selectedOption);
   }
 
+  /**
+   * 
+   * @param parent Va
+   * @returns Devuelve un true en caso de que haya cumplido la validacion
+   */
   public validar(parent: Parent): boolean {
     if (parent.name.length >= 1) {
       return true;
     }
     console.log(parent.name.length);
   }
+
+   /*
+  *
+  * Metodo para crear el Cliente
+  * Se crea un modelo y se pasan los parametros establecidos por el usuario en el formulario
+  * Se hace una peticion (POST) a la API para crear el cliente 
+  * Una vez creado el cliente se cierra el modal y se presenta un mensaje de exito (Toast)
+  * 
+  */
   public async createParent() {
  
       if(!this.formParent.valid) return;
@@ -98,18 +115,18 @@ export class ModalAddParentPage implements OnInit {
         await this.apiparent.CreateClient(newParent); 
         await this.toast.presentToast("Cliente creado con exito",2000,"center","success");
         await this.formParent.reset();
-        this.modalController.dismiss(newParent , 'cancel');
-        console.log(newParent); 
+        await this.modalController.dismiss(true);
     }catch (err) {
       this.toast.presentToast("Hay algun error revisa los datos",2000,"center","danger");
       console.log(err);
     }
 
   }
-  public test(){
-    console.log(this.formParent)
-  }
+
+  /**
+   * Cerrar el modal y volver a la pantalla principal
+   */
   async exit() {
-    await this.modalController.dismiss(null, 'cancel');
+    await this.modalController.dismiss(false);
   }
 }
