@@ -161,7 +161,7 @@ export class Tab3Page {
    * @param felicitation 
    */
   async openCreateFelicitation(felicitation: Felicitation) {
-    const modal = await this.modalController.create({
+    var modal = await this.modalController.create({
       component: ModalAddFelicitationPage,
       cssClass: 'trasparent-modal2',
       componentProps: {
@@ -171,7 +171,7 @@ export class Tab3Page {
     
      await modal.present();
 
-     modal.onWillDismiss().then(async (data) => {
+    modal.onWillDismiss().then(async (data) => {
       
       if (data.data = true) {
         this.felicitations = await this.apiFelicitation.getFelicitations();
@@ -181,6 +181,7 @@ export class Tab3Page {
 
 
   }
+  
   
   async presentLoading() {
     this.miLoading = await this.loading.create({

@@ -126,14 +126,9 @@ export class ModalAddFelicitationPage implements OnInit {
       type: "application/json"
     }));
     formData.append("photo", this.form.get('multipartFile').value);
-    this.apiFelicitation.createFelicitation(formData).then(response => {
-      console.log(response);
-    })
-    console.log("ESTE ES EL CONSOLE" + this.form.get('multipartFile').value);
-    this.modalController.dismiss(true);
+    await this.apiFelicitation.createFelicitation(formData)
+    await  this.modalController.dismiss(true);
     this.toast.presentToast("Felicitacion creada con exito", 2000, "center", "success");
-    //this.exit();
-
   }
 
   /*

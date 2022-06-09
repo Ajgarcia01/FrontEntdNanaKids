@@ -175,9 +175,9 @@ export class Tab2Page {
     modal.onWillDismiss().then(async (data) => {
       console.log(data.data)
 
-      if (data.data = true) {
+     
         this.searchedUser = await this.servicioClient.getClient();
-      }
+      
 
     })
 

@@ -35,13 +35,9 @@ export class ModalEditFelicitationPage implements OnInit {
       type: "application/json"
     }));
     formData.append("photo", this.form.get('multipartFile').value);
-    this.apiFelicitation.updateFelicitation(formData).then(response => {
-      console.log(response);
-    })
-    console.log("ESTE ES EL CONSOLE"+this.form.get('multipartFile').value);
+    await this.apiFelicitation.updateFelicitation(formData)
     this.modalController.dismiss(true)
     this.toast.presentToast("Felicitacion actualizada con exito",2000,"center","success");
-    this.exit();
   }
 
   uploadFile(event) {
