@@ -31,12 +31,12 @@ export class Tab1Page {
   imagenKid:string  = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652697573/images_kyxuoo.jpg";
   imagenNiño:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696331/contento_sf932z.png";
   imagenNiña:string = "https://res.cloudinary.com/dcbl6rgf5/image/upload/v1652696328/nina_xowlps.png";
-  data: any;
+  //data: any;
 
  
 
   constructor(private apiKid:KidService,public modalController:ModalController,private router:Router,private alert:AlertController,private authS:AuthService,private kidService:KidService,
-    private loading:LoadingController,private toast:ToastService,private storage:StorageService) {}
+    private loading:LoadingController,private toast:ToastService,private storage:StorageService,private data: DataService) {}
     
     
     /** 
@@ -82,6 +82,7 @@ export class Tab1Page {
     exportToExcel() {
     this.data.exportToExcel(this.kids, 'Niños');
   }
+  
 
    /**
     *
@@ -272,4 +273,6 @@ export class Tab1Page {
       
       await alert.present();
     }
+
+    
   }

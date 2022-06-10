@@ -33,18 +33,6 @@ export class Tab4Page implements OnInit {
   ngOnInit() {
     this.estadodelenvio='NO ENVIADO'
   }
-
-  /*
-    *
-    * @return un excel con todos los datos de cada niño, con el nombre de 'Felicidades.xlsx' y con el array de niños que haya en la BBDD
-    * 
-  */
-  
-  exportToExcel() {
-    this.data.exportToExcel(this.felicidades, 'Felicidades');
-  }
-    
-
   /**
    * @return todas las felicitaciones que haya el dia en el que este el usuario antes de que cargue la pagina al completo
   */

@@ -5,6 +5,7 @@ import { Felicitation } from '../model/Felicitation';
 import { Kid } from '../model/Kid';
 import { ModalAddFelicitationPage } from '../pages/modal-add-felicitation/modal-add-felicitation.page';
 import { ModalEditFelicitationPage } from '../pages/modal-edit-felicitation/modal-edit-felicitation.page';
+import { DataService } from '../services/data.service';
 import { FelicitationService } from '../services/felicitation.service';
 import { StorageService } from '../services/storage.service';
 import { ToastService } from '../services/toast.service';
@@ -37,7 +38,7 @@ export class Tab3Page {
 
   constructor(private apiFelicitation: FelicitationService,
     public modalController: ModalController, private loading: LoadingController,
-    public toast: ToastService, private alert: AlertController,private router:Router,private storage:StorageService ) { }
+    public toast: ToastService, private alert: AlertController,private router:Router,private storage:StorageService,private data: DataService ) { }
 
   /**
    *  ->  Conversor de Estado <-
@@ -190,5 +191,10 @@ export class Tab3Page {
     await this.miLoading.present();
   }
 
-
+/**
+   * Exportamos a excel los datos que se encuentren en la base de datos.
+   */
+ exportToExcel() {
+  this.data.exportToExcel(this.felicitations, 'Felicitaciones');
+}
 }
