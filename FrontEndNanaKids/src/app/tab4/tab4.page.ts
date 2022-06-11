@@ -84,32 +84,20 @@ export class Tab4Page implements OnInit {
 
   async countFelicitation(event?){
     
-      if(!event){
-        await this.presentLoading();
-
-        this.count=0;
-      }else{
         try {
           this.feliSer.getFelicitationsByTypeAndDate(1).then(data=>{
             console.log('cantidad de felicitaciones hoy----> '+data.length);
-            this.count=data.length
+            this.count=data.length;
             });
 
-            this.felicidades=[]
+            this.felicidades=[];
             this.felicidades= await this.feliSer.getFelicitations();
           
         } catch (error) {
           console.log(error);
           
-        }finally{
-          if(event){
-            event.target.complete();
-          }else{
-            await this.miLoading.dismiss();
-          }
         }
       }
-    }
 
   /*
     * @return carga el loading y lo muestra en pantalla (se usa en todas las funciones que cargan datos) con un mensaje de cargando
